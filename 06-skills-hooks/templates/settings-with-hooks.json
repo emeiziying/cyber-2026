@@ -1,0 +1,36 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"=== 会话开始 ===\"; echo \"分支: $(git branch --show-current 2>/dev/null || echo '非 git 项目')\"; echo \"最近提交: $(git log -1 --oneline 2>/dev/null || echo '无')\"; echo \"==================\""
+          }
+        ]
+      }
+    ],
+    "PreToolCall": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'branch=$(git branch --show-current 2>/dev/null); if [ \"$branch\" = \"main\" ] || [ \"$branch\" = \"master\" ]; then echo \"⚠️  警告：当前在受保护分支 $branch，请确认操作\" >&2; fi'"
+          }
+        ]
+      }
+    ],
+    "PostToolCall": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] 文件已修改\" >> ~/.claude/file-changes.log"
+          }
+        ]
+      }
+    ]
+  }
+}

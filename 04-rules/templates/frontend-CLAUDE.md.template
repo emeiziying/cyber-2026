@@ -1,0 +1,108 @@
+# [前端项目名称] — AI 助手规则
+
+## 项目背景
+[简短描述：这是什么前端项目，主要功能]
+
+---
+
+## 技术栈
+- **框架：** React 19 + TypeScript
+- **构建工具：** Vite
+- **状态管理：** Zustand
+- **样式：** Tailwind CSS v4
+- **路由：** React Router v7
+- **请求库：** TanStack Query v5
+- **表单：** React Hook Form + zod
+- **测试：** Vitest + React Testing Library
+
+---
+
+## 常用命令
+```bash
+npm run dev           # 启动开发服务器
+npm test              # 运行测试
+npm run build         # 生产构建
+npm run lint          # ESLint 检查
+npm run type-check    # TypeScript 类型检查
+```
+
+---
+
+## 目录结构
+```
+src/
+├── components/         # 通用 UI 组件（无业务逻辑）
+│   └── ui/             # 基础 UI 原子组件
+├── features/           # 按功能模块组织
+│   └── [feature]/
+│       ├── components/ # 该功能的专属组件
+│       ├── hooks/      # 该功能的专属 Hooks
+│       ├── store.ts    # Zustand store
+│       └── api.ts      # API 调用
+├── hooks/              # 全局通用 Hooks
+├── lib/                # 工具函数、第三方库封装
+├── pages/              # 页面级组件（路由对应）
+└── types/              # 全局类型定义
+```
+
+---
+
+## 组件规范
+
+### 组件编写规则
+- **必须**使用函数组件，禁止 class 组件
+- Props 类型定义使用 `interface`，命名为 `ComponentNameProps`
+- 组件文件只包含一个默认导出组件
+- 复杂组件拆分为多个小组件，每个组件专注单一职责
+
+### 样式规则
+- 使用 Tailwind CSS className，不使用内联样式
+- 复杂的 className 组合使用 `cn()` 工具函数（来自 `@/lib/utils`）
+- 不要使用 CSS Modules 或 styled-components
+
+### 示例组件结构
+```tsx
+interface UserCardProps {
+  userId: string;
+  showActions?: boolean;
+}
+
+export function UserCard({ userId, showActions = false }: UserCardProps) {
+  // hooks 在顶部
+  // 事件处理函数
+  // render
+  return (...)
+}
+```
+
+---
+
+## 状态管理规范
+- 服务端状态（API 数据）：TanStack Query，不要用 useState 缓存
+- 客户端全局状态：Zustand
+- 组件本地 UI 状态：useState / useReducer
+- 不要在 Zustand store 中做 API 请求
+
+---
+
+## 禁止行为
+- 不要使用 `any` 类型
+- 不要在组件内直接调用 fetch，使用 TanStack Query 封装的 hooks
+- 不要在 Zustand store 中直接 mutate state（使用 immer 或返回新对象）
+- 不要使用 `useEffect` 做数据请求（使用 TanStack Query）
+- 不要使用 `index` 作为列表的 `key`（有稳定 ID 时）
+- 不要忽略 ESLint 的 exhaustive-deps 警告
+
+---
+
+## 性能规范
+- 大列表使用虚拟滚动（`react-virtual`）
+- 图片使用 `loading="lazy"` 和适当的 `sizes`
+- 避免不必要的 `useCallback`/`useMemo`（先测量再优化）
+
+---
+
+## 测试规范
+- 测试用户行为，不测试实现细节
+- 每个 feature 的关键交互流程要有集成测试
+- 使用 `userEvent` 而不是 `fireEvent`
