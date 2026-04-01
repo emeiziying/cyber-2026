@@ -128,6 +128,13 @@ cp templates/CLAUDE.md.template 你的项目路径/CLAUDE.md
 # 然后根据项目实际情况修改
 ```
 
+### 配套示例
+
+如果你想直接看一个已经落地的最小项目，可参考：
+
+- [`../examples/minimal-agent-demo/CLAUDE.md`](../examples/minimal-agent-demo/CLAUDE.md) — 由模板裁剪后的项目级规则
+- [`../examples/minimal-agent-demo/README.md`](../examples/minimal-agent-demo/README.md) — 这个规则文件在示例项目中的使用方式
+
 ---
 
 ## 完成检查清单

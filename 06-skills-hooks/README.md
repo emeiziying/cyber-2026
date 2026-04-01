@@ -405,6 +405,19 @@ After writing, run: npx vitest run [test-file] to verify it passes.
 
 ---
 
+## 6.11 最小落地示例
+
+如果你想看一套已经放进真实项目目录的最小组合，可以参考：
+
+- [`../examples/minimal-agent-demo/.claude/commands/fix-bug.md`](../examples/minimal-agent-demo/.claude/commands/fix-bug.md)
+- [`../examples/minimal-agent-demo/.claude/commands/gen-tests.md`](../examples/minimal-agent-demo/.claude/commands/gen-tests.md)
+- [`../examples/minimal-agent-demo/.claude/commands/review-code.md`](../examples/minimal-agent-demo/.claude/commands/review-code.md)
+- [`../examples/minimal-agent-demo/.claude/settings.json`](../examples/minimal-agent-demo/.claude/settings.json)
+
+这个示例的目标不是展示复杂业务，而是把 **项目规则 + MCP 配置 + 项目级 Skills** 放进一个可运行的最小 Node 项目中，方便团队先跑通流程，再迁移到真实仓库。
+
+---
+
 ## 完成检查清单
 
 - [ ] 理解 Skill 的本质：Markdown 文件 → 系统指令

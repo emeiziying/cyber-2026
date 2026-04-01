@@ -91,6 +91,11 @@ claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=your_token_here \
 # 方式2：直接编辑配置文件（见 templates/mcp-config.json）
 ```
 
+**最小示例参考：**
+
+- [`templates/mcp-config.json`](./templates/mcp-config.json) — 通用模板
+- [`../examples/minimal-agent-demo/.claude/settings.json`](../examples/minimal-agent-demo/.claude/settings.json) — 项目级示例，展示如何把 `filesystem` 和 `github` MCP 放进真实目录结构中
+
 ---
 
 ## 5.5 实战：GitHub MCP 接入
@@ -106,6 +111,8 @@ claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=your_token_here \
    你：列出这个 repo 最近 5 个 open 的 Issue
    AI：（调用 GitHub MCP，自动列出）
    ```
+
+如果你希望先在一个最小仓库里练习配置，可以直接进入 [`../examples/minimal-agent-demo`](../examples/minimal-agent-demo/) 查看 `.claude/settings.json`，先理解目录位置和配置方式，再替换成你自己的 Token 与路径。
 
 **常用指令示例：**
 ```

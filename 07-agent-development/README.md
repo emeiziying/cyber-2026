@@ -236,6 +236,7 @@ Level 5: 构建团队 Agent 平台，支持多人协作
 ---
 
 **上一章 ←** [第六章：Skills & Hooks](../06-skills-hooks/)
+**下一章 →** [第八章：生产落地与治理](../08-production-governance/)
 
 ---
 
