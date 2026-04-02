@@ -19,7 +19,7 @@
 
 ## 跨角色阅读材料
 
-- [`cross-functional-ai-handbook.md`](./cross-functional-ai-handbook.md) — 面向产品、设计、研发和少量管理者的跨角色 AI 使用手册，适合独立阅读，也适合作为部门培训后的配套材料
+- [跨角色 AI 手册](./cross-functional-ai-handbook) — 面向产品、设计、研发和少量管理者的跨角色 AI 使用手册，适合独立阅读，也适合作为部门培训后的配套材料
 
 ---
 
