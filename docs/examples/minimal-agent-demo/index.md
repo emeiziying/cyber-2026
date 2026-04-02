@@ -1,6 +1,6 @@
 # Minimal Agent Demo
 
-这是一个零依赖的最小 Node.js 示例项目，用来演示文档站第四到第六章的内容如何真正落到项目目录中。
+这是一个零依赖的最小 Node.js 示例项目，用来演示 Rules、MCP 和 Skills & Hooks 这三部分内容如何真正落到项目目录中。
 
 ## 这个示例覆盖什么
 
@@ -48,14 +48,14 @@ npm start
 }
 ```
 
-## 如何对照仓库主线学习
+## 如何对照主线学习
 
-- 对照 [`docs/rules/index.md`](../../docs/rules/index.md) 查看 [`CLAUDE.md`](./CLAUDE.md)
-- 对照 [`docs/mcp/index.md`](../../docs/mcp/index.md) 查看 [`.claude/settings.json`](./.claude/settings.json)
-- 对照 [`docs/skills-hooks/index.md`](../../docs/skills-hooks/index.md) 查看 [`.claude/commands`](./.claude/commands/)
+- 对照 [Rules](/rules/) 查看 <a href="/downloads/examples/minimal-agent-demo/CLAUDE.md"><code>CLAUDE.md</code></a>
+- 对照 [MCP](/mcp/) 查看 <a href="/downloads/examples/minimal-agent-demo/.claude/settings.json"><code>.claude/settings.json</code></a>
+- 对照 [Skills & Hooks](/skills-hooks/) 查看 <a href="/downloads/examples/minimal-agent-demo/.claude/commands/fix-bug.md"><code>fix-bug.md</code></a>、<a href="/downloads/examples/minimal-agent-demo/.claude/commands/gen-tests.md"><code>gen-tests.md</code></a>、<a href="/downloads/examples/minimal-agent-demo/.claude/commands/review-code.md"><code>review-code.md</code></a>
 
 ## 使用建议
 
 1. 先运行 `npm test`，确认示例项目本身可用
 2. 再阅读 `CLAUDE.md`，看规则如何映射到 `src/` 和 `test/` 目录
-3. 最后查看 `.claude/settings.json` 和 `.claude/commands/`，理解项目级 AI 配置应该放在哪些位置
+3. 最后查看 `.claude/settings.json` 和 3 个命令文件，理解项目级 AI 配置应该放在哪些位置

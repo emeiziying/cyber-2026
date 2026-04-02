@@ -1,0 +1,19 @@
+{
+  "name": "cyber-2026",
+  "version": "1.0.0",
+  "description": "VitePress site for the cyber-2026 cyber ascension handbook",
+  "scripts": {
+    "sync:downloads": "node scripts/sync-downloads.mjs",
+    "predocs:dev": "pnpm sync:downloads",
+    "docs:dev": "vitepress dev",
+    "predocs:build": "pnpm sync:downloads",
+    "docs:build": "vitepress build",
+    "predocs:preview": "pnpm sync:downloads",
+    "docs:preview": "vitepress preview"
+  },
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1",
+  "devDependencies": {
+    "vitepress": "2.0.0-alpha.17"
+  }
+}
