@@ -2,7 +2,7 @@
 
 ## 这解决什么问题
 
-团队里的 Skill 通常由研发创建、放在项目 `.claude/commands/` 里，只有会用终端的人能触发和更新。当部门里还有产品经理、设计师和管理者时，会出现三个断层：
+团队里的 Skill 通常由研发创建、放在项目的特定目录里（如 `.claude/commands/`），只有会用终端的人能触发和更新。当部门里还有产品经理、设计师和管理者时，会出现三个断层：
 
 1. **安装断层**——非研发不知道怎么 `git clone` 一个 Skill
 2. **使用断层**——非研发不用 CLI，没有机会输入 `/command` 触发 Skill
@@ -30,7 +30,7 @@
 
 ### 方式 A：转化为 Claude 网页端 / 桌面端的 Project 指令
 
-把 `.claude/commands/` 下的 Skill 内容复制到 Claude 网页端的 Project Instructions 中，非研发人员在熟悉的聊天界面里就能直接使用。
+把 Skill 内容复制到 Claude 网页端的 Project Instructions 中，非研发人员在熟悉的聊天界面里就能直接使用。
 
 **操作步骤：**
 
@@ -50,7 +50,7 @@
 如果非研发人员愿意尝试 Claude Code 桌面端或 Web 端（非纯终端），Tech Lead 可以预先配好项目环境：
 
 1. 创建一个"部门共享 Skill"仓库
-2. 预装所有 Skill 到 `.claude/commands/`
+2. 预装所有 Skill 到 `.agents/skills/`
 3. 写一份《快速使用手册》，只教两件事：打开项目、输入 `/command`
 
 **适合场景：** 团队统一使用 Claude Code 且非研发人员不排斥简单的命令输入
@@ -131,32 +131,53 @@
 
 当 Skill 数量增多、使用者跨角色后，需要一个统一的管理结构。
 
+### 为什么用 `.agents/skills/` 而不是 `.claude/commands/`
+
+`.claude/commands/` 是 Claude Code 的专属目录，Skill 放在这里只有 Claude Code 能识别。如果团队未来还会用 Cursor、Copilot 或其他 AI 工具，这些 Skill 就无法复用。
+
+推荐使用 **`.agents/skills/`** 作为统一存放目录：
+
+- 工具无关——不绑定任何特定 AI 产品
+- Skill 本质是 Markdown prompt，任何能读文件的 AI 工具都可以加载
+- 各工具通过自己的配置映射到这个目录即可（Claude Code 可以用符号链接或在 Rules 中 `@.agents/skills/` 引用）
+
 ### 推荐目录结构
 
 ```
-dept-shared-skills/
-├── README.md                    # 使用说明和快速入门
-├── CHANGELOG.md                 # 更新日志（谁改了什么、为什么改）
-├── engineering/                  # 研发专用 Skill
-│   ├── fix-bug.md
-│   ├── gen-tests.md
-│   ├── review-code.md
-│   └── daily-report.md
-├── product/                      # 产品经理专用 Skill
-│   ├── requirement-doc.md        # 需求文档生成
-│   ├── feedback-clustering.md    # 用户反馈归类
-│   └── competitor-analysis.md    # 竞品分析框架
-├── design/                       # 设计师专用 Skill
-│   ├── copy-review.md            # 文案审核
-│   ├── interaction-checklist.md  # 交互检查清单
-│   └── state-inventory.md        # 状态枚举整理
-├── shared/                       # 跨角色共享 Skill
-│   ├── risk-assessment.md        # 风险评估
-│   ├── meeting-summary.md        # 会议纪要
-│   └── task-intake.md            # 任务入口标准化
-└── feedback/                     # 反馈收集
-    └── TEMPLATE.md               # 反馈模板
+.agents/
+├── skills/                           # 所有 Skill 的统一存放位置
+│   ├── engineering/                  # 研发专用 Skill
+│   │   ├── fix-bug.md
+│   │   ├── gen-tests.md
+│   │   ├── review-code.md
+│   │   └── daily-report.md
+│   ├── product/                      # 产品经理专用 Skill
+│   │   ├── requirement-doc.md        # 需求文档生成
+│   │   ├── feedback-clustering.md    # 用户反馈归类
+│   │   └── competitor-analysis.md    # 竞品分析框架
+│   ├── design/                       # 设计师专用 Skill
+│   │   ├── copy-review.md            # 文案审核
+│   │   ├── interaction-checklist.md  # 交互检查清单
+│   │   └── state-inventory.md        # 状态枚举整理
+│   └── shared/                       # 跨角色共享 Skill
+│       ├── risk-assessment.md        # 风险评估
+│       ├── meeting-summary.md        # 会议纪要
+│       └── task-intake.md            # 任务入口标准化
+├── rules/                            # 工具无关的项目规则（可选）
+├── README.md                         # 使用说明和快速入门
+├── CHANGELOG.md                      # 更新日志
+└── feedback/                         # 反馈收集
+    └── TEMPLATE.md                   # 反馈模板
 ```
+
+### 如何让不同工具加载 `.agents/skills/`
+
+| 工具 | 加载方式 |
+|------|---------|
+| Claude Code | 在 CLAUDE.md 中用 `@.agents/skills/shared/task-intake.md` 引用；或符号链接到 `.claude/commands/` |
+| Cursor | 在 `.cursorrules` 或项目 Rules 中引用 `.agents/skills/` 下的文件 |
+| 其他支持自定义 prompt 的工具 | 直接读取 Markdown 文件内容作为 system prompt |
+| Claude 网页端 / 桌面端 | 复制 Skill 内容到 Project Instructions |
 
 ### 分发方式对照
 
@@ -186,7 +207,7 @@ dept-shared-skills/
 
 ### "维护两份（CLI 版 + Claude Project 版）太麻烦"
 
-如果团队有能力，可以写一个简单脚本，从 Skill 仓库自动生成 Claude Project 的配置。如果没有，优先维护 CLI 版，非研发用的 Claude Project 版允许滞后 1-2 周更新。
+因为 Skill 统一存放在 `.agents/skills/`，CLI 工具和 Claude Project 读的是同一份源文件。如果团队有能力，可以写一个简单脚本，从 `.agents/skills/` 自动同步到 Claude Project。如果没有，优先维护 `.agents/skills/`，Claude Project 版允许滞后 1-2 周手动同步。
 
 ### "非研发人员根本不知道 Skill 是什么"
 
