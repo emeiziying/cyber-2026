@@ -54,7 +54,7 @@ npm start
 
 - 对照 `docs/rules/index.md`（站点 Rules 章节）查看 [`CLAUDE.md`](./CLAUDE.md)
 - 对照 `docs/mcp/index.md`（站点 MCP 章节）查看 [`.claude/settings.json`](./.claude/settings.json)
-- 对照 `docs/skills-hooks/index.md`（站点 Skills & Hooks 章节）查看 [`.claude/commands/`](./.claude/commands/)
+- 对照 `docs/skills-hooks/index.md`（站点 Skills & Hooks 章节）查看 `.claude/commands/` 目录
 
 ## 使用建议
 
