@@ -190,7 +190,7 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 
 - <a href="/downloads/team-workflow/templates/task-intake.md.template" download><code>task-intake.md.template</code></a> — AI 任务入口教学模板
 - <a href="/downloads/team-workflow/templates/pr-review-checklist.md.template" download><code>pr-review-checklist.md.template</code></a> — PR Review 清单教学模板
-- [`examples/workflow-sample.md`](./examples/workflow-sample.md) — 一个从任务入口到复盘的最小团队流程样例
+- [工作流样例](./examples/workflow-sample) — 一个从任务入口到复盘的最小团队流程样例
 - [`../appendix-case-studies/`](../appendix-case-studies/) — 用附录案例继续做完整演练和复盘
 
 ---

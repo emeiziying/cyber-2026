@@ -153,7 +153,7 @@
 
 ## 3.10 延伸阅读 / 示例
 
-- [`examples/team-profiles.md`](./examples/team-profiles.md) — 4 类常见团队画像及推荐工具组合
+- [团队画像案例](./examples/team-profiles) — 4 类常见团队画像及推荐工具组合
 - [Rules](../rules/) — 选好工具之后，第一件事不是开干，而是补共享规则
 
 ---

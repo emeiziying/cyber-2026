@@ -4,7 +4,7 @@
 
 ## 内容源文件
 
-- [`30min-cross-functional-ai-workshop.md`](./30min-cross-functional-ai-workshop.md) — 面向产品、设计、研发和少量管理者的 30 分钟综合课大纲；课程结构、页序和口播逻辑统一在这里维护
+- [30 分钟 Workshop 大纲](./30min-cross-functional-ai-workshop) — 面向产品、设计、研发和少量管理者的 30 分钟综合课大纲；课程结构、页序和口播逻辑统一在这里维护
 
 ## 默认交付物
 
