@@ -27,7 +27,7 @@
 
 模板入口：
 
-- <a href="/downloads/appendix-case-studies/templates/case-study-template.md"><code>case-study-template.md</code></a> — 统一的案例记录和复盘结构
+- <a href="/downloads/appendix-case-studies/templates/case-study-template.md" download><code>case-study-template.md</code></a> — 统一的案例记录和复盘结构
 
 推荐优先补充的 3 类案例：
 
@@ -83,7 +83,7 @@
 
 如果你需要一个可直接演练的最小项目，可以配合：
 
-- [`../examples/minimal-agent-demo`](../examples/minimal-agent-demo/)
+- [Minimal Agent Demo](../examples/minimal-agent-demo/)
 
 建议做法：
 

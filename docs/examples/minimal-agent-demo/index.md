@@ -26,9 +26,14 @@ minimal-agent-demo/
 └── package.json
 ```
 
-## 运行方式
+## 获取与运行方式
+
+先拿完整示例项目，再进入目录运行命令：
+
+- 下载 <a href="/downloads/examples/minimal-agent-demo.tar.gz" download><code>minimal-agent-demo.tar.gz</code></a> 并解压
 
 ```bash
+cd minimal-agent-demo
 npm test
 npm start
 ```
@@ -50,12 +55,12 @@ npm start
 
 ## 如何对照主线学习
 
-- 对照 [Rules](/rules/) 查看 <a href="/downloads/examples/minimal-agent-demo/CLAUDE.md"><code>CLAUDE.md</code></a>
-- 对照 [MCP](/mcp/) 查看 <a href="/downloads/examples/minimal-agent-demo/.claude/settings.json"><code>.claude/settings.json</code></a>
-- 对照 [Skills & Hooks](/skills-hooks/) 查看 <a href="/downloads/examples/minimal-agent-demo/.claude/commands/fix-bug.md"><code>fix-bug.md</code></a>、<a href="/downloads/examples/minimal-agent-demo/.claude/commands/gen-tests.md"><code>gen-tests.md</code></a>、<a href="/downloads/examples/minimal-agent-demo/.claude/commands/review-code.md"><code>review-code.md</code></a>
+- 对照 [Rules](/rules/) 查看 <a href="/downloads/examples/minimal-agent-demo/CLAUDE.md" download><code>CLAUDE.md</code></a>
+- 对照 [MCP](/mcp/) 查看 <a href="/downloads/examples/minimal-agent-demo/.claude/settings.json" download><code>.claude/settings.json</code></a>
+- 对照 [Skills & Hooks](/skills-hooks/) 查看 <a href="/downloads/examples/minimal-agent-demo/.claude/commands/fix-bug.md" download><code>fix-bug.md</code></a>、<a href="/downloads/examples/minimal-agent-demo/.claude/commands/gen-tests.md" download><code>gen-tests.md</code></a>、<a href="/downloads/examples/minimal-agent-demo/.claude/commands/review-code.md" download><code>review-code.md</code></a>
 
 ## 使用建议
 
-1. 先运行 `npm test`，确认示例项目本身可用
+1. 先下载完整示例项目并运行 `npm test`，确认示例本身可用
 2. 再阅读 `CLAUDE.md`，看规则如何映射到 `src/` 和 `test/` 目录
 3. 最后查看 `.claude/settings.json` 和 3 个命令文件，理解项目级 AI 配置应该放在哪些位置

@@ -6,7 +6,7 @@ export default defineConfig({
   lang: 'zh-CN',
   cleanUrls: true,
   srcDir: 'docs',
-  publicDir: 'docs/public',
+  srcExclude: ['public/downloads/**/*.md'],
   themeConfig: {
     nav: [
       {text: '开始阅读', link: '/intro/'},

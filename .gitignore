@@ -1,5 +1,3 @@
 node_modules/
 .vitepress/cache/
 .vitepress/dist/
-docs/public/downloads/
-

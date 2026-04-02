@@ -8,11 +8,11 @@
 
 ## 默认交付物
 
-- <a href="/downloads/presentation-outlines/30min-cross-functional-ai-workshop-visual.pptx"><code>30min-cross-functional-ai-workshop-visual.pptx</code></a> — 默认对外分享成品；如需快速复用，优先直接使用这一份
+- <a href="/downloads/presentation-outlines/30min-cross-functional-ai-workshop-visual.pptx" download><code>30min-cross-functional-ai-workshop-visual.pptx</code></a> — 默认对外分享成品；如需快速复用，优先直接使用这一份
 
 ## 生成辅助脚本
 
-- <a href="/downloads/presentation-outlines/generate_cross_functional_ai_workshop_visual_ppt.py"><code>generate_cross_functional_ai_workshop_visual_ppt.py</code></a> — 根据源大纲生成视觉版 PPT 的辅助脚本
+- <a href="/downloads/presentation-outlines/generate_cross_functional_ai_workshop_visual_ppt.py" download><code>generate_cross_functional_ai_workshop_visual_ppt.py</code></a> — 根据源大纲生成视觉版 PPT 的辅助脚本
 
 基础版导出文件和基础版生成脚本保留为内部开发辅助，不作为主导航默认入口。
 
