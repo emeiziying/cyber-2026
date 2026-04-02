@@ -16,7 +16,7 @@ export default defineConfig({
     ],
     sidebar: [
       {
-        text: '开始阅读',
+        text: '导读',
         items: [
           {text: '开始阅读', link: '/intro/'},
           {text: '内容地图', link: '/project-overview/'},
