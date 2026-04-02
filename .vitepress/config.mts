@@ -80,6 +80,10 @@ export default defineConfig({
                     text: 'Skill 与 Hook 判断案例',
                     link: '/skills-hooks/examples/skill-hook-decision-cases',
                   },
+                  {
+                    text: '部门级 Skill 共享',
+                    link: '/skills-hooks/examples/dept-skill-sharing',
+                  },
                 ],
               },
               {
