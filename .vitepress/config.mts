@@ -134,6 +134,10 @@ export default defineConfig({
             text: '实战案例：修复搜索 bug',
             link: '/appendix-case-studies/examples/fix-search-bug-case',
           },
+          {
+            text: '项目评审（2026-04）',
+            link: '/appendix-case-studies/examples/project-review-2026-04',
+          },
           {text: 'Minimal Agent Demo', link: '/examples/minimal-agent-demo/'},
         ],
       },

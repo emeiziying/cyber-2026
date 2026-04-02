@@ -14,6 +14,7 @@ pnpm docs:dev
 | `pnpm docs:dev` | 启动本地开发服务器（热重载，端口 5173） |
 | `pnpm docs:build` | 构建静态站点到 `.vitepress/dist/` |
 | `pnpm docs:preview` | 本地预览构建产物 |
+| `pnpm docs:check-links` | 校验 docs 内部链接是否有效 |
 
 ## 内容结构
 

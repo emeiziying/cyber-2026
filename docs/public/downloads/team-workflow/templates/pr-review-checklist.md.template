@@ -31,3 +31,10 @@
 - [ ] Needs discussion
 
 备注：
+
+## Documentation Sync（文档同步）
+
+- [ ] 新增/修改页面是否同步更新 `.vitepress/config.mts` 导航
+- [ ] 若涉及下载资源，`docs` 页面与 `docs/public/downloads/` 是否同步
+- [ ] 是否执行 `pnpm docs:build` 与 `pnpm docs:check-links`
+
