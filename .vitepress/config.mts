@@ -7,7 +7,6 @@ export default defineConfig({
   cleanUrls: true,
   srcDir: 'docs',
   srcExclude: ['public/downloads/**/*.md'],
-  ignoreDeadLinks: true,
   themeConfig: {
     nav: [
       {text: '开始阅读', link: '/intro/'},
