@@ -126,6 +126,10 @@ export default defineConfig({
             text: '跨角色 AI 手册',
             link: '/appendix-case-studies/cross-functional-ai-handbook',
           },
+          {
+            text: '实战案例：修复搜索 bug',
+            link: '/appendix-case-studies/examples/fix-search-bug-case',
+          },
           {text: 'Minimal Agent Demo', link: '/examples/minimal-agent-demo/'},
         ],
       },

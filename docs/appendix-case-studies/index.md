@@ -29,6 +29,10 @@
 
 - <a href="/downloads/appendix-case-studies/templates/case-study-template.md" download><code>case-study-template.md</code></a> — 统一的案例记录和复盘结构
 
+已有案例：
+
+- [`fix-search-bug-case.md`](./examples/fix-search-bug-case) — 修复中文搜索失败 bug 的完整闭环案例（从定位到沉淀）
+
 推荐优先补充的 3 类案例：
 
 ### 案例 1：修一个真实 bug
