@@ -38,21 +38,6 @@ npm test
 npm start
 ```
 
-默认会启动一个最小 Notes API：
-
-- `GET /health`
-- `GET /api/notes?search=keyword`
-- `POST /api/notes`
-
-请求体示例：
-
-```json
-{
-  "title": "Read chapter 4",
-  "content": "Convert repo conventions into CLAUDE.md"
-}
-```
-
 ## 如何对照主线学习
 
 - 对照 [Rules](/rules/) 查看 <a href="/downloads/examples/minimal-agent-demo/CLAUDE.md" download><code>CLAUDE.md</code></a>

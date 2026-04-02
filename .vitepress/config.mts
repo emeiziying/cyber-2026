@@ -16,7 +16,7 @@ export default defineConfig({
     ],
     sidebar: [
       {
-        text: '开始阅读',
+        text: '导读',
         items: [
           {text: '开始阅读', link: '/intro/'},
           {text: '内容地图', link: '/project-overview/'},
@@ -80,6 +80,10 @@ export default defineConfig({
                     text: 'Skill 与 Hook 判断案例',
                     link: '/skills-hooks/examples/skill-hook-decision-cases',
                   },
+                  {
+                    text: '部门级 Skill 共享',
+                    link: '/skills-hooks/examples/dept-skill-sharing',
+                  },
                 ],
               },
               {
@@ -125,6 +129,10 @@ export default defineConfig({
           {
             text: '跨角色 AI 手册',
             link: '/appendix-case-studies/cross-functional-ai-handbook',
+          },
+          {
+            text: '实战案例：修复搜索 bug',
+            link: '/appendix-case-studies/examples/fix-search-bug-case',
           },
           {text: 'Minimal Agent Demo', link: '/examples/minimal-agent-demo/'},
         ],
