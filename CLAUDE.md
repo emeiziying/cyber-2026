@@ -27,6 +27,9 @@ pnpm install
 # 启动本地开发服务器（热重载，默认端口 5173）
 pnpm docs:dev
 
+# 校验文档链接与下载资源路径
+pnpm docs:check
+
 # 构建静态站点（输出到 .vitepress/dist/）
 pnpm docs:build
 

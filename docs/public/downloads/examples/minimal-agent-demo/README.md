@@ -52,9 +52,9 @@ npm start
 
 如果你是从文档站下载的压缩包，这里的相对链接不会包含站点正文；请回到文档站对应页面对照阅读。
 
-- 对照 [`docs/rules/index.md`](../../docs/rules/index.md) 查看 [`CLAUDE.md`](./CLAUDE.md)
-- 对照 [`docs/mcp/index.md`](../../docs/mcp/index.md) 查看 [`.claude/settings.json`](./.claude/settings.json)
-- 对照 [`docs/skills-hooks/index.md`](../../docs/skills-hooks/index.md) 查看 [`.claude/commands`](./.claude/commands/)
+- 回到文档站的 `Rules` 页面（站内路径 `/rules/`）对照查看 [`CLAUDE.md`](./CLAUDE.md)
+- 回到文档站的 `MCP` 页面（站内路径 `/mcp/`）对照查看 [`.claude/settings.json`](./.claude/settings.json)
+- 回到文档站的 `Skills & Hooks` 页面（站内路径 `/skills-hooks/`）对照查看 [`.claude/commands`](./.claude/commands/)
 
 ## 使用建议
 
