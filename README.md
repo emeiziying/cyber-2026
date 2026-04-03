@@ -54,7 +54,6 @@ pnpm docs:dev
 
 - 首页：[`docs/index.md`](./docs/index.md)
 - 开始阅读：[`docs/intro/index.md`](./docs/intro/index.md)
-- 内容地图：[`docs/project-overview/index.md`](./docs/project-overview/index.md)
 
 ## 贡献
 

@@ -48,7 +48,6 @@ pnpm docs:preview
 ├── docs/                         # 站点正文内容（唯一来源）
 │   ├── index.md                  # 首页（hero + 功能介绍）
 │   ├── intro/index.md            # 开始阅读入口
-│   ├── project-overview/index.md # 内容地图
 │   ├── paradigm-shift/           # 模块1：范式转变
 │   │   ├── index.md
 │   │   └── examples/role-impact-scenarios.md
@@ -131,7 +130,7 @@ pnpm docs:preview
 
 ### 导航与侧边栏
 侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为四大区块：
-- **导读**（开始阅读、内容地图）
+- **导读**（开始阅读）
 - **学习主线**（9 个模块，按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套）
 - **案例与演练**（附录、跨角色手册、实战案例、Minimal Agent Demo）
 - **资料与分享**（培训资料、Workshop、下载资源）
