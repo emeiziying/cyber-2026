@@ -95,6 +95,16 @@ export default defineConfig({
                   },
                 ],
               },
+              {
+                text: 'Harness Engineering',
+                link: '/harness-engineering/',
+                items: [
+                  {
+                    text: 'Harness 设计演练',
+                    link: '/harness-engineering/examples/harness-design-case',
+                  },
+                ],
+              },
             ],
           },
           {

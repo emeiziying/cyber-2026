@@ -72,6 +72,9 @@ pnpm docs:preview
 │   ├── agent-development/        # 模块7：Agent 开发与边界
 │   │   ├── index.md
 │   │   └── examples/review-agent-walkthrough.md
+│   ├── harness-engineering/      # 模块10：Harness Engineering（能力构建综合）
+│   │   ├── index.md
+│   │   └── examples/harness-design-case.md
 │   ├── production-governance/    # 模块8：生产落地与治理
 │   │   ├── index.md
 │   │   └── examples/release-risk-review.md
@@ -95,6 +98,7 @@ pnpm docs:preview
 │       ├── production-governance/templates/  # 风险矩阵、验收清单模板
 │       ├── team-workflow/templates/  # PR 检查清单、需求模板
 │       ├── appendix-case-studies/templates/  # 案例模板
+│       ├── harness-engineering/templates/    # Harness 建设检查清单模板
 │       ├── presentation-outlines/   # PPT 文件及生成脚本
 │       └── examples/minimal-agent-demo/  # 完整示例项目源码（含 CLAUDE.md）
 ├── scripts/
@@ -226,4 +230,5 @@ type: 简短描述（中文或英文均可）
 - 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT（含可视化版本）
 - 已接入文档链接自动校验（`pnpm docs:check`）和 CI 流水线，确保链接完整性
 - `docs/project-overview/`（内容地图页面）已于近期移除，相关链接已从 sidebar、README、首页、导读页同步清理
+- 新增 `harness-engineering/` 模块（能力构建层第 5 章），包含主文档、演练案例和可下载检查清单模板
 - 重点在完善各模块示例内容和下载资源
