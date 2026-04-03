@@ -97,6 +97,11 @@ pnpm docs:preview
 │       ├── appendix-case-studies/templates/  # 案例模板
 │       ├── presentation-outlines/   # PPT 文件及生成脚本
 │       └── examples/minimal-agent-demo/  # 完整示例项目源码（含 CLAUDE.md）
+├── scripts/
+│   └── check-doc-links.mjs       # 文档内链校验脚本
+├── .github/
+│   └── workflows/
+│       └── docs-check.yml        # CI：校验链接 + 构建验证（PR & push to main）
 ├── package.json
 ├── pnpm-lock.yaml
 ├── README.md
@@ -191,6 +196,12 @@ type: 简短描述（中文或英文均可）
 - `config.mts` 使用 TypeScript，修改后确认语法正确（`pnpm docs:build` 会验证）
 - sidebar 的 `link` 字段必须与实际文件路径严格对应，否则会出现 404
 
+### 校验文档链接时
+- `pnpm docs:check` 运行 `scripts/check-doc-links.mjs`，递归扫描 `docs/` 下所有 `.md` 文件的内部链接
+- 脚本会屏蔽代码块内容以避免误报，支持相对路径、绝对路径及 `/downloads/` 静态资源校验
+- CI 流水线（`.github/workflows/docs-check.yml`）在每次 PR 和 push 到 main 时自动执行链接校验 + 构建验证
+- 提交前若新增了页面或链接，建议先本地运行 `pnpm docs:check` 排查断链
+
 ### 处理示例项目时
 - `docs/public/downloads/examples/minimal-agent-demo/` 有自己的 `CLAUDE.md`，在该目录下工作时以该文件的规范为准
 
@@ -203,6 +214,7 @@ type: 简短描述（中文或英文均可）
 - 不要在 `docs/` 以外的位置存放站点正文内容
 - 不要修改 `docs/public/downloads/` 中的文件后忘记同步对应的文档页
 - 不要在 sidebar 中添加没有对应文件的链接（会导致构建警告或 404）
+- 不要删除或重命名页面而忘记同步更新 `.vitepress/config.mts` 的 sidebar 和其他页面中指向该页面的链接
 
 ---
 
@@ -211,5 +223,7 @@ type: 简短描述（中文或英文均可）
 - 站点核心学习路径（9 个模块）已全部建立，每个模块均包含主文档和至少一个示例
 - Skills & Hooks 模块已扩展为包含进阶模式页面和多个示例
 - 案例与演练板块已增加跨角色 AI 手册和实战修复案例
-- 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT
+- 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT（含可视化版本）
+- 已接入文档链接自动校验（`pnpm docs:check`）和 CI 流水线，确保链接完整性
+- `docs/project-overview/`（内容地图页面）已于近期移除，相关链接已从 sidebar、README、首页、导读页同步清理
 - 重点在完善各模块示例内容和下载资源
