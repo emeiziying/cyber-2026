@@ -46,7 +46,7 @@ title: 开始阅读
 如果你第一次来，按这个顺序读：
 
 1. 先读 [范式转变](/paradigm-shift/)、[Vibe Coding](/vibe-coding/) 和 [工具全景](/tools-overview/)，建立判断框架
-2. 再读 [Rules](/rules/)、[MCP](/mcp/)、[Skills & Hooks](/skills-hooks/) 和 [Agent 开发](/agent-development/)，理解能力构建路径
+2. 再读 [Rules](/rules/)、[MCP](/mcp/)、[Skills & Hooks](/skills-hooks/)、[Agent 开发](/agent-development/) 和 [Harness Engineering](/harness-engineering/)，理解能力构建路径
 3. 最后读 [生产落地与治理](/production-governance/) 和 [团队工作流与质量控制](/team-workflow/)，把个人做法升级成团队机制
 
 ## 按目标选择入口
