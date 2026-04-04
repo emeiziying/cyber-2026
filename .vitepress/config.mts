@@ -69,6 +69,7 @@ export default defineConfig({
                 link: '/mcp/',
                 items: [
                   {text: 'MCP 只读接入演练', link: '/mcp/examples/mcp-readonly-rollout'},
+                  {text: 'MCP 热门开源项目', link: '/mcp/examples/popular-mcp-servers'},
                 ],
               },
               {
@@ -87,6 +88,10 @@ export default defineConfig({
                   {
                     text: 'gstack 实战指南',
                     link: '/skills-hooks/examples/gstack-workflow',
+                  },
+                  {
+                    text: '热门 Skill Pack',
+                    link: '/skills-hooks/examples/popular-skill-packs',
                   },
                 ],
               },
