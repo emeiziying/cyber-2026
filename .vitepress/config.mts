@@ -49,6 +49,7 @@ export default defineConfig({
                 link: '/tools-overview/',
                 items: [
                   {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
+                  {text: 'OpenClaw 实战指南', link: '/tools-overview/examples/openclaw-guide'},
                 ],
               },
             ],
