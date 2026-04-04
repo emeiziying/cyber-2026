@@ -24,6 +24,7 @@ outline: false
 - <a href="/downloads/team-workflow/templates/task-intake.md.template" download>任务入口模板</a>
 - <a href="/downloads/team-workflow/templates/pr-review-checklist.md.template" download>PR Review 清单模板</a>
 - <a href="/downloads/appendix-case-studies/templates/case-study-template.md" download>案例模板</a>
+- <a href="/downloads/harness-engineering/templates/harness-checklist.md.template" download>Harness 建设检查清单模板</a>
 
 ## 分享与演示
 

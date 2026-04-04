@@ -72,6 +72,9 @@ pnpm docs:preview
 │   ├── agent-development/        # 模块7：Agent 开发与边界
 │   │   ├── index.md
 │   │   └── examples/review-agent-walkthrough.md
+│   ├── harness-engineering/      # 模块10：Harness Engineering（能力构建综合）
+│   │   ├── index.md
+│   │   └── examples/harness-design-case.md
 │   ├── production-governance/    # 模块8：生产落地与治理
 │   │   ├── index.md
 │   │   └── examples/release-risk-review.md
@@ -95,8 +98,14 @@ pnpm docs:preview
 │       ├── production-governance/templates/  # 风险矩阵、验收清单模板
 │       ├── team-workflow/templates/  # PR 检查清单、需求模板
 │       ├── appendix-case-studies/templates/  # 案例模板
+│       ├── harness-engineering/templates/    # Harness 建设检查清单模板
 │       ├── presentation-outlines/   # PPT 文件及生成脚本
 │       └── examples/minimal-agent-demo/  # 完整示例项目源码（含 CLAUDE.md）
+├── scripts/
+│   └── check-doc-links.mjs       # 文档内链校验脚本
+├── .github/
+│   └── workflows/
+│       └── docs-check.yml        # CI：校验链接 + 构建验证（PR & push to main）
 ├── package.json
 ├── pnpm-lock.yaml
 ├── README.md
@@ -131,14 +140,33 @@ pnpm docs:preview
 ### 导航与侧边栏
 侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为四大区块：
 - **导读**（开始阅读）
-- **学习主线**（9 个模块，按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套）
+- **学习主线**（按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套，当前模块：范式转变、Vibe Coding、工具全景、Rules、MCP、Skills & Hooks、Agent 开发、Harness Engineering、生产落地与治理、团队工作流与质量控制）
 - **案例与演练**（附录、跨角色手册、实战案例、Minimal Agent Demo）
 - **资料与分享**（培训资料、Workshop、下载资源）
 
-新增页面时：
+新增**学习主线模块**（`docs/` 下的顶层模块目录）时，必须同步以下所有位置：
+
 1. 在 `docs/` 下创建对应的 Markdown 文件
 2. 在 `config.mts` 的 `sidebar` 数组中添加对应条目（示例页嵌套在其模块的 `items` 内）
 3. 确保 `link` 路径与文件路径一致（相对于 `docs/` 且无后缀）
+4. **更新 `docs/intro/index.md` 的"推荐怎么读"**：在对应学习阶段的步骤中加入新模块链接
+5. **更新相邻模块的章节关系说明**：修改上一章的 `x.9 与前后章节的关系` 中的"下一章"，以及下一章的"上一章"，确保导航链条不断
+
+新增**示例页**（模块内 `examples/` 目录下的文件）时，只需执行步骤 1–3，无需改动导读。
+
+### 导读页结构（`docs/intro/index.md`）
+
+导读页是读者进入学习路径的入口，必须始终与实际模块保持同步。它包含两个需要维护的部分：
+
+**"推荐怎么读"三步骤：**
+```
+1. 认知与协作方式：范式转变 / Vibe Coding / 工具全景
+2. 能力构建：Rules / MCP / Skills & Hooks / Agent 开发 / Harness Engineering
+3. 治理与团队化：生产落地与治理 / 团队工作流与质量控制
+```
+新增学习主线模块时，按其所属层次将链接插入对应步骤。
+
+**"按目标选择入口"**：面向不同目标读者的快速入口，通常不需要为每个新模块都加条目，只在该模块对某类读者有明显导流价值时才添加。
 
 ---
 
@@ -184,12 +212,18 @@ type: 简短描述（中文或英文均可）
 
 ### 编辑文档时
 - 修改现有页面内容前，先通读该页面，理解上下文再修改，不要孤立地改某一段
-- 新增学习模块时，同步在 `.vitepress/config.mts` 的 sidebar 里添加导航条目
+- 新增学习主线模块时，按"导航与侧边栏"一节列出的 5 步清单逐项执行，不要只改 sidebar 而遗漏导读和章节关系
 - 添加可下载资源时，同步更新 `docs/downloads/index.md` 的下载列表
 
 ### 修改站点配置时
 - `config.mts` 使用 TypeScript，修改后确认语法正确（`pnpm docs:build` 会验证）
 - sidebar 的 `link` 字段必须与实际文件路径严格对应，否则会出现 404
+
+### 校验文档链接时
+- `pnpm docs:check` 运行 `scripts/check-doc-links.mjs`，递归扫描 `docs/` 下所有 `.md` 文件的内部链接
+- 脚本会屏蔽代码块内容以避免误报，支持相对路径、绝对路径及 `/downloads/` 静态资源校验
+- CI 流水线（`.github/workflows/docs-check.yml`）在每次 PR 和 push 到 main 时自动执行链接校验 + 构建验证
+- 提交前若新增了页面或链接，建议先本地运行 `pnpm docs:check` 排查断链
 
 ### 处理示例项目时
 - `docs/public/downloads/examples/minimal-agent-demo/` 有自己的 `CLAUDE.md`，在该目录下工作时以该文件的规范为准
@@ -203,6 +237,9 @@ type: 简短描述（中文或英文均可）
 - 不要在 `docs/` 以外的位置存放站点正文内容
 - 不要修改 `docs/public/downloads/` 中的文件后忘记同步对应的文档页
 - 不要在 sidebar 中添加没有对应文件的链接（会导致构建警告或 404）
+- 不要删除或重命名页面而忘记同步更新 `.vitepress/config.mts` 的 sidebar 和其他页面中指向该页面的链接
+- 不要新增学习主线模块而不更新 `docs/intro/index.md` 的"推荐怎么读"——导读是读者的入口，遗漏会导致新模块对读者不可见
+- 不要只更新导读而不更新相邻章节的"与前后章节的关系"——章节导航链条必须前后一致
 
 ---
 
@@ -211,5 +248,8 @@ type: 简短描述（中文或英文均可）
 - 站点核心学习路径（9 个模块）已全部建立，每个模块均包含主文档和至少一个示例
 - Skills & Hooks 模块已扩展为包含进阶模式页面和多个示例
 - 案例与演练板块已增加跨角色 AI 手册和实战修复案例
-- 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT
+- 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT（含可视化版本）
+- 已接入文档链接自动校验（`pnpm docs:check`）和 CI 流水线，确保链接完整性
+- `docs/project-overview/`（内容地图页面）已于近期移除，相关链接已从 sidebar、README、首页、导读页同步清理
+- 新增 `harness-engineering/` 模块（能力构建层第 5 章），包含主文档、演练案例和可下载检查清单模板
 - 重点在完善各模块示例内容和下载资源

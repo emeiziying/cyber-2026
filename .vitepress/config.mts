@@ -49,6 +49,7 @@ export default defineConfig({
                 link: '/tools-overview/',
                 items: [
                   {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
+                  {text: 'OpenClaw 实战指南', link: '/tools-overview/examples/openclaw-guide'},
                 ],
               },
             ],
@@ -68,6 +69,7 @@ export default defineConfig({
                 link: '/mcp/',
                 items: [
                   {text: 'MCP 只读接入演练', link: '/mcp/examples/mcp-readonly-rollout'},
+                  {text: 'MCP 热门开源项目', link: '/mcp/examples/popular-mcp-servers'},
                 ],
               },
               {
@@ -83,6 +85,14 @@ export default defineConfig({
                     text: '部门级 Skill 共享',
                     link: '/skills-hooks/examples/dept-skill-sharing',
                   },
+                  {
+                    text: 'gstack 实战指南',
+                    link: '/skills-hooks/examples/gstack-workflow',
+                  },
+                  {
+                    text: '热门 Skill Pack',
+                    link: '/skills-hooks/examples/popular-skill-packs',
+                  },
                 ],
               },
               {
@@ -92,6 +102,16 @@ export default defineConfig({
                   {
                     text: 'Review Agent 演练',
                     link: '/agent-development/examples/review-agent-walkthrough',
+                  },
+                ],
+              },
+              {
+                text: 'Harness Engineering',
+                link: '/harness-engineering/',
+                items: [
+                  {
+                    text: 'Harness 设计演练',
+                    link: '/harness-engineering/examples/harness-design-case',
                   },
                 ],
               },
