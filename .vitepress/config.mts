@@ -84,6 +84,10 @@ export default defineConfig({
                     text: '部门级 Skill 共享',
                     link: '/skills-hooks/examples/dept-skill-sharing',
                   },
+                  {
+                    text: 'gstack 实战指南',
+                    link: '/skills-hooks/examples/gstack-workflow',
+                  },
                 ],
               },
               {
