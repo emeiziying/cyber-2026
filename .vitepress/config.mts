@@ -19,6 +19,7 @@ export default defineConfig({
         text: '导读',
         items: [
           {text: '开始阅读', link: '/intro/'},
+          {text: '快速启动指南', link: '/intro/quick-start'},
         ],
       },
       {
