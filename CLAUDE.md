@@ -47,7 +47,9 @@ pnpm docs:preview
 │   └── config.mts                # VitePress 站点配置（导航、侧边栏、语言）
 ├── docs/                         # 站点正文内容（唯一来源）
 │   ├── index.md                  # 首页（hero + 功能介绍）
-│   ├── intro/index.md            # 开始阅读入口
+│   ├── intro/
+│   │   ├── index.md              # 开始阅读入口
+│   │   └── quick-start.md        # 快速启动指南
 │   ├── paradigm-shift/           # 模块1：范式转变
 │   │   ├── index.md
 │   │   └── examples/role-impact-scenarios.md
@@ -56,29 +58,35 @@ pnpm docs:preview
 │   │   └── examples/full-session.md
 │   ├── tools-overview/           # 模块3：工具全景
 │   │   ├── index.md
-│   │   └── examples/team-profiles.md
+│   │   └── examples/
+│   │       ├── team-profiles.md
+│   │       └── openclaw-guide.md  # OpenClaw 实战指南
 │   ├── rules/                    # 模块4：Rules（项目约束）
 │   │   ├── index.md
 │   │   └── examples/rules-conflict-case.md
 │   ├── mcp/                      # 模块5：MCP 外部工具接入
 │   │   ├── index.md
-│   │   └── examples/mcp-readonly-rollout.md
+│   │   └── examples/
+│   │       ├── mcp-readonly-rollout.md
+│   │       └── popular-mcp-servers.md  # MCP 热门开源项目
 │   ├── skills-hooks/             # 模块6：Skills & Hooks 自动化
 │   │   ├── index.md
 │   │   ├── advanced-patterns.md  # 进阶模式（独立页面）
 │   │   └── examples/
 │   │       ├── skill-hook-decision-cases.md
-│   │       └── dept-skill-sharing.md
+│   │       ├── dept-skill-sharing.md
+│   │       ├── gstack-workflow.md     # gstack 实战指南
+│   │       └── popular-skill-packs.md # 热门 Skill Pack
 │   ├── agent-development/        # 模块7：Agent 开发与边界
 │   │   ├── index.md
 │   │   └── examples/review-agent-walkthrough.md
-│   ├── harness-engineering/      # 模块10：Harness Engineering（能力构建综合）
+│   ├── harness-engineering/      # 模块8：Harness Engineering（能力构建综合）
 │   │   ├── index.md
 │   │   └── examples/harness-design-case.md
-│   ├── production-governance/    # 模块8：生产落地与治理
+│   ├── production-governance/    # 模块9：生产落地与治理
 │   │   ├── index.md
 │   │   └── examples/release-risk-review.md
-│   ├── team-workflow/            # 模块9：团队工作流与质量控制
+│   ├── team-workflow/            # 模块10：团队工作流与质量控制
 │   │   ├── index.md
 │   │   └── examples/workflow-sample.md
 │   ├── appendix-case-studies/    # 案例与延伸阅读
@@ -95,6 +103,7 @@ pnpm docs:preview
 │       ├── rules/templates/      # CLAUDE.md 模板
 │       ├── mcp/templates/        # MCP 配置模板
 │       ├── skills-hooks/templates/  # Skill 命令与 Hook 配置模板
+│       │   └── commands/         # Skill 命令模板（fix-bug、gen-tests、review-code 等）
 │       ├── production-governance/templates/  # 风险矩阵、验收清单模板
 │       ├── team-workflow/templates/  # PR 检查清单、需求模板
 │       ├── appendix-case-studies/templates/  # 案例模板
@@ -139,7 +148,7 @@ pnpm docs:preview
 
 ### 导航与侧边栏
 侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为四大区块：
-- **导读**（开始阅读）
+- **导读**（开始阅读、快速启动指南）
 - **学习主线**（按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套，当前模块：范式转变、Vibe Coding、工具全景、Rules、MCP、Skills & Hooks、Agent 开发、Harness Engineering、生产落地与治理、团队工作流与质量控制）
 - **案例与演练**（附录、跨角色手册、实战案例、Minimal Agent Demo）
 - **资料与分享**（培训资料、Workshop、下载资源）
@@ -245,11 +254,14 @@ type: 简短描述（中文或英文均可）
 
 ## 当前开发重点
 
-- 站点核心学习路径（9 个模块）已全部建立，每个模块均包含主文档和至少一个示例
-- Skills & Hooks 模块已扩展为包含进阶模式页面和多个示例
-- 案例与演练板块已增加跨角色 AI 手册和实战修复案例
-- 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT（含可视化版本）
+- 站点核心学习路径（10 个模块）已全部建立，每个模块均包含主文档和至少一个示例
+- 导读板块新增 `intro/quick-start.md`（快速启动指南），提供面向新读者的快速入口
+- 工具全景模块新增 `tools-overview/examples/openclaw-guide.md`（OpenClaw 实战指南）
+- MCP 模块新增 `mcp/examples/popular-mcp-servers.md`（热门开源 MCP 服务器推荐）
+- Skills & Hooks 模块新增两个示例页：`gstack-workflow.md`（gstack 实战指南）和 `popular-skill-packs.md`（热门 Skill Pack）
+- Skills & Hooks 模块已扩展为包含进阶模式页面和 4 个示例（最多的模块）
+- 案例与演练板块包含跨角色 AI 手册和实战修复案例
+- 分享与培训板块包含 30 分钟 Workshop 页面和配套 PPT（含可视化版本）
 - 已接入文档链接自动校验（`pnpm docs:check`）和 CI 流水线，确保链接完整性
 - `docs/project-overview/`（内容地图页面）已于近期移除，相关链接已从 sidebar、README、首页、导读页同步清理
-- 新增 `harness-engineering/` 模块（能力构建层第 5 章），包含主文档、演练案例和可下载检查清单模板
 - 重点在完善各模块示例内容和下载资源
