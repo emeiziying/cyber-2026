@@ -14,6 +14,7 @@
 
 | 方案 | 定位 | 与 Claude Code 关系 |
 |------|------|-------------------|
+| OpenCode | 开源模型无关的终端 AI 编程助手 | 直接竞品，可替代 |
 | OpenHands | 全自动软件工程 Agent | 替代或互补 |
 | SWE-agent | 代码问题自动修复 | 参考设计 |
 | Aider | 终端 AI 配对编程 | 替代或并行使用 |
@@ -23,6 +24,50 @@
 ---
 
 ## 各方案详解
+
+### OpenCode — 开源模型无关的终端 AI 编程助手
+
+**一句话定位：** SST 团队出品，MIT 开源，支持 75+ 模型，是目前功能最接近 Claude Code 的开源替代方案。
+
+**Stars：** 95,000+（2026-04，增速极快）  
+**协议：** MIT（完全免费，自带 API Key 即可使用）  
+**语言：** Go（TUI 基于 Bubble Tea）  
+**仓库：** [github.com/sst/opencode](https://github.com/sst/opencode)
+
+**核心能力：**
+- TUI 界面，Vim 键位，操作手感与 Claude Code 接近
+- 内置两种 Agent 模式，按 Tab 键切换：
+  - `build` 模式：完整工具权限，可读写文件、执行命令（默认）
+  - `plan` 模式：只读，用于分析和规划，不做任何修改
+- 多会话并行：在同一项目中同时运行多个 Agent 处理不同任务
+- 自动感知 LSP（Language Server Protocol），提升代码理解质量
+- 上下文窗口将满时自动压缩（Auto-compact）
+- 自定义命令用 Markdown 文件定义，与 Claude Code Skills 机制类似
+- GitHub Actions 集成：在 PR 评论中 @opencode 触发自动任务
+
+**与 Claude Code 的横向对比：**
+
+| 维度 | OpenCode | Claude Code |
+|------|----------|-------------|
+| **开源** | ✅ MIT | ❌ 闭源 |
+| **模型绑定** | 无，支持 Claude / GPT / Gemini / Ollama 等 75+ | 仅 Anthropic Claude |
+| **费用** | 免费（自带 API Key） | 订阅制（$20–$100/月）|
+| **Agent 模式切换** | ✅ build / plan 双模式 | 计划模式需手动指定 |
+| **并行会话** | ✅ 原生支持 | 需多开终端 |
+| **MCP 集成** | ✅ 支持 | ✅ 原生深度支持 |
+| **Hooks / Skills 生态** | 自定义命令（Markdown）| 完整 Skills & Hooks 生态 |
+| **上下文质量** | 良好 | 更优（训练更深度集成） |
+| **CI/CD 集成** | GitHub Actions | GitHub Actions（官方） |
+
+**与 Claude Code 的关系：**  
+OpenCode 是目前社区公认的"最接近 Claude Code 体验"的开源替代方案。如果你的团队因**成本**或**模型灵活性**（需要混用多个 LLM）而无法统一使用 Claude Code，OpenCode 是最合适的替代选项。反之，如果团队已经深度使用 Claude（MCP、Skills & Hooks、Agent SDK），Claude Code 的生态集成优势更为明显，切换收益有限。
+
+**典型选择场景：**
+- 团队有成员更倾向于使用 GPT-4o 或 Gemini → 选 OpenCode
+- 团队希望统一在 Claude 生态内深度集成 MCP 和 Hooks → 选 Claude Code
+- 评估阶段不想付订阅费用先试水 → 用 OpenCode + Claude API
+
+---
 
 ### OpenHands（原 OpenDevin）— 全自动软件工程 Agent
 
