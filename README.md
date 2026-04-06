@@ -30,6 +30,7 @@ pnpm docs:dev
 - [`docs/mcp/`](./docs/mcp/) — MCP：外部工具接入（Model Context Protocol）
 - [`docs/skills-hooks/`](./docs/skills-hooks/) — Skills & Hooks：自动化工作流
 - [`docs/agent-development/`](./docs/agent-development/) — Agent 开发：边界与决策
+- [`docs/harness-engineering/`](./docs/harness-engineering/) — Harness Engineering：能力构建综合
 
 **治理与团队化**
 - [`docs/production-governance/`](./docs/production-governance/) — 生产落地与治理
