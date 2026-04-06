@@ -104,6 +104,10 @@ export default defineConfig({
                     text: 'Review Agent 演练',
                     link: '/agent-development/examples/review-agent-walkthrough',
                   },
+                  {
+                    text: '热门开源 Agent 方案',
+                    link: '/agent-development/examples/popular-agent-frameworks',
+                  },
                 ],
               },
               {
