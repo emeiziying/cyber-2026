@@ -116,6 +116,94 @@ Superpowers 会引导 AI 先问清楚需求，写出失败的测试，再逐步�
 
 ---
 
+## TaskMaster AI — AI 驱动的任务拆解框架
+
+**创建者：** Eyal Toledano（eyaltoledano）  
+**Stars：** 50,000+（2026-04，持续增长）  
+**协议：** MIT  
+**官方渠道：** [GitHub](https://github.com/eyaltoledano/claude-task-master)
+
+### 核心理念
+
+TaskMaster 解决的问题是：**复杂需求难以直接交给 AI 一步完成**。
+
+没有拆解的大任务会导致：
+- AI 在中途迷失方向，反复询问需求
+- 任务过长导致上下文窗口撑满，质量下降
+- 没有可追踪的进度节点，不知道 AI 做到哪里
+
+TaskMaster 的思路是**把需求文档转化为结构化任务树**，每个任务有明确的 ID、依赖关系、验收标准和状态。AI 每次只处理一个叶子任务，完成后更新状态并移动到下一个。
+
+### 核心工作流
+
+```
+1. 初始化  → /init           解析 PRD 或需求文档，生成任务树（tasks.json）
+2. 查看    → /list           列出所有任务及状态（待处理 / 进行中 / 完成）
+3. 执行    → /next           AI 自动选择下一个可执行任务并开始
+4. 展开    → /expand [id]    对复杂任务进行二次拆解，生成子任务
+5. 更新    → /update [id]    人工调整某个任务的描述或优先级
+6. 追踪    → /status         当前进度概览（完成比例、阻塞任务）
+```
+
+### 核心 Skills
+
+| Skill | 触发 | 作用 |
+|-------|------|------|
+| `/init` | 项目启动时 | 解析需求文档，生成完整任务树 |
+| `/next` | 每轮开始时 | 自动选择并执行下一个待处理任务 |
+| `/expand [id]` | 任务过于复杂时 | 对指定任务进行二次拆解 |
+| `/list` | 随时查看进度 | 展示当前任务树和各任务状态 |
+| `/status` | 检查整体进展 | 汇总完成比例和阻塞情况 |
+
+### 安装方式
+
+```bash
+# 通过 npm 全局安装
+npm install -g task-master-ai
+
+# 初始化当前项目
+task-master init
+
+# 或直接通过 npx 运行
+npx task-master-ai init
+```
+
+安装后，TaskMaster 的 Skills 会自动挂载到 Claude Code 的命令目录下。
+
+### 使用示例
+
+```
+我有一份用户认证模块的 PRD，帮我拆解成可执行任务
+/init prd-auth.md
+```
+
+TaskMaster 会解析 PRD 文档，输出一棵结构化任务树。之后每次开始工作只需：
+
+```
+/next
+```
+
+AI 会自动选择优先级最高且依赖已满足的任务，执行完毕后更新状态，等待下一次 `/next`。
+
+### 与 Superpowers / gstack 的区别
+
+| | TaskMaster | Superpowers | gstack |
+|-|------------|-------------|--------|
+| **核心关注** | 需求拆解与进度追踪 | 代码实现质量 | 完整交付流程 |
+| **切入点** | 项目规划初期 | 编码实现阶段 | 全流程 |
+| **最适合** | 需求复杂、任务多的项目 | 代码质量要求高的团队 | 小团队全流程覆盖 |
+| **可组合** | ✅ 与 Superpowers / gstack 互补 | ✅ | ✅ |
+
+**推荐组合：**
+```
+TaskMaster /init → /next（确定当前任务）
+→ Superpowers /brainstorm → /tdd（实现当前任务）
+→ TaskMaster /update（更新任务状态）
+→ 重复
+```
+
+---
+
 ## 其他值得关注的资源
 
 ### 社区精选列表
@@ -125,6 +213,12 @@ Superpowers 会引导 AI 先问清楚需求，写出失败的测试，再逐步�
 
 **[claude-skills（alirezarezvani）](https://github.com/alirezarezvani/claude-skills)**  
 220+ Skills 合集，覆盖工程、营销、产品、合规、C-Level 顾问等角色，适合需要跨职能 AI 能力的团队。
+
+**[punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)**  
+社区维护的 MCP Server 合集，与本站 MCP 模块的[热门开源项目](../../mcp/examples/popular-mcp-servers)页面交叉参考使用。
+
+**[anthropics/anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook)**  
+Anthropic 官方示例仓库，包含 Claude API 的使用范例、Skill 设计参考和 Agent 模式实现，适合构建自定义 Skill Pack 时参考。
 
 ### 官方渠道
 

@@ -6,12 +6,14 @@
 
 ## 选型导图
 
-MCP Server 可以分为两类，建议按顺序接入：
+MCP Server 可以分为四类，建议按顺序接入：
 
 | 类型 | 项目 | 接入时机 |
 |------|------|----------|
 | **基础设施类** | Filesystem、GitHub MCP、Memory | 第一批接入，低风险，效果立竿见影 |
 | **能力增强类** | Context7、Brave Search、Playwright、PostgreSQL | 基础类稳定后，按需接入 |
+| **协作工具类** | Slack、Notion、Linear | 团队协作场景成熟后，按需接入 |
+| **专项能力类** | Stripe、Docker、Google Drive | 特定业务需求驱动，精准接入 |
 
 **原则：** 不要一次接七个。每次接一个，验证 AI 是否能正确使用、权限是否清晰、上下文传递是否完整。
 
@@ -236,6 +238,189 @@ Claude Code 每次会话结束即清空记忆，下次需要重新交代背景�
 
 ---
 
+### Slack MCP — 团队沟通集成
+
+**一句话定位：** 让 AI 读取频道消息和发送通知，打通工程任务与团队沟通。
+
+**使用场景：**
+- 在 CI 流水线异常时，让 AI 自动在对应频道发送摘要通知
+- 让 AI 查找特定频道中的决策记录和讨论上下文
+- 配合 Hooks 在代码合并后自动发送发布说明到 Slack
+
+**权限风险：** 中（可发送消息，建议先只开放读取权限，写入权限需要团队评审后放开）
+
+```json
+{
+  "mcpServers": {
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "<your-bot-token>",
+        "SLACK_TEAM_ID": "<your-team-id>"
+      }
+    }
+  }
+}
+```
+
+**仓库：** [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/slack)
+
+---
+
+### Notion MCP — 知识库读写
+
+**一句话定位：** 让 AI 访问 Notion 页面和数据库，读取需求文档或写入结构化内容。
+
+**为什么重要：**  
+大量团队把需求、设计稿、会议记录存放在 Notion。没有 MCP 时，AI 对这些上下文一无所知，只能靠人工粘贴。Notion MCP 让 AI 可以直接读取指定页面，在任务中自动获取背景信息。
+
+**使用场景：**
+- 让 AI 读取需求文档，直接按文档内容实现功能
+- 让 AI 将代码审查结论写入 Notion 追踪表
+- 生成技术文档后自动推送到知识库
+
+**权限风险：** 中（需要 Notion Integration Token，建议按最小权限原则只授权必要的 workspace 和 page）
+
+```json
+{
+  "mcpServers": {
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_TOKEN": "<your-integration-token>"
+      }
+    }
+  }
+}
+```
+
+**仓库：** [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/notion)
+
+---
+
+### Linear MCP — 工程任务追踪
+
+**一句话定位：** 让 AI 读写 Linear issue，实现"代码改动自动关联任务"的闭环。
+
+**核心价值：**  
+工程师在修复 bug 时，AI 可以自动读取关联 issue 的上下文（复现步骤、期望行为、优先级），而不是凭空猜测需求。完成后 AI 还可以将修复说明写回 issue，无需人工同步。
+
+**使用场景：**
+- 修复 bug 时让 AI 读取对应 issue，理解验收标准
+- 需求开发完成后自动更新 Linear issue 状态
+- 让 AI 生成本次迭代的变更摘要，写入 Linear 项目文档
+
+**权限风险：** 低到中（读取无风险；写入建议只开放 comment 和状态更新，不开放删除操作）
+
+```json
+{
+  "mcpServers": {
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "linear-mcp-server"],
+      "env": {
+        "LINEAR_API_KEY": "<your-api-key>"
+      }
+    }
+  }
+}
+```
+
+**仓库：** [github.com/jerhadf/linear-mcp-server](https://github.com/jerhadf/linear-mcp-server)
+
+---
+
+### Stripe MCP — 支付数据查询
+
+**一句话定位：** 让 AI 安全查询支付流水和客户数据，辅助排查订单问题或生成财务报告。
+
+**使用场景：**
+- 让 AI 查找某笔失败订单的原因（无需进入 Stripe Dashboard）
+- 生成某时间段的收款摘要报告
+- 辅助排查 Webhook 未正确触发的问题
+
+**⚠️ 重要：** 只使用受限权限的 API Key（Restricted Key），不要使用 Secret Key。只授权必要的只读权限（`charges:read`、`customers:read` 等），绝不授权写入或退款权限。
+
+```json
+{
+  "mcpServers": {
+    "stripe": {
+      "command": "npx",
+      "args": ["-y", "@stripe/agent-toolkit"],
+      "env": {
+        "STRIPE_SECRET_KEY": "<your-restricted-key>"
+      }
+    }
+  }
+}
+```
+
+**仓库：** [github.com/stripe/agent-toolkit](https://github.com/stripe/agent-toolkit)
+
+---
+
+### Docker MCP Toolkit — 容器与镜像管理
+
+**一句话定位：** Docker 官方出品的 MCP 工具集，让 AI 查看和管理本地容器、镜像与 Compose 服务。
+
+**核心能力：**
+- 列出和检查运行中的容器状态
+- 读取容器日志（排查问题时极为有效）
+- 执行 Docker Compose 操作（启动、停止、重建服务）
+
+**使用场景：**
+- 让 AI 读取出错容器的日志，直接定位问题
+- 本地开发环境出现服务异常时，让 AI 检查容器健康状态
+- 配合 Hooks 在测试前自动拉起依赖服务
+
+**权限风险：** 高（AI 可以停止或删除容器），建议只在本地开发环境使用，不要在生产环境节点上配置。
+
+```json
+{
+  "mcpServers": {
+    "docker": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run"],
+      "env": {}
+    }
+  }
+}
+```
+
+**仓库：** [github.com/docker/mcp-servers](https://github.com/docker/mcp-servers)
+
+---
+
+### Google Drive MCP — 文件读写与搜索
+
+**一句话定位：** 让 AI 搜索和读取 Google Drive 中的文档、表格和演示文稿。
+
+**使用场景：**
+- 让 AI 读取 Google Docs 中的需求文档或设计说明
+- 搜索 Drive 中的历史记录（会议纪要、上线说明）
+- 将 AI 生成的报告写入 Google Sheets
+
+**权限风险：** 中（需要 Google OAuth 授权，建议只授权"只读"范围，写入权限按需单独评审）
+
+```json
+{
+  "mcpServers": {
+    "gdrive": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gdrive"]
+    }
+  }
+}
+```
+
+首次运行会打开浏览器进行 Google 账号授权，授权信息缓存在本地。
+
+**仓库：** [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/gdrive)
+
+---
+
 ## 推荐组合
 
 根据团队阶段选择最小可用组合，不要一次全部接入：
@@ -266,7 +451,13 @@ Filesystem（只读 docs/）+ GitHub MCP（只读）+ Context7
 + Playwright（需要 QA 自动化时）
 + PostgreSQL 只读（需要数据分析时）
 + GitHub 写权限（已充分验证后）
++ Slack（需要打通团队通知时）
++ Notion / Linear（需要集成协作工具时）
++ Stripe 受限只读（有支付业务排查需求时）
++ Docker（本地开发调试容器问题时）
 ```
+
+**原则：** 接入协作工具类（Slack、Notion、Linear）时，先评估"AI 是否有必要触达这些平台"，避免因配置不当造成意外消息发送或数据泄露。
 
 ---
 
