@@ -78,6 +78,7 @@ export default defineConfig({
                 link: '/tools-overview/',
                 items: [
                   {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
+                  {text: '可视化 AI 编排平台', link: '/tools-overview/examples/low-code-ai-platforms'},
                 ],
               },
             ],

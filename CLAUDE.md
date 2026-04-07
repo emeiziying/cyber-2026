@@ -58,7 +58,9 @@ pnpm docs:preview
 │   │   └── examples/full-session.md
 │   ├── tools-overview/           # 模块3：工具全景
 │   │   ├── index.md
-│   │   └── examples/team-profiles.md
+│   │   └── examples/
+│   │       ├── team-profiles.md
+│   │       └── low-code-ai-platforms.md
 │   ├── rules/                    # 模块4：Rules（项目约束）
 │   │   ├── index.md
 │   │   └── examples/rules-conflict-case.md
