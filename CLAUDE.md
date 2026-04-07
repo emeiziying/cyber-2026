@@ -47,7 +47,9 @@ pnpm docs:preview
 │   └── config.mts                # VitePress 站点配置（导航、侧边栏、语言）
 ├── docs/                         # 站点正文内容（唯一来源）
 │   ├── index.md                  # 首页（hero + 功能介绍）
-│   ├── intro/index.md            # 开始阅读入口
+│   ├── intro/
+│   │   ├── index.md              # 开始阅读入口
+│   │   └── quick-start.md        # 快速启动指南（分阶段路径）
 │   ├── paradigm-shift/           # 模块1：范式转变
 │   │   ├── index.md
 │   │   └── examples/role-impact-scenarios.md
@@ -62,13 +64,19 @@ pnpm docs:preview
 │   │   └── examples/rules-conflict-case.md
 │   ├── mcp/                      # 模块5：MCP 外部工具接入
 │   │   ├── index.md
-│   │   └── examples/mcp-readonly-rollout.md
+│   │   └── examples/
+│   │       ├── mcp-readonly-rollout.md
+│   │       └── popular-mcp-servers.md
 │   ├── skills-hooks/             # 模块6：Skills & Hooks 自动化
 │   │   ├── index.md
 │   │   ├── advanced-patterns.md  # 进阶模式（独立页面）
 │   │   └── examples/
 │   │       ├── skill-hook-decision-cases.md
-│   │       └── dept-skill-sharing.md
+│   │       ├── dept-skill-sharing.md
+│   │       ├── skill-pack-selection.md   # Skill Pack 选型指南
+│   │       ├── gstack-workflow.md        # gstack 实战指南
+│   │       ├── superpowers-workflow.md   # superpowers 实战指南
+│   │       └── gsd-workflow.md           # GSD 实战指南
 │   ├── agent-development/        # 模块7：Agent 开发与边界
 │   │   ├── index.md
 │   │   └── examples/review-agent-walkthrough.md
@@ -117,6 +125,7 @@ pnpm docs:preview
 - **内部链接：** 使用相对路径并省略 `.md` 后缀（VitePress cleanUrls 已启用）
 - **代码块：** 始终标注语言（如 ` ```bash`、` ```typescript`）
 - **排除规则：** `public/downloads/` 下的 `.md` 文件已通过 `srcExclude` 排除构建，不会被 VitePress 当作页面处理
+- **引用块换行：** `config.mts` 中注册了自定义 markdown 插件，将 blockquote 内的软换行（softbreak）转为硬换行（hardbreak），确保多行引用块中的换行在渲染后保留
 
 ### 内容结构模式
 每个学习模块的 `index.md` 建议按以下顺序组织：
@@ -128,8 +137,13 @@ pnpm docs:preview
 
 ### 导航与侧边栏
 侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为两大区块：
-- **导读**（开始阅读）
+- **导读**（开始阅读、快速启动指南）
 - **学习主线**（按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套，当前模块：范式转变、Vibe Coding、工具全景、Rules、MCP、Skills & Hooks、Agent 开发、Harness Engineering、生产落地与治理、团队工作流与质量控制）
+
+其中 **Skills & Hooks** 模块的侧边栏进一步细分为三个子区块：
+- **核心方法**：进阶模式、Skill 与 Hook 判断案例
+- **组织实践**：部门级 Skill 共享
+- **Skill Pack 案例**：Skill Pack 选型、gstack / superpowers / GSD 实战指南
 
 新增**学习主线模块**（`docs/` 下的顶层模块目录）时，必须同步以下所有位置：
 
@@ -220,9 +234,10 @@ type: 简短描述（中文或英文均可）
 
 ## 当前开发重点
 
-- 站点核心学习路径（9 个模块）已全部建立，每个模块均包含主文档和至少一个示例
-- Skills & Hooks 模块已扩展为包含进阶模式页面和多个示例
+- 站点核心学习路径（10 个模块）已全部建立，每个模块均包含主文档和至少一个示例
+- 导读区新增**快速启动指南**（`intro/quick-start.md`），提供分阶段的学习路径入口
+- Skills & Hooks 模块已大幅扩展：进阶模式页面 + 6 个示例（含 Skill Pack 选型及 gstack / superpowers / GSD 三套实战指南）
+- MCP 模块新增**热门开源 MCP 项目**参考页（`mcp/examples/popular-mcp-servers.md`）
 - 已接入文档链接自动校验（`pnpm docs:check`）和 CI 流水线，确保链接完整性
-- `docs/project-overview/`（内容地图页面）已于近期移除，相关链接已从 sidebar、README、首页、导读页同步清理
-- 新增 `harness-engineering/` 模块（能力构建层第 5 章），包含主文档、演练案例和可下载检查清单模板
+- `docs/project-overview/`（内容地图页面）已于早期移除，相关链接已从 sidebar、README、首页、导读页同步清理
 - 重点在完善各模块示例内容和下载资源
