@@ -127,6 +127,10 @@ export default defineConfig({
                     text: 'Skill Pack 案例',
                     items: [
                       {
+                        text: '官方 Skills 速查',
+                        link: '/skills-hooks/examples/official-skills-catalog',
+                      },
+                      {
                         text: 'Skill Pack 选型',
                         link: '/skills-hooks/examples/skill-pack-selection',
                       },

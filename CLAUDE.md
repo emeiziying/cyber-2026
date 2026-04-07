@@ -73,6 +73,7 @@ pnpm docs:preview
 │   │   └── examples/
 │   │       ├── skill-hook-decision-cases.md
 │   │       ├── dept-skill-sharing.md
+│   │       ├── official-skills-catalog.md # Anthropic 官方 Skills 速查
 │   │       ├── skill-pack-selection.md   # Skill Pack 选型指南
 │   │       ├── gstack-workflow.md        # gstack 实战指南
 │   │       ├── superpowers-workflow.md   # superpowers 实战指南
