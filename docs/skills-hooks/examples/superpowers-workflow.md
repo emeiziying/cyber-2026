@@ -84,7 +84,8 @@ superpowers 值得研究，不只是因为它"好用"，更因为它展示了 Sk
 ## 延伸资源
 
 - [superpowers GitHub 仓库](https://github.com/obra/superpowers) — README、安装方式、内置 Skill 列表
-- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 superpowers 和 gstack 之间做判断
+- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 superpowers、gstack 和 GSD 之间做判断
 - [gstack GitHub 仓库](https://github.com/garrytan/gstack) — 角色化 Skill Pack 的另一种代表做法
 - [gstack 实战指南](./gstack-workflow) — 本站对 gstack 工作流的拆解
+- [GSD 实战指南](./gsd-workflow) — 更强调上下文工程和长期状态稳定的另一条路线
 - [Skills 进阶模式](../advanced-patterns) — 从单个 Skill 走向 Skill Pack / 工作流产品化

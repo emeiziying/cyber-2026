@@ -6,8 +6,10 @@
 
 > 这件事是**用户主动发起**的，还是**某个事件发生时应该自动执行**的？
 
-- 主动发起 → **Skill**（用户用 `/command` 触发）
+- 主动发起 → **Skill**（用户显式调用某个工作流）
 - 自动执行 → **Hook**（系统在特定事件时自动运行）
+
+如果要把调用方式写得可执行，建议直接写工具差异：Claude 用 `/skill-name`，Codex 用 `$skill-name`。
 
 ---
 
@@ -22,7 +24,7 @@
 - 需要固定的输入提示（问题描述、复现步骤）和输出格式（根因、修复、测试、影响）
 - 不同 bug 可能需要不同的处理深度，用户需要控制
 
-**实现方式：** 创建 `.claude/commands/fix-bug.md`，定义完整的修复流程模板。
+**实现方式：** 默认把流程模板写成 `.agents/skills/fix-bug.md`；实际调用时，Claude 用 `/fix-bug`，Codex 用 `$fix-bug`。如果团队只面向 Claude Code，再映射到 `.claude/commands/`。
 
 ---
 
@@ -85,7 +87,7 @@
 - 用户可能想在不同时间点触发（下班前、会议前）
 - 日报内容可能需要用户补充上下文（比如"今天主要在处理 XX 需求"）
 
-**实现方式：** 创建 `.claude/commands/daily-report.md`，自动收集当日 git log 和 PR 状态，结合用户补充生成结构化日报。
+**实现方式：** 默认把日报流程写成 `.agents/skills/daily-report.md`；实际调用时，Claude 用 `/daily-report`，Codex 用 `$daily-report`。如果团队只面向 Claude Code，再映射到 `.claude/commands/`。
 
 ---
 
@@ -121,7 +123,7 @@
 
 | 特征 | Skill | Hook |
 |------|-------|------|
-| 触发方式 | 用户主动（`/command`） | 事件自动触发 |
+| 触发方式 | 用户主动触发（如 Claude 的 `/skill-name`、Codex 的 `$skill-name`） | 事件自动触发 |
 | 是否需要用户输入 | 通常需要 | 通常不需要 |
 | 执行频率 | 按需 | 每次事件发生 |
 | 是否可跳过 | 用户可以选择不用 | 不应该被跳过 |

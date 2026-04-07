@@ -1,7 +1,10 @@
 Perform a thorough code review of the specified file or recent changes.
 
 ## Usage
-`/review-code [file path or "staged" for staged changes]`
+- Claude: `/review-code [file path or "staged"]`
+- Codex: `$review-code [file path or "staged"]`
+
+If your template system uses variables like `$ARGUMENTS`, treat them as placeholders rather than Codex trigger syntax.
 
 ## Review Checklist
 

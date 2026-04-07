@@ -134,8 +134,9 @@ gstack 是 [Skills & Hooks 进阶模式](../advanced-patterns)中"**Skill 作为
 ## 延伸资源
 
 - [gstack GitHub 仓库](https://github.com/garrytan/gstack) — 源码、安装说明、Skill 定义文件
-- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 gstack 和 superpowers 之间做判断
+- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 gstack、superpowers 和 GSD 之间做判断
 - [superpowers 实战指南](./superpowers-workflow) — 另一种更强调自动触发、TDD 和计划驱动的工作流
+- [GSD 实战指南](./gsd-workflow) — 更强调上下文工程和规格稳定的另一条路线
 - [Skills & Hooks 进阶模式](../advanced-patterns) — gstack 背后的 Skill 设计模式
 - [Skill 与 Hook 判断案例](./skill-hook-decision-cases) — 什么时候用 Skill，什么时候用 Hook
 - [Harness Engineering](../../harness-engineering/) — 如何把 gstack 等 Skill Pack 整合进团队 Harness

@@ -1,0 +1,138 @@
+# GSD 实战指南：用上下文工程把长链路项目稳下来
+
+> **背景：** [GSD](https://github.com/gsd-build/get-shit-done) 是 TÂCHES 开源的 context engineering / spec-driven development 系统。官方 README 现在把它定义为一套轻量但强力的 meta-prompting、上下文工程和规格驱动开发系统，并明确强调它解决的是 **context rot**，也就是 Agent 会话一长就逐步失真的问题。
+
+---
+
+## GSD 是什么
+
+GSD 最有辨识度的地方，不是"又多了一组命令"，而是它把**项目上下文本身**做成了一套可持续维护的工作流。
+
+很多 coding agent 的常见问题，不在于不会写代码，而在于项目一旦进入多阶段、多会话、多轮讨论状态，最初的目标、约束、决策和阶段进度会逐渐散掉。GSD 的做法不是只靠更长的 prompt 硬扛，而是把这些信息拆成稳定工件，持续写回项目的 planning 状态。
+
+官方 README 里有一句很关键：GSD 解决的是 context rot。换句话说，它的核心价值不是让 Agent 更会"扮演谁"，也不是单纯让 Agent 自动化更多步骤，而是让 Agent **在长链路任务里持续知道自己为什么做、做到哪了、下一步该做什么**。
+
+这也是为什么在选型页里，GSD 常被理解成"上下文 / 规格稳定层"。更准确地说：它自己其实已经是一套完整工作流，但它最值得单独学习的，是这层**长期稳定上下文**的能力。
+
+---
+
+## 核心机制
+
+GSD 最核心的机制，可以概括成四件事：
+
+- **规划工件持久化**：把目标、需求、路线图、当前状态写成明确文件，而不是只留在对话里
+- **按 phase 推进**：每个阶段先讨论、再研究与计划、再执行、再验证，而不是一次性把大任务丢给 Agent
+- **面向已有代码库的前置映射**：先用 `map-codebase` 一类命令理解现有项目，再决定怎么接着做
+- **新鲜上下文执行**：把每个计划拆成小块，在新上下文里执行和验证，减少长会话退化
+
+按官方工作流，最常见的一批工件大概是：
+
+| 工件 | 作用 |
+|------|------|
+| `PROJECT.md` | 记录项目目标、问题定义和总体方向 |
+| `REQUIREMENTS.md` | 明确 v1 / v2 / out of scope，防止需求悄悄缩水或膨胀 |
+| `ROADMAP.md` | 把工作拆成阶段，而不是只剩一条模糊 TODO |
+| `STATE.md` | 记录当前做到哪一步、下一步是什么，便于跨会话恢复 |
+| `{phase}-CONTEXT.md` | 锁定某一阶段的偏好、约束和关键决策 |
+| `{phase}-PLAN.md` / `{phase}-RESEARCH.md` | 固化该阶段的研究结果和原子计划，供执行阶段读取 |
+
+如果你把 GSD 当成一个黑盒命令集，会感觉它只是"命令比较多"；但如果从这些工件看，它本质上是在把**规格、状态、决策和执行之间的连接关系**产品化。
+
+---
+
+## 典型工作流
+
+GSD 官方当前推荐的主链路，大致是下面这样：
+
+```text
+已有代码库：
+/gsd-map-codebase
+        ↓
+/gsd-new-project
+        ↓
+/gsd-discuss-phase 1
+        ↓
+/gsd-ui-phase 1        （有前端界面时可选）
+        ↓
+/gsd-plan-phase 1
+        ↓
+/gsd-execute-phase 1
+        ↓
+/gsd-code-review 1     （可选，但很常见）
+        ↓
+/gsd-verify-work 1
+        ↓
+/gsd-ship
+```
+
+可以把这条链路理解成：
+
+| 阶段 | 命令 | 作用 |
+|------|------|------|
+| **理解现状** | `/gsd-map-codebase` | 为 brownfield 项目扫描架构、约定和风险，避免"没看懂就开工" |
+| **定义项目** | `/gsd-new-project` | 通过提问、研究、需求提炼和路线图拆分建立项目主上下文 |
+| **锁定偏好** | `/gsd-discuss-phase 1` | 在具体阶段开工前，把实现偏好和灰区决策说清楚 |
+| **研究与拆计划** | `/gsd-plan-phase 1` | 先研究，再产出小粒度计划，并做一致性检查 |
+| **执行与验证** | `/gsd-execute-phase 1` | 按计划波次执行，在新上下文里完成实现和验证 |
+| **人工确认与收尾** | `/gsd-verify-work 1`、`/gsd-ship` | 做 UAT、复核和交付收尾 |
+
+需要注意的是，官方 README 同时支持 Claude Code、Codex、OpenCode、Cursor 等多个 runtime。上面用的是 Claude 风格的 `/gsd-*` 写法；如果宿主工具采用 Skill 触发而不是 Slash Command，命令外观会不同，但**背后的阶段结构是一致的**。
+
+---
+
+## 适合谁
+
+**直接使用 GSD：**
+
+- 需求会跨很多阶段推进，且中途经常中断、恢复、改方向的项目
+- 已有代码库很复杂，Agent 每次进场都需要重新认识上下文的团队
+- 希望把"为什么这样做、做到哪了、下一步是什么"固化到文档工件里的团队
+
+**把 GSD 当灵感，借它的结构：**
+
+- 已有自己的主工作流，但想补齐 `STATE.md`、阶段计划、线程化上下文这些稳定层能力
+- 想在现有 Skill Pack 或团队规范里加入 brownfield 映射、workstreams、threads 之类的设计
+
+**不太适合直接全套引入：**
+
+- 只是一个很小的缺陷修复或一次性脚本任务
+- 团队已经有成熟的 ADR、需求、路线图、状态追踪体系，直接再叠 GSD 容易重复
+- 只想让 Agent 快速写点代码，不愿意维护 planning 工件
+
+---
+
+## 和 gstack、superpowers 的区别
+
+如果把这三者放在同一张图里看，最容易混淆的点是：它们都不只是"几个命令"，但主力点并不一样。
+
+- **gstack** 更像角色化编排层，重点是多视角审查、显式调度和专家角色切换
+- **superpowers** 更像默认执行流水线，重点是设计先行、计划驱动、TDD 和收尾闭环
+- **GSD** 更像上下文工程层，重点是把规格、状态、阶段结论和恢复能力稳定下来
+
+这也是为什么在选型时，常见判断不是"三者一起全开"，而是：
+
+- 先在 `gstack` 和 `superpowers` 之间决定主工作流
+- 只有当项目的长期上下文管理已经成为瓶颈时，再考虑引入 GSD 的这套稳定工件和阶段机制
+
+---
+
+## 对 Skills & Hooks 的启发
+
+GSD 对本章最重要的启发，不是某个具体命令，而是下面几件事：
+
+- **Skill 可以生成和维护工件**，而不是只吐一段答案
+- **上下文本身可以产品化**，例如 `PROJECT.md`、`STATE.md`、`PLAN.md` 这类文件就是工作流的一部分
+- **brownfield 映射值得前置**，先理解现状，再让 Agent 规划和执行
+- **长链路任务要主动切上下文**，不能指望单个会话无限增长还保持稳定
+
+从这个角度看，GSD 更像把"如何让 Agent 在长期任务里不失真"这件事做成了一套可安装、可重复的 Skill 系统。
+
+---
+
+## 延伸资源
+
+- [GSD GitHub 仓库](https://github.com/gsd-build/get-shit-done) — README、安装方式、命令总览
+- [GSD User Guide](https://github.com/gsd-build/get-shit-done/blob/main/docs/USER-GUIDE.md) — phase、threads、workstreams、UI contract 等详细说明
+- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 gstack、superpowers 和 GSD 之间做轻量判断
+- [gstack 实战指南](./gstack-workflow) — 更强调角色化编排和多视角评审的代表案例
+- [superpowers 实战指南](./superpowers-workflow) — 更强调自动触发、计划驱动和验证闭环的代表案例

@@ -15,6 +15,7 @@ outline: false
 
 ## Skills 与治理模板
 
+- 这些 Skill 模板是通用骨架：Claude 调用通常用 `/skill-name`，Codex 调用通常用 `$skill-name`
 - <a href="/downloads/skills-hooks/templates/commands/fix-bug.md" download>Fix Bug Skill 模板</a>
 - <a href="/downloads/skills-hooks/templates/commands/gen-tests.md" download>Generate Tests Skill 模板</a>
 - <a href="/downloads/skills-hooks/templates/commands/review-code.md" download>Review Code Skill 模板</a>

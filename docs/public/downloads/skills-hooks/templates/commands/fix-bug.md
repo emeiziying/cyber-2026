@@ -1,5 +1,11 @@
 Fix the bug described below. Follow the project's error handling conventions.
 
+## Usage
+- Claude: `/fix-bug [bug description]`
+- Codex: `$fix-bug [bug description]`
+
+`$ARGUMENTS` below is a template placeholder for the bug description. It is not the Codex trigger prefix.
+
 Bug report: $ARGUMENTS
 
 ## Steps

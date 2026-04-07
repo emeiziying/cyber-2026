@@ -138,6 +138,10 @@ export default defineConfig({
                         text: 'superpowers 实战指南',
                         link: '/skills-hooks/examples/superpowers-workflow',
                       },
+                      {
+                        text: 'GSD 实战指南',
+                        link: '/skills-hooks/examples/gsd-workflow',
+                      },
                     ],
                   },
                 ],

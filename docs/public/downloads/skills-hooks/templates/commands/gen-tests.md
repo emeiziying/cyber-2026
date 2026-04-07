@@ -1,5 +1,11 @@
 Generate comprehensive unit tests for: $ARGUMENTS
 
+## Usage
+- Claude: `/gen-tests [file path or target]`
+- Codex: `$gen-tests [file path or target]`
+
+`$ARGUMENTS` below is a template placeholder for the test target. It is not the Codex trigger prefix.
+
 If no argument is provided, generate tests for the most recently modified source file.
 
 ## Test Strategy

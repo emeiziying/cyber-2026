@@ -11,18 +11,18 @@
 Skill 文件放在自己项目里，只有自己用。
 
 ### 进阶做法
-把 Skill + 工具脚本 + 文档打包成独立仓库，用户 `git clone` 即可安装：
+把 Skill + 工具脚本 + 文档打包成独立仓库，默认通过 `npx skills` 分发和安装，而不是要求用户手工 `git clone` 到某个工具专属目录：
 
 ```bash
-# 安装到个人全局
-git clone https://github.com/your-org/your-skill ~/.claude/skills/your-skill
-
 # 安装到项目
-git clone https://github.com/your-org/your-skill .claude/skills/your-skill
+npx skills add your-org/your-skill
+
+# 安装到个人全局
+npx skills add your-org/your-skill -g
 ```
 
 **仓库结构：**
-```
+```text
 your-skill/
 ├── SKILL.md          # 主入口（主编排文件）
 ├── INSTALL.md        # 安装说明
@@ -32,6 +32,10 @@ your-skill/
 ├── tools/            # 辅助脚本（Python/Shell）
 └── README.md
 ```
+
+如果是团队项目内共享目录，也可以把同样的 Skill 结构组织在 `.agents/skills/your-skill/` 下；核心原则是不把某个工具的专属目录当成默认落点。
+
+具体 host 兼容性和最新 CLI 参数，以 [skills.sh 官方文档](https://skills.sh/docs) 和 [skills GitHub README](https://github.com/vercel-labs/skills) 为准。
 
 **适用场景：**
 - 团队通用工作流（代码审查标准、部署流程）
@@ -48,7 +52,7 @@ your-skill/
 ### 进阶做法
 把复杂 Skill 拆分成多个子 prompt 文件，主 SKILL.md 只做**编排**：
 
-```
+```text
 prompts/
 ├── intake.md           # 信息采集（只负责问问题）
 ├── analyzer.md         # 分析原材料（只负责分析）
@@ -100,7 +104,7 @@ prompts/
 ```
 
 **格式公式：**
-```
+```text
 在 [具体场景/触发条件] 时，[具体行为]
 ```
 
@@ -206,7 +210,7 @@ prompts/
 
 结合以上模式，可以设计一个"从零生成团队 CLAUDE.md"的 Skill：
 
-```
+```text
 /gen-team-rules
 
 prompts/

@@ -37,13 +37,15 @@ Skills 与 Hooks 的价值，是把“会用”变成“可重复”。
 
 ### Skill 是什么
 
-Skill 更像一个“带说明的斜杠命令”。  
+Skill 更像一个“带说明的主动工作流入口”。  
 它适合把**用户主动发起的复杂流程**封装起来，比如：
 
 - 修 bug
 - 生成测试
 - 做 code review
 - 产出日报
+
+在不同宿主里，调用入口也不同：Claude 通常写成 `/skill-name`，Codex 通常写成 `$skill-name`。写通用文档时，不要把其中一种前缀误写成跨工具默认。
 
 ### Hook 是什么
 
@@ -87,7 +89,7 @@ Hook 更像“在事件发生时自动执行的一段守门逻辑”。
 4. 补回归测试
 5. 用固定格式总结根因和修改点
 
-这就很适合做成 `/fix-bug` Skill。
+这就很适合做成 `fix-bug` 这类 Skill。实际调用时，可以写成 Claude 的 `/fix-bug`，或 Codex 的 `$fix-bug`。
 
 ### 正例：把“禁止在 main 分支直接写文件”做成 Hook
 
@@ -119,6 +121,16 @@ Hook 更像“在事件发生时自动执行的一段守门逻辑”。
 - 推荐执行步骤
 - 输出格式
 - 明确的限制条件
+
+### 默认安装与目录建议
+
+如果你要把 Skill 当成可复用资产分发，先统一这条默认口径：
+
+- 默认用 `npx skills add <owner>/<repo>` 安装现成 Skill，不再把 `git clone` 到某个工具专属目录当成通用做法
+- 团队共享或跨工具复用时，源文件优先组织在 `.agents/skills/`
+- 只有在明确说明 Claude Code 接入方式时，才讨论 `.claude/commands/`、`.claude/skills/` 或 `.claude/settings.json`
+
+具体宿主兼容性和最新 CLI 参数，以 [skills.sh 官方文档](https://skills.sh/docs) 为准。
 
 ### 第三步：只给 Hook 做“自动且必要”的事
 
@@ -210,6 +222,7 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 
 ### 模板下载
 
+- 这些模板是通用 Skill 骨架：Claude 调用通常用 `/skill-name`，Codex 调用通常用 `$skill-name`
 - <a href="/downloads/skills-hooks/templates/commands/fix-bug.md" download><code>fix-bug.md</code></a> — bug 修复 Skill 教学模板
 - <a href="/downloads/skills-hooks/templates/commands/gen-tests.md" download><code>gen-tests.md</code></a> — 生成测试 Skill 教学模板
 - <a href="/downloads/skills-hooks/templates/commands/review-code.md" download><code>review-code.md</code></a> — 代码审查 Skill 教学模板
@@ -226,9 +239,10 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 
 ### Skill Pack 案例与选型
 
-- [Skill Pack 选型](./examples/skill-pack-selection) — gstack 和 superpowers 的结构差异，以及怎么做选型
+- [Skill Pack 选型](./examples/skill-pack-selection) — gstack、superpowers 与 GSD 的结构差异，以及怎么做轻量选型
 - [gstack 实战指南](./examples/gstack-workflow) — 角色化 Skill Pack 的代表案例
 - [superpowers 实战指南](./examples/superpowers-workflow) — 自动触发工程化流水线的代表案例
+- [GSD 实战指南](./examples/gsd-workflow) — 用上下文工程和规格工件稳住长链路项目
 
 ---
 

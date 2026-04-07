@@ -2,10 +2,10 @@
 
 ## 这解决什么问题
 
-团队里的 Skill 通常由研发创建、放在项目的特定目录里（如 `.claude/commands/`），只有会用终端的人能触发和更新。当部门里还有产品经理、设计师和管理者时，会出现三个断层：
+团队里的 Skill 通常由研发创建，但如果默认只按某个工具的专属目录组织（如 `.claude/commands/`），就只有熟悉那套工具入口的人能方便触发和更新。当部门里还有产品经理、设计师和管理者时，会出现三个断层：
 
-1. **安装断层**——非研发不知道怎么 `git clone` 一个 Skill
-2. **使用断层**——非研发不用 CLI，没有机会输入 `/command` 触发 Skill
+1. **安装断层**——非研发不知道怎么安装或导入一个 Skill
+2. **使用断层**——非研发不用 CLI，也分不清 Claude 的 `/skill-name` 和 Codex 的 `$skill-name` 这类调用入口
 3. **更新断层**——非研发积累了大量经验，但没有渠道沉淀回 Skill
 
 如果只有研发能用和改 Skill，那部门的"赛博飞升"就只飞了一半——技术侧在进化，业务侧还在原地。
@@ -53,10 +53,10 @@
 
 | 工具 | 安装方式 | Skill 加载方式 | 适合角色 |
 |------|---------|---------------|---------|
-| **Codex 桌面端** | Microsoft Store 安装 | 原生支持 Skills，可加载 `.agents/skills/` | 全员（研发 + 产品 + 设计） |
-| **Claude Code 桌面端** | 官网下载 | `/command` 触发 `.claude/commands/` 或引用 `.agents/skills/` | 全员 |
+| **Codex 桌面端** | Microsoft Store 安装 | 原生支持 Skills，可加载 `.agents/skills/`，常用 `$skill-name` 调用 | 全员（研发 + 产品 + 设计） |
+| **Claude Code 桌面端** | 官网下载 | 可引用 `.agents/skills/`；如果走 Claude 专属命令目录，则是 `.claude/commands/`，常用 `/skill-name` 调用 | 全员 |
 | **Claude.ai 网页端** | 无需安装 | 通过 Project Instructions 预置 | 全员 |
-| **Cursor** | 官网下载 | `.cursorrules` 引用 | 主要研发 |
+| **Cursor** | 官网下载 | 在 `.cursorrules` 或项目 Rules 中引用 `.agents/skills/` | 主要研发 |
 
 **Codex 桌面端对非研发人员特别友好：**
 - 图形界面操作，不需要终端
@@ -66,10 +66,11 @@
 
 **操作步骤：**
 
-1. Tech Lead 创建一个"部门共享 Skill"仓库，Skill 统一放在 `.agents/skills/`
-2. 非研发人员安装桌面端工具，打开仓库
-3. 通过界面选择并触发 Skill
-4. 写一份《快速使用手册》，只教三件事：安装工具、打开项目、选择 Skill
+1. Tech Lead 创建一个"部门共享 Skill"仓库，源文件统一放在 `.agents/skills/`
+2. 需要把现成 Skill 分发到项目时，默认通过 `npx skills add <owner>/<repo>` 导入
+3. 非研发人员安装桌面端工具，打开仓库
+4. 按工具对应的入口触发 Skill，例如 Claude 用 `/fix-bug`，Codex 用 `$fix-bug`
+5. 写一份《快速使用手册》，只教三件事：安装工具、打开项目、选择 Skill
 
 **适合场景：** 团队希望全员使用统一工具，且非研发人员不排斥安装桌面应用
 
@@ -77,9 +78,9 @@
 
 有些 Skill 的价值不在于"谁触发"，而在于"输出格式统一"。比如：
 
-- 研发用 `/fix-bug` 产出的修复说明，产品经理直接拿来写发布日志
-- 研发用 `/review-code` 产出的结构化 review，设计师看"界面相关"部分确认交互一致性
-- 研发用 `/gen-tests` 产出的测试覆盖报告，管理者看覆盖率和风险分布
+- 研发用 `fix-bug` 这类 Skill 产出的修复说明，产品经理直接拿来写发布日志
+- 研发用 `review-code` 这类 Skill 产出的结构化 review，设计师看"界面相关"部分确认交互一致性
+- 研发用 `gen-tests` 这类 Skill 产出的测试覆盖报告，管理者看覆盖率和风险分布
 
 **这种模式下，非研发不需要接触 Skill 本身，但他们是 Skill 产出的直接受益者。**
 
@@ -101,7 +102,7 @@
 
 非研发人员不需要直接改 Skill 文件，但需要一个**低门槛的反馈入口**：
 
-```
+```text
 非研发发现问题 → 用固定格式提交反馈 → Tech Lead 审核 → 更新 Skill → 全员生效
 ```
 
@@ -161,7 +162,7 @@
 
 ### 推荐目录结构
 
-```
+```text
 .agents/
 ├── skills/                           # 所有 Skill 的统一存放位置
 │   ├── engineering/                  # 研发专用 Skill
@@ -192,7 +193,7 @@
 
 | 工具 | 加载方式 |
 |------|---------|
-| Claude Code | 在 CLAUDE.md 中用 `@.agents/skills/shared/task-intake.md` 引用；或符号链接到 `.claude/commands/` |
+| Claude Code | 在 CLAUDE.md 中用 `@.agents/skills/shared/task-intake.md` 引用；如果要接入 Claude 专属命令目录，再符号链接到 `.claude/commands/` |
 | Cursor | 在 `.cursorrules` 或项目 Rules 中引用 `.agents/skills/` 下的文件 |
 | 其他支持自定义 prompt 的工具 | 直接读取 Markdown 文件内容作为 system prompt |
 | Claude 网页端 / 桌面端 | 复制 Skill 内容到 Project Instructions |
@@ -201,7 +202,7 @@
 
 | 方式 | 适合研发 | 适合非研发 | 同步成本 |
 |------|---------|-----------|---------|
-| `git clone` 到项目 | ✅ | ❌ | 低（git pull 更新） |
+| `npx skills add` 到项目 | ✅ | ❌ | 低（CLI 更新或重新导入） |
 | 复制到 Claude Project Instructions | ❌ 不需要 | ✅ | 中（手动同步） |
 | 共享文档库（飞书/Notion） | 可用 | ✅ | 中（需要维护两份） |
 | 统一仓库 + 自动同步脚本 | ✅ | ✅ 通过脚本自动推送到 Claude Project | 低（一次搭建） |
@@ -225,7 +226,7 @@
 
 ### "维护两份（CLI 版 + Claude Project 版）太麻烦"
 
-因为 Skill 统一存放在 `.agents/skills/`，CLI 工具和 Claude Project 读的是同一份源文件。如果团队有能力，可以写一个简单脚本，从 `.agents/skills/` 自动同步到 Claude Project。如果没有，优先维护 `.agents/skills/`，Claude Project 版允许滞后 1-2 周手动同步。
+因为 Skill 统一存放在 `.agents/skills/`，工程内导入和 Claude Project 都可以围绕同一份源文件同步。如果团队有能力，可以写一个简单脚本，从 `.agents/skills/` 自动同步到 Claude Project。如果没有，优先维护 `.agents/skills/`，Claude Project 版允许滞后 1-2 周手动同步。
 
 ### "非研发人员根本不知道 Skill 是什么"
 
