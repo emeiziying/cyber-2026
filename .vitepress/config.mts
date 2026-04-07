@@ -7,6 +7,36 @@ export default defineConfig({
   cleanUrls: true,
   srcDir: 'docs',
   srcExclude: ['public/downloads/**/*.md'],
+  markdown: {
+    config(md) {
+      md.core.ruler.push('preserve-blockquote-softbreaks', (state) => {
+        let blockquoteDepth = 0;
+
+        for (const token of state.tokens) {
+          if (token.type === 'blockquote_open') {
+            blockquoteDepth += 1;
+            continue;
+          }
+
+          if (token.type === 'blockquote_close') {
+            blockquoteDepth = Math.max(0, blockquoteDepth - 1);
+            continue;
+          }
+
+          if (blockquoteDepth === 0 || token.type !== 'inline' || !token.children) {
+            continue;
+          }
+
+          // Authors often use consecutive `>` lines as multi-line quoted prompts or meta blocks.
+          for (const child of token.children) {
+            if (child.type === 'softbreak') {
+              child.type = 'hardbreak';
+            }
+          }
+        }
+      });
+    },
+  },
   themeConfig: {
     nav: [
       {text: '开始阅读', link: '/intro/'},
