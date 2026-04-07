@@ -1,22 +1,30 @@
 # gstack 实战指南：用角色化 Skill Pack 组建虚拟工程团队
 
-> **背景：** gstack 是 Y Combinator 总裁 Garry Tan 于 2026 年 3 月开源的 Claude Code Skill Pack，发布 11 天达到 39000 Stars。Garry Tan 团队使用此套件，60 天交付 60 万行生产代码，峰值每天 1–2 万行。
+> **背景：** [gstack](https://github.com/garrytan/gstack) 是 Garry Tan 开源的角色化 Skill Pack。仓库 README 把它描述为一套把 coding agent 变成"虚拟工程团队"的工作流，并给出了产品、工程、设计、QA、安全、发布等多种角色命令。
 
 ---
 
 ## gstack 是什么
 
-gstack 把 Claude Code 从"什么都能做的万能助手"变成了一支**虚拟工程团队**。
+gstack 把 coding agent 从"什么都能做的万能助手"变成了一支**虚拟工程团队**。
 
 它的核心思路很简单：与其让同一个 AI 用同一种模糊人格处理产品规划、代码实现、安全审查、发布部署……不如**给每类工作绑定一个专业角色**，让 AI 以该角色的视角、优先级和约束来思考和输出。
 
 结果是：你得到的不是一个"会写代码的聊天机器人"，而是一个**可以按需召唤 CEO、工程师、设计师、QA、安全官的 Slash Command 菜单**。
 
+仓库 README 目前也明确提到：gstack 不只支持 Claude Code，还支持 Codex、Cursor、OpenCode 等多种 host。因此更准确的说法是，它是一套**以角色化 Slash Command 为核心、可安装到多个 coding agent 的 Skill 系统**。
+
 ---
 
-## 角色体系
+## 核心机制
 
-gstack 的 23+ 个 Skill 按角色分组：
+gstack 最核心的不是某一个命令，而是下面三件事：
+
+- **角色化命令**：不同命令绑定不同专家身份，而不是让同一个 Agent 永远用同一种模糊人格工作
+- **显式人工编排**：用户自己决定什么时候拉 CEO、设计师、Reviewer、QA 或安全官进场
+- **多视角评审链**：同一个需求可以先后经过产品、工程、设计、测试和发布视角
+
+按仓库 README 的描述，gstack 把能力拆成多个 specialist / power tools。下面是最容易理解的一组角色化归类：
 
 | 角色 | Skill 命令 | 职责 |
 |------|-----------|------|
@@ -31,7 +39,7 @@ gstack 的 23+ 个 Skill 按角色分组：
 
 ---
 
-## 完整工作流：从想法到上线
+## 典型工作流
 
 以一个功能从规划到发布的完整周期为例：
 
@@ -73,104 +81,13 @@ gstack 的 23+ 个 Skill 按角色分组：
 
 ---
 
-## 核心 Skill 详解
+几个最能体现 gstack 风格的命令是：
 
-### `/office-hours` — YC 式产品批判
-
-模拟 Y Combinator Office Hours 场景，强迫你用 60 秒阐明产品价值，AI 以 YC Partner 的视角追问：
-
-- "这个功能解决的是真实用户问题还是你想象中的问题？"
-- "为什么用户会为此付钱？"
-- "三个月后你如何验证这个方向是对的？"
-
-**适合时机：** 开始一个新功能前、对产品方向有疑虑时、复盘为什么某个功能没有预期效果时。
-
----
-
-### `/review` — 资深工程师 PR 审查
-
-以 Staff Engineer 的视角做代码审查，重点不是语法，而是：
-
-- 架构合理性（这个改动会不会埋下长期技术债？）
-- 边界条件覆盖（空值、并发、失败路径）
-- 可维护性（六个月后的你能读懂这段代码吗？）
-
-输出格式：分级别的问题清单（必须修复 / 建议优化 / 风格意见），附带具体修改建议。
-
----
-
-### `/qa` — 浏览器自动化测试
-
-结合无头 Chrome 做端到端功能验证：
-
-1. 根据改动范围自动生成测试用例
-2. 启动无头浏览器执行测试
-3. 截图记录关键步骤
-4. 生成测试报告（通过 / 失败 + 截图证据）
-
-需要提前运行 `/setup-browser-cookies` 和 `/connect-chrome` 完成浏览器配置。
-
----
-
-### `/ship` — 发布 Checklist 守门
-
-在代码进入发布流程前，强制检查：
-
-- 测试是否全部通过
-- CHANGELOG 是否已更新
-- 版本号是否与 package.json / 标签一致
-- 数据库迁移脚本是否已就绪
-- 监控告警是否配置
-
-任意条件不满足时，`/ship` 拒绝继续并输出具体缺口。这个设计的核心价值：**把"工程师脑海中的发布记忆"变成可执行的自动化约束**。
-
----
-
-### `/guard` + `/freeze` — 文件保护机制
-
-`/guard`：标记敏感文件（如 `infra/`、`migrations/`、`.env.template`），Agent 在修改这些文件前会要求明确确认。
-
-`/freeze`：临时锁定特定目录或文件，防止 Agent 在发布窗口期间意外修改核心配置。
-
-`/unfreeze`：解除锁定。
-
-这是 Harness Engineering 中"架构约束"层的直接实现——不依赖人工记忆，而是把边界编码进工作流。
-
----
-
-## 与 Claude Code Skills 体系的关系
-
-gstack 是 [Skills & Hooks 进阶模式](../advanced-patterns)中"**Skill 作为可分发产品包**"的完整现实案例：
-
-- 每个 `/command` 对应一个独立的 `.md` 文件，定义角色、规则、输出格式、约束
-- 整套 gstack 通过 `git clone` 一键安装，无需逐条配置
-- 角色化 Skill 的设计模式（给 Skill 绑定角色身份）直接来自 gstack
-
-**本地安装方式：**
-
-```bash
-# 安装到用户级命令目录（适用于所有项目）
-git clone https://github.com/garrytan/gstack ~/.claude/commands/gstack
-
-# 或安装到项目级命令目录
-git clone https://github.com/garrytan/gstack .claude/commands/gstack
-```
-
-安装后即可在任意项目中使用 `/gstack/review`、`/gstack/ship` 等命令。
-
----
-
-## 用 gstack 设计模式构建自己的 Skill Pack
-
-gstack 未必要全盘采用——对大多数团队而言，更大的价值是把它当作**设计参考**：
-
-| gstack 模式 | 你的团队可以借鉴的做法 |
-|------------|----------------------|
-| **角色化 Skill** | 为 `/review` Skill 明确定义"Reviewer 视角"和优先级，而非让 AI 自由发挥 |
-| **多角度评审链** | 重要功能上线前强制走 `/plan-eng-review`，避免单视角盲区 |
-| **发布 Checklist** | 用 `/ship` 类 Skill 替代人工记忆清单，减少发布遗漏 |
-| **文件保护机制** | 用 `/guard` + `/freeze` 保护 infra 目录，防止 Agent 在不该动的时候动 |
-| **复盘内化** | 用 `/retro` 触发复盘，将发现的问题固化为新的 Skill 约束 |
+- `/office-hours`：先从产品价值和问题定义入手，而不是一上来就写代码
+- `/review`：用 Reviewer 视角检查结构、边界、长期维护性
+- `/qa`：给 Agent 接浏览器能力，做真实交互验证
+- `/ship`：把发布前检查做成明确的守门步骤
+- `/guard` + `/freeze`：把边界和敏感文件保护写进工作流，而不是靠人工记忆
 
 ---
 
@@ -192,9 +109,33 @@ gstack 未必要全盘采用——对大多数团队而言，更大的价值是�
 
 ---
 
+## 对 Skills & Hooks 的启发
+
+gstack 是 [Skills & Hooks 进阶模式](../advanced-patterns)中"**Skill 作为可分发产品包**"的完整现实案例：
+
+- 每个 `/command` 对应一个独立的 `.md` 文件，定义角色、规则、输出格式、约束
+- 整套能力可以通过仓库分发和 `setup` 安装到宿主工具中，而不是要求团队成员手工逐条复制
+- 角色化 Skill 的设计模式，说明 Skill 不一定只是"小命令"，也可以是带强人格和工作边界的专业角色
+
+更值得借鉴的，不是原样复制全部命令，而是它背后的设计模式：
+
+| gstack 模式 | 你的团队可以借鉴的做法 |
+|------------|----------------------|
+| **角色化 Skill** | 为 `/review` Skill 明确定义"Reviewer 视角"和优先级，而非让 AI 自由发挥 |
+| **多角度评审链** | 重要功能上线前强制走 `/plan-eng-review`，避免单视角盲区 |
+| **发布 Checklist** | 用 `/ship` 类 Skill 替代人工记忆清单，减少发布遗漏 |
+| **文件保护机制** | 用 `/guard` + `/freeze` 保护 infra 目录，防止 Agent 在不该动的时候动 |
+| **复盘内化** | 用 `/retro` 触发复盘，将发现的问题固化为新的 Skill 约束 |
+
+安装命令、host 兼容性和最新 Skill 列表，建议直接以官方 README 为准；这篇页面重点是解释它的**结构价值**，不是替代官方安装文档。
+
+---
+
 ## 延伸资源
 
 - [gstack GitHub 仓库](https://github.com/garrytan/gstack) — 源码、安装说明、Skill 定义文件
+- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 gstack 和 superpowers 之间做判断
+- [superpowers 实战指南](./superpowers-workflow) — 另一种更强调自动触发、TDD 和计划驱动的工作流
 - [Skills & Hooks 进阶模式](../advanced-patterns) — gstack 背后的 Skill 设计模式
 - [Skill 与 Hook 判断案例](./skill-hook-decision-cases) — 什么时候用 Skill，什么时候用 Hook
 - [Harness Engineering](../../harness-engineering/) — 如何把 gstack 等 Skill Pack 整合进团队 Harness

@@ -81,26 +81,15 @@ pnpm docs:preview
 │   ├── team-workflow/            # 模块9：团队工作流与质量控制
 │   │   ├── index.md
 │   │   └── examples/workflow-sample.md
-│   ├── appendix-case-studies/    # 案例与延伸阅读
-│   │   ├── index.md
-│   │   ├── cross-functional-ai-handbook.md  # 跨角色 AI 手册
-│   │   └── examples/fix-search-bug-case.md
-│   ├── presentation-outlines/    # 分享与培训资料
-│   │   ├── index.md
-│   │   └── 30min-cross-functional-ai-workshop.md
 │   ├── downloads/index.md        # 下载资源索引页
-│   ├── examples/
-│   │   └── minimal-agent-demo/index.md  # 最小 Agent 示例项目（文档页）
 │   └── public/downloads/         # 静态资源（手工维护，直接发布）
 │       ├── rules/templates/      # CLAUDE.md 模板
 │       ├── mcp/templates/        # MCP 配置模板
 │       ├── skills-hooks/templates/  # Skill 命令与 Hook 配置模板
 │       ├── production-governance/templates/  # 风险矩阵、验收清单模板
 │       ├── team-workflow/templates/  # PR 检查清单、需求模板
-│       ├── appendix-case-studies/templates/  # 案例模板
 │       ├── harness-engineering/templates/    # Harness 建设检查清单模板
-│       ├── presentation-outlines/   # PPT 文件及生成脚本
-│       └── examples/minimal-agent-demo/  # 完整示例项目源码（含 CLAUDE.md）
+│       └── examples/             # 其他静态下载资源
 ├── scripts/
 │   └── check-doc-links.mjs       # 文档内链校验脚本
 ├── .github/
@@ -138,11 +127,9 @@ pnpm docs:preview
 5. 场景示例
 
 ### 导航与侧边栏
-侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为四大区块：
+侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为两大区块：
 - **导读**（开始阅读）
 - **学习主线**（按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套，当前模块：范式转变、Vibe Coding、工具全景、Rules、MCP、Skills & Hooks、Agent 开发、Harness Engineering、生产落地与治理、团队工作流与质量控制）
-- **案例与演练**（附录、跨角色手册、实战案例、Minimal Agent Demo）
-- **资料与分享**（培训资料、Workshop、下载资源）
 
 新增**学习主线模块**（`docs/` 下的顶层模块目录）时，必须同步以下所有位置：
 
@@ -174,17 +161,10 @@ pnpm docs:preview
 
 `docs/public/downloads/` 是站点直接发布的静态目录，需要**手工维护并直接提交**：
 - 模板文件（`.md.template`、`.json.template` 等）
-- PPT 文件（`.pptx`）及其生成脚本（`.py`）
 - 压缩包（`.tar.gz`）
-- 示例项目源码（`examples/minimal-agent-demo/`）
 - Skill 命令模板（`skills-hooks/templates/commands/`）
 - MCP 配置模板（`mcp/templates/mcp-config.json`）
 - Hook 配置模板（`skills-hooks/templates/settings-with-hooks.json`）
-
-修改示例项目代码时，需要同步更新：
-- `docs/examples/minimal-agent-demo/`（文档页）
-- `docs/public/downloads/examples/minimal-agent-demo/`（可下载源码）
-- `docs/public/downloads/examples/minimal-agent-demo.tar.gz`（压缩包）
 
 ---
 
@@ -225,11 +205,6 @@ type: 简短描述（中文或英文均可）
 - CI 流水线（`.github/workflows/docs-check.yml`）在每次 PR 和 push 到 main 时自动执行链接校验 + 构建验证
 - 提交前若新增了页面或链接，建议先本地运行 `pnpm docs:check` 排查断链
 
-### 处理示例项目时
-- `docs/public/downloads/examples/minimal-agent-demo/` 有自己的 `CLAUDE.md`，在该目录下工作时以该文件的规范为准
-
----
-
 ## 禁止行为
 
 - 不要将 `.vitepress/dist/`（构建产物）或 `.vitepress/cache/` 提交到 Git
@@ -247,8 +222,6 @@ type: 简短描述（中文或英文均可）
 
 - 站点核心学习路径（9 个模块）已全部建立，每个模块均包含主文档和至少一个示例
 - Skills & Hooks 模块已扩展为包含进阶模式页面和多个示例
-- 案例与演练板块已增加跨角色 AI 手册和实战修复案例
-- 分享与培训板块已增加 30 分钟 Workshop 页面和配套 PPT（含可视化版本）
 - 已接入文档链接自动校验（`pnpm docs:check`）和 CI 流水线，确保链接完整性
 - `docs/project-overview/`（内容地图页面）已于近期移除，相关链接已从 sidebar、README、首页、导读页同步清理
 - 新增 `harness-engineering/` 模块（能力构建层第 5 章），包含主文档、演练案例和可下载检查清单模板

@@ -53,8 +53,7 @@ title: 开始阅读
 
 - 想先建立判断框架：从 [范式转变](/paradigm-shift/) 开始
 - 想尽快进入实践：从 [Rules](/rules/) 开始
-- 想看真实任务怎样落地：看 [附录：案例与延伸阅读](/appendix-case-studies/) 和 [Minimal Agent Demo](/examples/minimal-agent-demo/)
-- 想做培训或拿现成材料：看 [分享与培训](/presentation-outlines/) 和 [下载资源](/downloads/)
+- 想找模板或示例资源：看 [下载资源](/downloads/)
 - 不知道从哪开始：看 [快速启动指南](/intro/quick-start)
 
 ## 本站不做什么

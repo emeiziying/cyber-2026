@@ -208,17 +208,27 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 
 ## 6.11 延伸阅读 / 模板 / 示例
 
+### 模板下载
+
 - <a href="/downloads/skills-hooks/templates/commands/fix-bug.md" download><code>fix-bug.md</code></a> — bug 修复 Skill 教学模板
 - <a href="/downloads/skills-hooks/templates/commands/gen-tests.md" download><code>gen-tests.md</code></a> — 生成测试 Skill 教学模板
 - <a href="/downloads/skills-hooks/templates/commands/review-code.md" download><code>review-code.md</code></a> — 代码审查 Skill 教学模板
 - <a href="/downloads/skills-hooks/templates/settings-with-hooks.json" download><code>settings-with-hooks.json</code></a> — 带 Hook 的教学配置示例
+
+### 核心方法
+
 - [进阶模式](./advanced-patterns) — Skill 进阶设计模式
 - [Skill 与 Hook 判断案例](./examples/skill-hook-decision-cases) — Skill / Hook 选择示例
-- [gstack 实战指南](./examples/gstack-workflow) — YC CEO 开源的角色化 Skill Pack，60 天 60 万行代码的完整工作流
-- [热门 Skill Pack](./examples/popular-skill-packs) — Superpowers（106k Stars）与 gstack 的对比选型，及社区精选 Skill 资源
-- <a href="/downloads/examples/minimal-agent-demo/.claude/commands/fix-bug.md" download><code>Minimal Agent Demo 的 fix-bug Skill</code></a> — 项目级 Skill 演示
-- <a href="/downloads/examples/minimal-agent-demo/.claude/commands/gen-tests.md" download><code>Minimal Agent Demo 的 gen-tests Skill</code></a> — 项目级 Skill 演示
-- <a href="/downloads/examples/minimal-agent-demo/.claude/commands/review-code.md" download><code>Minimal Agent Demo 的 review-code Skill</code></a> — 项目级 Skill 演示
+
+### 组织实践
+
+- [部门级 Skill 共享](./examples/dept-skill-sharing) — 当 Skill 使用者不只包括研发时，怎样做共享、反馈与维护
+
+### Skill Pack 案例与选型
+
+- [Skill Pack 选型](./examples/skill-pack-selection) — gstack 和 superpowers 的结构差异，以及怎么做选型
+- [gstack 实战指南](./examples/gstack-workflow) — 角色化 Skill Pack 的代表案例
+- [superpowers 实战指南](./examples/superpowers-workflow) — 自动触发工程化流水线的代表案例
 
 ---
 

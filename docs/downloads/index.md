@@ -5,7 +5,7 @@ outline: false
 
 # 下载资源
 
-本页是全站可下载资源的汇总入口。每份资源在对应章节中也有说明和上下文，这里方便一站式获取。
+本页收口全站仍建议复用的模板和示例项目，方便在主线阅读之外按需取用。
 
 ## Rules 与 MCP
 
@@ -13,7 +13,7 @@ outline: false
 - <a href="/downloads/rules/templates/frontend-CLAUDE.md.template" download>前端 CLAUDE 模板</a>
 - <a href="/downloads/mcp/templates/mcp-config.json" download>MCP 配置样例</a>
 
-## Skills、治理与案例模板
+## Skills 与治理模板
 
 - <a href="/downloads/skills-hooks/templates/commands/fix-bug.md" download>Fix Bug Skill 模板</a>
 - <a href="/downloads/skills-hooks/templates/commands/gen-tests.md" download>Generate Tests Skill 模板</a>
@@ -23,18 +23,4 @@ outline: false
 - <a href="/downloads/production-governance/templates/delivery-acceptance-checklist.md.template" download>交付验收清单模板</a>
 - <a href="/downloads/team-workflow/templates/task-intake.md.template" download>任务入口模板</a>
 - <a href="/downloads/team-workflow/templates/pr-review-checklist.md.template" download>PR Review 清单模板</a>
-- <a href="/downloads/appendix-case-studies/templates/case-study-template.md" download>案例模板</a>
 - <a href="/downloads/harness-engineering/templates/harness-checklist.md.template" download>Harness 建设检查清单模板</a>
-
-## 分享与演示
-
-- <a href="/downloads/presentation-outlines/30min-cross-functional-ai-workshop-visual.pptx" download>30 分钟 workshop PPT</a>
-- <a href="/downloads/presentation-outlines/30min-cross-functional-ai-workshop.pptx" download>基础版 workshop PPT</a>
-- <a href="/downloads/presentation-outlines/generate_cross_functional_ai_workshop_visual_ppt.py" download>视觉版 PPT 生成脚本</a>
-- <a href="/downloads/presentation-outlines/generate_cross_functional_ai_workshop_ppt.py" download>基础版 PPT 生成脚本</a>
-- <a href="/downloads/examples/minimal-agent-demo.tar.gz" download>Minimal Agent Demo 完整项目归档</a>
-- <a href="/downloads/examples/minimal-agent-demo/CLAUDE.md" download>Minimal Agent Demo 的 CLAUDE.md</a>
-- <a href="/downloads/examples/minimal-agent-demo/.claude/settings.json" download>Minimal Agent Demo 的 settings.json</a>
-- <a href="/downloads/examples/minimal-agent-demo/.claude/commands/fix-bug.md" download>Minimal Agent Demo 的 fix-bug Skill</a>
-- <a href="/downloads/examples/minimal-agent-demo/.claude/commands/gen-tests.md" download>Minimal Agent Demo 的 gen-tests Skill</a>
-- <a href="/downloads/examples/minimal-agent-demo/.claude/commands/review-code.md" download>Minimal Agent Demo 的 review-code Skill</a>

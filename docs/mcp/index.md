@@ -188,7 +188,6 @@ MCP 最大的风险不是配不起来，而是“配起来了，但没人明确�
 - <a href="/downloads/mcp/templates/mcp-config.json" download><code>mcp-config.json</code></a> — MCP 配置模板
 - [MCP 只读接入演练](./examples/mcp-readonly-rollout) — 从只读接入到受控扩权的最小落地步骤
 - [MCP 热门开源项目](./examples/popular-mcp-servers) — Context7、GitHub MCP、Filesystem 等 7 个热门 MCP Server 的选型指南与配置示例
-- <a href="/downloads/examples/minimal-agent-demo/.claude/settings.json" download><code>Minimal Agent Demo 的 settings.json</code></a> — 最小示例项目中的项目级配置
 
 ---
 

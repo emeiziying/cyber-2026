@@ -155,7 +155,6 @@
 ## 3.10 延伸阅读 / 示例
 
 - [团队画像案例](./examples/team-profiles) — 4 类常见团队画像及推荐工具组合
-- [OpenClaw 实战指南](./examples/openclaw-guide) — OpenClaw 的核心用法、与 Claude Code / Codex 的对比及飞书接入说明
 - [Rules](../rules/) — 选好工具之后，第一件事不是开干，而是补共享规则
 
 ---

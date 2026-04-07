@@ -180,7 +180,7 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 
 - 上一章给出了风险分级和治理原则
 - 本章把这些原则落到团队协作流程里
-- 继续往后，附录会承接案例演练和复盘，让这些方法变成可训练的动作
+- 再往后，更稳妥的做法是直接用真实项目任务做案例演练和复盘，让这些方法变成可训练的动作
 
 如果第八章回答“怎样管住风险”，第九章回答的就是“团队怎样持续做对”。
 
@@ -191,7 +191,6 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 - <a href="/downloads/team-workflow/templates/task-intake.md.template" download><code>task-intake.md.template</code></a> — AI 任务入口教学模板
 - <a href="/downloads/team-workflow/templates/pr-review-checklist.md.template" download><code>pr-review-checklist.md.template</code></a> — PR Review 清单教学模板
 - [工作流样例](./examples/workflow-sample) — 一个从任务入口到复盘的最小团队流程样例
-- [`../appendix-case-studies/`](../appendix-case-studies/) — 用附录案例继续做完整演练和复盘
 
 ---
 
@@ -205,4 +204,3 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 ---
 
 **上一章 ←** [生产落地与治理](../production-governance/)
-**下一章 →** [附录：案例与延伸阅读](../appendix-case-studies/)

@@ -2,7 +2,7 @@
 
 ## 场景
 
-已有一个 Node.js + Fastify + SQLite 的笔记服务（就是 Minimal Agent Demo 中的项目），现在要给它加一个搜索功能。
+已有一个 Node.js + Fastify + SQLite 的笔记服务，现在要给它加一个搜索功能。
 
 这个样例展示了从"模糊需求"到"可验证实现"的完整 4 轮对话过程。
 

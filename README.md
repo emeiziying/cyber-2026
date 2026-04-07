@@ -35,9 +35,7 @@ pnpm docs:dev
 - [`docs/production-governance/`](./docs/production-governance/) — 生产落地与治理
 - [`docs/team-workflow/`](./docs/team-workflow/) — 团队工作流与质量控制
 
-**资料**
-- [`docs/appendix-case-studies/`](./docs/appendix-case-studies/) — 案例与延伸阅读
-- [`docs/presentation-outlines/`](./docs/presentation-outlines/) — 分享与培训资料
+**资源**
 - [`docs/downloads/`](./docs/downloads/) — 下载资源索引
 
 ## 仓库结构

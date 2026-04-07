@@ -182,7 +182,6 @@ Vibe Coding 最容易让人上头的地方，是前两轮看起来进展很快�
 ## 2.10 延伸阅读 / 示例
 
 - [完整会话示例](./examples/full-session) — 一个从模糊需求到可 review 改动的完整对话样例
-- [Minimal Agent Demo](../examples/minimal-agent-demo/) — 配合最小示例项目做练习时的参考入口
 
 ---
 

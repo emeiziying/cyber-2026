@@ -191,7 +191,6 @@ Rules 最容易失效的原因不是没人写，而是没人维护，最后变�
 - <a href="/downloads/rules/templates/CLAUDE.md.template" download><code>CLAUDE.md.template</code></a> — 通用后端项目模板
 - <a href="/downloads/rules/templates/frontend-CLAUDE.md.template" download><code>frontend-CLAUDE.md.template</code></a> — 前端项目模板
 - [Rules 冲突案例](./examples/rules-conflict-case) — 一个从“反复纠正”演进到稳定 Rules 的真实示例
-- <a href="/downloads/examples/minimal-agent-demo/CLAUDE.md" download><code>Minimal Agent Demo 的 CLAUDE.md</code></a> — 最小示例项目里的项目级规则
 
 ---
 

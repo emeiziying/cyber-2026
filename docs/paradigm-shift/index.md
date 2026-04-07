@@ -176,7 +176,6 @@ AI 让“怎么做”更快，但不会替代“做什么”和“是否可信�
 ## 1.9 延伸阅读 / 示例
 
 - [角色影响场景](./examples/role-impact-scenarios) — 用 3 个真实角色场景理解范式变化如何影响工程师、Tech Lead 和管理者
-- [跨角色 AI 手册](../appendix-case-studies/cross-functional-ai-handbook) — 面向混合部门的跨角色阅读手册
 
 ---
 

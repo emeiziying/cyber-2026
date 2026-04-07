@@ -11,8 +11,6 @@ export default defineConfig({
     nav: [
       {text: '开始阅读', link: '/intro/'},
       {text: '学习主线', link: '/paradigm-shift/'},
-      {text: '案例与演练', link: '/appendix-case-studies/'},
-      {text: '分享与培训', link: '/presentation-outlines/'},
     ],
     sidebar: [
       {
@@ -50,7 +48,6 @@ export default defineConfig({
                 link: '/tools-overview/',
                 items: [
                   {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
-                  {text: 'OpenClaw 实战指南', link: '/tools-overview/examples/openclaw-guide'},
                 ],
               },
             ],
@@ -77,22 +74,41 @@ export default defineConfig({
                 text: 'Skills & Hooks',
                 link: '/skills-hooks/',
                 items: [
-                  {text: '进阶模式', link: '/skills-hooks/advanced-patterns'},
                   {
-                    text: 'Skill 与 Hook 判断案例',
-                    link: '/skills-hooks/examples/skill-hook-decision-cases',
+                    text: '核心方法',
+                    items: [
+                      {text: '进阶模式', link: '/skills-hooks/advanced-patterns'},
+                      {
+                        text: 'Skill 与 Hook 判断案例',
+                        link: '/skills-hooks/examples/skill-hook-decision-cases',
+                      },
+                    ],
                   },
                   {
-                    text: '部门级 Skill 共享',
-                    link: '/skills-hooks/examples/dept-skill-sharing',
+                    text: '组织实践',
+                    items: [
+                      {
+                        text: '部门级 Skill 共享',
+                        link: '/skills-hooks/examples/dept-skill-sharing',
+                      },
+                    ],
                   },
                   {
-                    text: 'gstack 实战指南',
-                    link: '/skills-hooks/examples/gstack-workflow',
-                  },
-                  {
-                    text: '热门 Skill Pack',
-                    link: '/skills-hooks/examples/popular-skill-packs',
+                    text: 'Skill Pack 案例',
+                    items: [
+                      {
+                        text: 'Skill Pack 选型',
+                        link: '/skills-hooks/examples/skill-pack-selection',
+                      },
+                      {
+                        text: 'gstack 实战指南',
+                        link: '/skills-hooks/examples/gstack-workflow',
+                      },
+                      {
+                        text: 'superpowers 实战指南',
+                        link: '/skills-hooks/examples/superpowers-workflow',
+                      },
+                    ],
                   },
                 ],
               },
@@ -140,32 +156,6 @@ export default defineConfig({
               },
             ],
           },
-        ],
-      },
-      {
-        text: '案例与演练',
-        items: [
-          {text: '附录：案例与延伸阅读', link: '/appendix-case-studies/'},
-          {
-            text: '跨角色 AI 手册',
-            link: '/appendix-case-studies/cross-functional-ai-handbook',
-          },
-          {
-            text: '实战案例：修复搜索 bug',
-            link: '/appendix-case-studies/examples/fix-search-bug-case',
-          },
-          {text: 'Minimal Agent Demo', link: '/examples/minimal-agent-demo/'},
-        ],
-      },
-      {
-        text: '资料与分享',
-        items: [
-          {text: '分享与培训', link: '/presentation-outlines/'},
-          {
-            text: '30 分钟 Workshop',
-            link: '/presentation-outlines/30min-cross-functional-ai-workshop',
-          },
-          {text: '下载资源', link: '/downloads/'},
         ],
       },
     ],
