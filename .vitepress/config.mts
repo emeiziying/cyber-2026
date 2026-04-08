@@ -71,6 +71,7 @@ export default defineConfig({
                 link: '/vibe-coding/',
                 items: [
                   {text: '完整会话示例', link: '/vibe-coding/examples/full-session'},
+                  {text: 'Agentic Coding', link: '/vibe-coding/examples/agentic-coding'},
                 ],
               },
               {
