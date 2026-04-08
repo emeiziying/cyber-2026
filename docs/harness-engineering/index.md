@@ -39,6 +39,27 @@
 
 ## 核心概念与边界
 
+### Agentic Engineering 与 Harness Engineering
+
+这两个术语经常被混淆，但关注的层面不同：
+
+**Agentic Engineering**（智能体工程）是一个更宽泛的概念，指围绕 AI Agent 构建应用的整体工程实践——包括 Agent 的工具调用设计、记忆管理、任务规划、多 Agent 协作编排等。它关注的核心问题是：**如何让 Agent 更能干**。
+
+**Harness Engineering** 则是 Agentic Engineering 在团队生产环境中的一个具体方法论分支。它不问"Agent 能做什么"，而问"怎样让 Agent 在团队中持续可靠地工作"。它关注的核心问题是：**如何让 Agent 持续可靠**。
+
+两者的关系可以这样理解：
+
+| | Agentic Engineering | Harness Engineering |
+|---|---|---|
+| 范围 | 泛指所有 Agent 相关的工程实践 | 聚焦 Agent 的运行环境与约束体系 |
+| 核心问题 | 如何设计和构建 Agent 能力 | 如何保障 Agent 输出的长期稳定性 |
+| 典型关注点 | 工具调用、记忆、规划、多 Agent 编排 | 上下文工程、架构约束、自动清理 |
+| 对应本站章节 | [Agent 开发](/agent-development/)（上一章） | 本章 |
+
+简单说：上一章讲的 Agent 开发属于 Agentic Engineering 的范畴——让 Agent 具备能力；本章讲的 Harness Engineering 是在此基础上，为 Agent 构建一个可控、可维护的运行环境。
+
+### 三层结构
+
 Martin Fowler 将 Harness Engineering 归纳为三个相互配合的层：
 
 | 层 | 名称 | 作用 | 对应你已学的能力 |
