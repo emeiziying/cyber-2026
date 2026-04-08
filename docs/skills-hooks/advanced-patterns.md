@@ -42,6 +42,14 @@ your-skill/
 - 开源给社区使用的 AI 工具
 - 跨项目共享的专业能力封装
 
+### Skill 的跨工具可移植趋势
+
+SKILL.md 格式不只在 Claude Code / Cursor 生态内有用。[agentskills.io](https://github.com/AgentSkills) 正在推动一套开放的 Skill 打包与分发标准，目标是让同一份 Skill 能被不同宿主工具识别和执行。
+
+已经落地的典型例子是 [Hermes Agent](https://hermes-agent.nousresearch.com/docs/)（Nous Research，MIT 开源）：它内置 40+ Skill，并且在解决问题时**自动生成**兼容 agentskills.io 标准的 Skill 文档，供后续会话复用。这意味着 Skill 不再只是"写好了手动安装"，而是可以在使用过程中自我积累。
+
+对团队来说，这带来一个实际的选型启示：如果你现在就按 SKILL.md + 独立仓库的方式组织 Skill，未来迁移到其他支持 agentskills.io 的宿主时，迁移成本会非常低。
+
 ---
 
 ## 模式二：Prompt 微服务化架构
@@ -227,3 +235,4 @@ prompts/
 
 - [titanwings/colleague-skill](https://github.com/titanwings/colleague-skill) — 本文主要灵感来源（3.2k stars）
 - [AgentSkills 开放标准](https://github.com/AgentSkills) — Skill 打包分发规范
+- [Hermes Agent](https://hermes-agent.nousresearch.com/docs/) — Nous Research 开源 Agent，支持 agentskills.io 标准和自动 Skill 创建
