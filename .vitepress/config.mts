@@ -78,6 +78,7 @@ export default defineConfig({
                 link: '/tools-overview/',
                 items: [
                   {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
+                  {text: '可视化 AI 编排平台', link: '/tools-overview/examples/low-code-ai-platforms'},
                 ],
               },
             ],
@@ -126,6 +127,10 @@ export default defineConfig({
                   {
                     text: 'Skill Pack 案例',
                     items: [
+                      {
+                        text: '官方 Skills 速查',
+                        link: '/skills-hooks/examples/official-skills-catalog',
+                      },
                       {
                         text: 'Skill Pack 选型',
                         link: '/skills-hooks/examples/skill-pack-selection',
