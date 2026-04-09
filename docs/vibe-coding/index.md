@@ -182,6 +182,7 @@ Vibe Coding 最容易让人上头的地方，是前两轮看起来进展很快�
 ## 延伸阅读 / 模板 / 示例
 
 - [完整会话示例](./examples/full-session) — 一个从模糊需求到可 review 改动的完整对话样例
+- [Agentic Coding](./examples/agentic-coding) — 从对话协作到自主编码，Vibe Coding 在更高自治级别上的延伸
 
 ---
 
