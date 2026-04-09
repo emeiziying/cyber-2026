@@ -46,9 +46,9 @@ Rules 不是“写给 AI 看的一份提示词”，而是**把项目约束前�
 | 通用约定 | 子目录 `AGENTS.md` | 模块级特殊约束 |
 | Claude Code | 项目根目录 `CLAUDE.md` | Claude 专用兼容入口 |
 | Claude Code | `~/.claude/CLAUDE.md` | 个人偏好 |
-| Cursor | 项目根目录 `.cursorrules` | IDE 项目级规则 |
+| Cursor | 项目内 `.cursor/rules/` | Cursor 项目级规则 |
 
-建议团队先维护一份通用 `AGENTS.md`；如果某个宿主要求专用文件名，再同步到它自己的入口。
+建议团队先维护一份通用 `AGENTS.md`；如果某个宿主要求专用文件名，再同步到它自己的入口。像 Cursor 这类已经支持 `AGENTS.md` 的工具，可以优先复用通用规则；`.cursorrules` 更适合作为旧项目兼容项，不建议再作为新项目的主入口。
 
 **优先级原则：** 越接近目标代码的位置，规则越具体，优先级越高。
 

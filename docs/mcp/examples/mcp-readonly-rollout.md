@@ -29,17 +29,33 @@
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e",
+        "GITHUB_READ_ONLY",
+        "-e",
+        "GITHUB_TOOLSETS",
+        "ghcr.io/github/github-mcp-server"
+      ],
       "env": {
-        "GITHUB_TOKEN": "<read-only-token>"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<fine-grained-read-only-token>",
+        "GITHUB_READ_ONLY": "1",
+        "GITHUB_TOOLSETS": "repos,issues,pull_requests,users"
       }
     }
   }
 }
 ```
 
-**注意：** Token 权限设为只读（`repo:read`），从配置层面杜绝误写。
+**注意：**
+- 优先使用 fine-grained PAT 或 GitHub App 安装令牌，不建议再把 classic PAT 当默认方案
+- 如果使用 fine-grained PAT，通常至少给目标仓库需要的 `Contents`、`Issues`、`Pull requests`、`Metadata` 读取权限
+- 再配合 `GITHUB_READ_ONLY=1`，从服务配置层面杜绝误写
 
 ---
 

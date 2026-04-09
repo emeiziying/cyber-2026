@@ -1,6 +1,6 @@
 # Skills 进阶模式
 
-> 来源：对 [titanwings/colleague-skill](https://github.com/titanwings/colleague-skill)（3.2k stars）的研究总结
+> 来源：对 [titanwings/colleague-skill](https://github.com/titanwings/colleague-skill) 的研究总结
 > 这个项目将 Skills 推到了一个新的高度，值得深入学习
 
 ---
@@ -233,6 +233,6 @@ prompts/
 
 ## 参考资源
 
-- [titanwings/colleague-skill](https://github.com/titanwings/colleague-skill) — 本文主要灵感来源（3.2k stars）
+- [titanwings/colleague-skill](https://github.com/titanwings/colleague-skill) — 本文主要灵感来源
 - [AgentSkills 开放标准](https://github.com/AgentSkills) — Skill 打包分发规范
 - [Hermes Agent](https://hermes-agent.nousresearch.com/docs/) — Nous Research 开源 Agent，支持 agentskills.io 标准和自动 Skill 创建

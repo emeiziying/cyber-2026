@@ -50,7 +50,6 @@ pnpm docs:preview
 │   ├── intro/
 │   │   ├── index.md              # 开始阅读入口
 │   │   ├── quick-start.md        # 快速启动指南（分阶段路径）
-│   │   └── doc-map.md            # 文档结构总览（站点地图 + 维护约定）
 │   ├── paradigm-shift/           # 模块1：范式转变
 │   │   ├── index.md
 │   │   └── examples/role-impact-scenarios.md
@@ -129,7 +128,7 @@ pnpm docs:preview
 
 ### 导航与侧边栏
 侧边栏结构在 `.vitepress/config.mts` 中维护。当前侧边栏分为两大区块：
-- **导读**（开始阅读、快速启动指南、文档结构总览）
+- **导读**（开始阅读、快速启动指南）
 - **学习主线**（按"认知与协作方式 → 能力构建 → 治理与团队化"三层嵌套，当前模块：范式转变、Vibe Coding、工具全景、Rules、MCP、Skills & Hooks、Agent 开发、Harness Engineering、生产落地与治理、团队工作流与质量控制）
 
 其中 **Skills & Hooks** 模块的侧边栏进一步细分为三个子区块：

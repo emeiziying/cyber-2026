@@ -1,6 +1,6 @@
 # MCP 热门开源项目
 
-> 本页汇总 2026 年社区中最受欢迎的开源 MCP Server，帮助团队在"先只读，再逐步放开"原则下快速选型。所有项目均为 MIT 开源协议。
+> 本页汇总 2026 年社区里最常被拿来做入门选型的 MCP Server，帮助团队在"先只读，再逐步放开"原则下快速判断。许可证并不完全相同，以各仓库 LICENSE 为准；例如 Playwright MCP 当前为 Apache-2.0。另需注意：GitHub 和 Brave Search 已有各自独立维护的官方实现，而 PostgreSQL 官方 reference server 已归档。
 
 ---
 
@@ -11,7 +11,7 @@ MCP Server 可以分为两类，建议按顺序接入：
 | 类型 | 项目 | 接入时机 |
 |------|------|----------|
 | **基础设施类** | Filesystem、GitHub MCP、Memory | 第一批接入，低风险，效果立竿见影 |
-| **能力增强类** | Context7、Brave Search、Playwright、PostgreSQL | 基础类稳定后，按需接入 |
+| **能力增强类** | Context7、Brave Search、Playwright、数据库读取类 MCP | 基础类稳定后，按需接入 |
 
 **原则：** 不要一次接七个。每次接一个，验证 AI 是否能正确使用、权限是否清晰、上下文传递是否完整。
 
@@ -24,7 +24,7 @@ MCP Server 可以分为两类，建议按顺序接入：
 **一句话定位：** 自动注入版本匹配的最新官方文档，让 AI 不再靠过时的训练数据猜测 API。
 
 **为什么重要：**  
-AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某个 API，它很可能会把 Next.js 13 的写法告诉你。Context7 会在对话时自动检测你用的框架版本，从官方源拉取对应版本的文档注入上下文。
+AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某个 API，它很可能会把 Next.js 13 的写法告诉你。Context7 的价值在于：当你在 prompt 里明确写出库名、版本，或者直接提供 library ID 时，它可以去匹配对应版本的文档并注入上下文。
 
 **使用场景：**
 - 使用任何版本迭代较快的框架（Next.js、React、Pydantic、FastAPI……）
@@ -46,7 +46,7 @@ AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某
 }
 ```
 
-配置好之后，在 prompt 中加入 `use context7` 即可触发文档注入：
+配置好之后，在 prompt 中加入 `use context7` 即可触发文档注入；如果版本很关键，建议直接写在问题里：
 
 ```
 用 Pydantic v2 写一个带有嵌套模型的数据验证类，use context7
@@ -56,7 +56,7 @@ AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某
 
 ---
 
-### GitHub MCP Server — 官方推荐
+### GitHub MCP Server — 官方实现
 
 **一句话定位：** 最完整的 GitHub 仓库交互接口，支持 issue、PR、代码搜索等。
 
@@ -71,23 +71,36 @@ AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某
 | 创建分支 / PR | 中 | 审慎开放 |
 | 合并 PR | 高 | 通常保留人工操作 |
 
-**推荐配置策略：** 先只开放读取类权限，让团队观察 AI 使用 GitHub 信息的方式，确认稳定后再按需放开写权限。
+**推荐配置策略：** 先只开放读取类权限，让团队观察 AI 使用 GitHub 信息的方式，确认稳定后再按需放开写权限。官方实现已经支持 `read-only` 模式和 `toolsets` 白名单，适合做最小接入。
 
 ```json
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e",
+        "GITHUB_READ_ONLY",
+        "-e",
+        "GITHUB_TOOLSETS",
+        "ghcr.io/github/github-mcp-server"
+      ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-token>"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-token>",
+        "GITHUB_READ_ONLY": "1",
+        "GITHUB_TOOLSETS": "repos,issues,pull_requests,users"
       }
     }
   }
 }
 ```
 
-**仓库：** [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/github)
+**仓库：** [github.com/github/github-mcp-server](https://github.com/github/github-mcp-server)
 
 ---
 
@@ -140,7 +153,7 @@ AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某
   "mcpServers": {
     "brave-search": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "args": ["-y", "@brave/brave-search-mcp-server"],
       "env": {
         "BRAVE_API_KEY": "<your-api-key>"
       }
@@ -149,7 +162,7 @@ AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某
 }
 ```
 
-**仓库：** [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search)
+**仓库：** [github.com/brave/brave-search-mcp-server](https://github.com/brave/brave-search-mcp-server)
 
 ---
 
@@ -206,33 +219,39 @@ Claude Code 每次会话结束即清空记忆，下次需要重新交代背景�
 
 ---
 
-### PostgreSQL — 数据库只读查询
+### 数据库读取类 MCP —— 优先选维护中的实现
 
-**一句话定位：** 让 AI 直接查询数据库做分析，无写权限。
+**一句话定位：** 让 AI 读取 schema 或执行只读 SQL 做分析，但数据库类实现变化很快，接入前要先确认维护状态。
 
 **使用场景：**
 - 让 AI 读取真实数据验证业务逻辑
 - 数据分析和报表生成
 - 让 AI 理解数据库 schema，辅助 SQL 编写
 
-**⚠️ 重要：** 务必使用只读数据库账号，不要把有写权限的连接字符串配给 AI。建议使用生产库的只读副本，而非直连生产主库。
+**现状提醒：**
+- MCP 官方 `servers` 仓库里的 PostgreSQL reference server 已归档，更适合作为历史参考，不适合作为今天团队默认照抄的模板
+- 更稳妥的做法是优先选数据库厂商或活跃社区仍在维护的实现，例如托管 Postgres 场景里的 Neon MCP
+- 无论选哪种实现，都应优先使用只读账号或只读副本，而不是把可写连接直接交给 AI
+
+下面这个骨架故意不再写死旧的包名；真实项目里，应把它替换成你选定的维护中实现：
 
 ```json
 {
   "mcpServers": {
-    "postgres": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-postgres",
-        "postgresql://readonly_user:password@localhost/mydb"
-      ]
+    "database": {
+      "command": "<your-maintained-database-mcp-server>",
+      "args": ["<host-specific-args>"],
+      "env": {
+        "DATABASE_URL": "${READ_ONLY_DATABASE_URL}"
+      }
     }
   }
 }
 ```
 
-**仓库：** [github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers/tree/main/src/postgres)
+**参考入口：**
+- [github.com/neondatabase/mcp-server-neon](https://github.com/neondatabase/mcp-server-neon) — 托管 Postgres 的官方代表实现
+- [MCP Registry](https://mcp.directory) — 查找仍在维护的数据库类 MCP Server
 
 ---
 
@@ -264,7 +283,7 @@ Filesystem（只读 docs/）+ GitHub MCP（只读）+ Context7
 
 ```
 + Playwright（需要 QA 自动化时）
-+ PostgreSQL 只读（需要数据分析时）
++ 数据库只读 MCP（需要数据分析时）
 + GitHub 写权限（已充分验证后）
 ```
 

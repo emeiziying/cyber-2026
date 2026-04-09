@@ -3,7 +3,6 @@ import {defineConfig} from 'vitepress';
 const guideItems = [
   {text: '开始阅读', link: '/intro/'},
   {text: '快速启动指南', link: '/intro/quick-start'},
-  {text: '文档结构总览', link: '/intro/doc-map'},
 ];
 
 const learningPathItems = [
@@ -184,7 +183,6 @@ export default defineConfig({
   themeConfig: {
     nav: [
       {text: '开始阅读', link: '/intro/'},
-      {text: '文档结构', link: '/intro/doc-map'},
       {text: '学习主线', link: '/paradigm-shift/'},
     ],
     sidebar: [

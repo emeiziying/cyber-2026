@@ -135,16 +135,30 @@ MCP 配好了但“不生效”，通常优先排查：
 
 ## 从模板到真实项目：替换时要改什么
 
-下面是一个最小 `mcp-config.json` 骨架；真正落地到项目时，至少要替换其中的路径、环境变量和 server 选择：
+下面是一个最小配置骨架。不同宿主工具的字段名会略有差异，但真正落地到项目时，至少要替换其中的路径、环境变量和 server 选择。  
+截至 2026 年，像 GitHub、Brave Search 这类常用能力，更适合优先参考各自独立维护的官方实现，而不是直接照抄已经归档的旧 reference server 包名。
 
 ```json
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github@2025.4.8"],
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e",
+        "GITHUB_READ_ONLY",
+        "-e",
+        "GITHUB_TOOLSETS",
+        "ghcr.io/github/github-mcp-server"
+      ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}",
+        "GITHUB_READ_ONLY": "1",
+        "GITHUB_TOOLSETS": "repos,issues,pull_requests,users"
       }
     },
     "filesystem": {
@@ -162,9 +176,11 @@ MCP 配好了但“不生效”，通常优先排查：
 真正落地到项目时通常至少要替换：
 
 - 环境变量名
+- Server 启动方式（本地二进制 / Docker / Remote）
 - 本地路径或工作目录
 - 允许访问的资源范围
-- MCP server 包版本（建议固定版本，按计划升级）
+- 工具白名单或只读开关
+- MCP server 包或镜像版本（建议固定版本，按计划升级）
 - 团队默认需要的 MCP 列表
 
 如果你只是“照抄模板”，但没有改这些边界项，往往会得到一个看似能运行、实际上不适合团队直接使用的配置。

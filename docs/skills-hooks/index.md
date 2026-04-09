@@ -137,8 +137,8 @@ Hook 更像“在事件发生时自动执行的一段守门逻辑”。
 第一批 Hook 最适合做：
 
 - SessionStart：补环境上下文
-- PreToolCall：做风险拦截
-- PostToolCall：做审计或记录
+- PreToolUse：做风险拦截
+- PostToolUse：做审计或记录
 
 ### 第四步：先在一个最小项目里跑通
 
@@ -249,13 +249,13 @@ Fix the bug described below.
 {
   "hooks": {
     "SessionStart": [],
-    "PreToolCall": [
+    "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [{ "type": "command", "command": "echo check" }]
       }
     ],
-    "PostToolCall": []
+    "PostToolUse": []
   }
 }
 ```

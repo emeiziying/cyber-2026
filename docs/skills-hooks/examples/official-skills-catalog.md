@@ -145,8 +145,9 @@
 
 官方 Skill 的安装方式取决于你使用的宿主环境：
 
-- **Claude Code CLI：** 将 Skill 文件夹放入项目的 `.claude/skills/` 目录，或通过 `/install-skill` 安装
-- **Claude.ai：** 在项目设置中添加 Skill
+- **Claude Code：** 先执行 `/plugin marketplace add anthropics/skills` 注册官方插件市场，再安装 `document-skills` 或 `example-skills`；也可以直接用 `/plugin install document-skills@anthropic-agent-skills` 或 `/plugin install example-skills@anthropic-agent-skills`
+- **Claude.ai：** 付费版已内置这些示例 Skill；使用方式和自定义 Skill 上传入口以官方说明为准
+- **Claude API：** 可以直接使用 Anthropic 提供的预置 Skill，也可以上传自定义 Skill
 - **详细安装说明：** 以 [anthropics/skills 仓库 README](https://github.com/anthropics/skills) 为准
 
 ---
