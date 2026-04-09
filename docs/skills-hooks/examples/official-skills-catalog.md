@@ -155,6 +155,6 @@
 ## 延伸资源
 
 - [anthropics/skills GitHub 仓库](https://github.com/anthropics/skills) — 源码与安装说明
-- [Skill Pack 选型](./skill-pack-selection) — gstack / superpowers / GSD 社区 Skill Pack 的对比选择
-- [Skills & Hooks 进阶模式](../advanced-patterns) — Skill 设计模式与进阶用法
+- [工作流选型](./skill-pack-selection) — gstack / superpowers / GSD 这类外部工作流体系怎么判断
+- [如何制作 Skills](../advanced-patterns) — 从官方入口和最小骨架开始做第一个 Skill
 - [Skill 与 Hook 判断案例](./skill-hook-decision-cases) — 什么时候用 Skill，什么时候用 Hook

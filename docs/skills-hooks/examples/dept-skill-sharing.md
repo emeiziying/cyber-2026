@@ -45,34 +45,32 @@
 
 **缺点：** 与 CLI 版 Skill 是两个副本，需要手动同步
 
-### 方式 B：使用支持 Skill 的桌面端工具
+### 方式 B：团队自建一层共享接入方案
 
-多个 AI 工具已经提供了 Windows/Mac 桌面端，非研发人员可以直接通过图形界面使用 Skill，不需要学命令行。
+这一步说的不是某个产品默认就支持的能力，而是团队自己维护的一层**共享接入方案**：
 
-**Windows 环境推荐工具对照：**
+- Skill 本体统一放在同一个源仓里
+- 不同宿主按各自官方方式接入或同步
+- 非研发人员只接触自己熟悉的入口，不需要理解源文件结构
 
-| 工具 | 安装方式 | Skill 加载方式 | 适合角色 |
-|------|---------|---------------|---------|
-| **Codex 桌面端** | Microsoft Store 安装 | 原生支持 Skills，可加载 `.agents/skills/`，常用 `$skill-name` 调用 | 全员（研发 + 产品 + 设计） |
-| **Claude Code 桌面端** | 官网下载 | 可引用 `.agents/skills/`；如果走 Claude 专属命令目录，则是 `.claude/commands/`，常用 `/skill-name` 调用 | 全员 |
-| **Claude.ai 网页端** | 无需安装 | 通过 Project Instructions 预置 | 全员 |
-| **Cursor** | 官网下载 | 在 `.cursorrules` 或项目 Rules 中引用 `.agents/skills/` | 主要研发 |
+更稳的理解方式是：**`.agents/skills/` 是团队的通用源仓，不是所有宿主都会原生读取的产品目录。**
 
-**Codex 桌面端对非研发人员特别友好：**
-- 图形界面操作，不需要终端
-- 支持并行线程——同时跑多个任务（整理需求的同时做竞品分析）
-- 内置变更审查界面——产品经理可以直接看 AI 改了什么，不需要学 git diff
-- Windows 原生支持，从应用商店一键安装
+**接入方式可以分成三类：**
+
+| 使用端类型 | 更稳的接入方式 | 适合角色 |
+|-----------|----------------|---------|
+| **原生支持 Skills 的宿主** | 按该宿主官方文档，把同一份 Skill 目录接入它自己的 Skill 机制 | 研发为主，也可覆盖愿意直接使用工具的非研发 |
+| **支持 Project / Workspace Instructions 的宿主** | 把 Skill 内容同步到项目级说明中，作为非研发可直接使用的入口 | 产品、设计、管理者 |
+| **只支持 Rules / Prompt 文件的宿主** | 围绕同一份 Skill 源文件做团队自己的引用或同步脚本 | 研发为主 |
 
 **操作步骤：**
 
-1. Tech Lead 创建一个"部门共享 Skill"仓库，源文件统一放在 `.agents/skills/`
-2. 需要把现成 Skill 分发到项目时，默认通过 `npx skills add <owner>/<repo>` 导入
-3. 非研发人员安装桌面端工具，打开仓库
-4. 按工具对应的入口触发 Skill，例如 Claude 用 `/fix-bug`，Codex 用 `$fix-bug`
-5. 写一份《快速使用手册》，只教三件事：安装工具、打开项目、选择 Skill
+1. Tech Lead 创建一个"部门共享 Skill"源仓，统一维护通用 Skill 本体
+2. 选 1-2 个团队当前真的在用的宿主，分别记录它们的官方接入方式
+3. 非研发成员只通过已经封装好的入口使用，不要求他们直接理解 Skill 目录
+4. 写一份《快速使用手册》，只教三件事：去哪里用、怎么触发、遇到问题怎么反馈
 
-**适合场景：** 团队希望全员使用统一工具，且非研发人员不排斥安装桌面应用
+**适合场景：** 团队确实存在多角色共用 AI 工作流的需求，且愿意维护一层自己的共享接入方案
 
 ### 方式 C：非研发人员不直接用 Skill，只消费标准化产出
 
@@ -150,71 +148,78 @@
 
 当 Skill 数量增多、使用者跨角色后，需要一个统一的管理结构。
 
-### 为什么用 `.agents/skills/` 而不是 `.claude/commands/`
+### 为什么把 `.agents/skills/` 当成源仓，而不是当成宿主目录
 
-`.claude/commands/` 是 Claude Code 的专属目录，Skill 放在这里只有 Claude Code 能识别。如果团队未来还会用 Cursor、Copilot 或其他 AI 工具，这些 Skill 就无法复用。
+这一页推荐的不是“所有产品都会直接读取 `.agents/skills/`”，而是把它当成团队自己的**通用 Skill 源仓**。
 
-推荐使用 **`.agents/skills/`** 作为统一存放目录：
+这样做的好处是：
 
-- 工具无关——不绑定任何特定 AI 产品
-- Skill 本质是 Markdown prompt，任何能读文件的 AI 工具都可以加载
-- 各工具通过自己的配置映射到这个目录即可（Claude Code 可以用符号链接或在 Rules 中 `@.agents/skills/` 引用）
+- Skill 本体不绑定某个单一宿主
+- 同一份 Skill 可以按需要映射到不同宿主
+- 团队讨论的是“能力本体怎么维护”，而不是“某个工具目录怎么摆”
+
+如果直接围绕某个宿主专属目录组织，短期接入可能更快，但后面一旦要支持第二个宿主，迁移成本会明显升高。
 
 ### 推荐目录结构
 
 ```text
 .agents/
-├── skills/                           # 所有 Skill 的统一存放位置
-│   ├── engineering/                  # 研发专用 Skill
-│   │   ├── fix-bug.md
-│   │   ├── gen-tests.md
-│   │   ├── review-code.md
-│   │   └── daily-report.md
-│   ├── product/                      # 产品经理专用 Skill
-│   │   ├── requirement-doc.md        # 需求文档生成
-│   │   ├── feedback-clustering.md    # 用户反馈归类
-│   │   └── competitor-analysis.md    # 竞品分析框架
-│   ├── design/                       # 设计师专用 Skill
-│   │   ├── copy-review.md            # 文案审核
-│   │   ├── interaction-checklist.md  # 交互检查清单
-│   │   └── state-inventory.md        # 状态枚举整理
-│   └── shared/                       # 跨角色共享 Skill
-│       ├── risk-assessment.md        # 风险评估
-│       ├── meeting-summary.md        # 会议纪要
-│       └── task-intake.md            # 任务入口标准化
-├── rules/                            # 工具无关的项目规则（可选）
-├── README.md                         # 使用说明和快速入门
-├── CHANGELOG.md                      # 更新日志
-└── feedback/                         # 反馈收集
-    └── TEMPLATE.md                   # 反馈模板
+├── skills/                                 # 团队维护的通用 Skill 源仓
+│   ├── engineering/
+│   │   ├── fix-bug/
+│   │   │   ├── SKILL.md
+│   │   │   └── references/
+│   │   ├── gen-tests/
+│   │   │   └── SKILL.md
+│   │   └── review-code/
+│   │       └── SKILL.md
+│   ├── product/
+│   │   ├── requirement-doc/
+│   │   │   └── SKILL.md
+│   │   └── competitor-analysis/
+│   │       └── SKILL.md
+│   ├── design/
+│   │   └── copy-review/
+│   │       └── SKILL.md
+│   └── shared/
+│       ├── risk-assessment/
+│       │   └── SKILL.md
+│       └── meeting-summary/
+│           └── SKILL.md
+├── mappings/                               # 宿主接入说明或同步脚本（可选）
+├── feedback/
+│   └── TEMPLATE.md
+└── README.md
 ```
 
-### 如何让不同工具加载 `.agents/skills/`
+### 如何把源仓接到不同宿主
 
-| 工具 | 加载方式 |
+更稳的做法不是要求所有宿主都直接读 `.agents/skills/`，而是：
+
+| 情况 | 建议做法 |
 |------|---------|
-| Claude Code | 在 `AGENTS.md` 中用 `@.agents/skills/shared/task-intake.md` 引用；如果要接入 Claude 专属命令目录，再按需同步到 `CLAUDE.md` 或符号链接到 `.claude/commands/` |
-| Cursor | 在 `.cursorrules` 或项目 Rules 中引用 `.agents/skills/` 下的文件 |
-| 其他支持自定义 prompt 的工具 | 直接读取 Markdown 文件内容作为 system prompt |
-| Claude 网页端 / 桌面端 | 复制 Skill 内容到 Project Instructions |
+| 宿主有原生 Skill 机制 | 按该宿主官方文档，把 `skill-name/` 映射到它自己的 Skills 目录或注册方式 |
+| 宿主支持项目级说明 | 把 `SKILL.md` 内容同步为 Project / Workspace 级 Instructions |
+| 宿主只支持通用 prompt / rules | 以 `SKILL.md` 为源文件，做一层复制、引用或同步脚本 |
+| 需要多宿主同时使用 | 统一维护 `.agents/skills/`，其他入口都视为派生副本 |
 
 ### 分发方式对照
 
 | 方式 | 适合研发 | 适合非研发 | 同步成本 |
 |------|---------|-----------|---------|
-| `npx skills add` 到项目 | ✅ | ❌ | 低（CLI 更新或重新导入） |
-| 复制到 Claude Project Instructions | ❌ 不需要 | ✅ | 中（手动同步） |
-| 共享文档库（飞书/Notion） | 可用 | ✅ | 中（需要维护两份） |
-| 统一仓库 + 自动同步脚本 | ✅ | ✅ 通过脚本自动推送到 Claude Project | 低（一次搭建） |
+| 宿主原生接入 | ✅ | 视工具而定 | 低到中 |
+| 同步到 Project Instructions | ❌ 不需要 | ✅ | 中 |
+| 共享文档库（飞书/Notion） | 可用 | ✅ | 中 |
+| 统一源仓 + 同步脚本 | ✅ | ✅ | 低（一次搭建后） |
 
 ### 最小起步方案
 
 不要一开始就搭完整仓库。按以下顺序渐进：
 
-1. **第 1 周：** 把现有项目里最实用的 3 个 Skill 复制到一个共享目录
-2. **第 2 周：** 为产品经理创建 1 个专属 Skill（如需求文档生成），放到 Claude Project 里让他们试用
+1. **第 1 周：** 把现有项目里最实用的 3 个 Skill 统一整理成目录式源文件
+2. **第 2 周：** 选 1 个非研发最常用的场景，接到他们熟悉的入口里试用
 3. **第 3 周：** 建立反馈模板，开始收集非研发的改进建议
-4. **第 4 周：** 回顾反馈，把有效经验更新进 Skill，评估是否需要更多角色专属 Skill
+4. **第 4 周：** 回顾反馈，把有效经验更新回通用 Skill 源仓，再决定是否扩到更多角色
 
 ---
 
@@ -226,7 +231,7 @@
 
 ### "维护两份（CLI 版 + Claude Project 版）太麻烦"
 
-因为 Skill 统一存放在 `.agents/skills/`，工程内导入和 Claude Project 都可以围绕同一份源文件同步。如果团队有能力，可以写一个简单脚本，从 `.agents/skills/` 自动同步到 Claude Project。如果没有，优先维护 `.agents/skills/`，Claude Project 版允许滞后 1-2 周手动同步。
+因为 `.agents/skills/` 只是团队的通用源仓，不是所有宿主都会原生读取的目录，所以更稳的做法是把其他入口都当成派生副本。如果团队有能力，可以写一个简单脚本，从源仓同步到各宿主入口；如果没有，就优先维护源仓，其他入口允许滞后 1-2 周手动同步。
 
 ### "非研发人员根本不知道 Skill 是什么"
 

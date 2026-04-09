@@ -35,9 +35,26 @@
 
 ## 第二步：建设 Context Layer
 
-小陈花了半天，将 `AGENTS.md` 从 30 行扩展到 120 行。核心增量内容：
+小陈花了半天，先把 `AGENTS.md` 从 30 行扩展到约 80 行，补上高频约束和文档入口；再新增一份仓库内规则文档，承接细节。核心增量内容：
 
-**架构约定（新增）**
+**AGENTS.md（新增高频约束与入口）**
+
+```markdown
+## 开发入口
+
+- 先读 `docs/frontend-architecture.md`
+- 内部组件库文档：`docs/ui-components.md` 或 Storybook（localhost:6006）
+- Service 层示例：参考 `src/services/user-service.ts`
+- 测试示例：参考 `src/components/UserCard/__tests__/UserCard.test.tsx`
+
+## 高频规则
+
+- 组件不得直接调用 fetch/axios，不得直接访问 localStorage
+- UI 组件优先使用 `@company/ui`，不满足需求时再自定义
+- 共享类型定义集中放在 `src/types/`
+```
+
+**仓库内详细规则文档（新增）**
 
 ```markdown
 ## 架构约定
@@ -58,18 +75,7 @@
 - 避免使用 `any`，确实需要时添加注释说明原因
 ```
 
-**常用工具清单（新增）**
-
-```markdown
-## 常用工具与路径
-
-- 内部组件库文档：`docs/ui-components.md`（本地）或 Storybook（localhost:6006）
-- Service 层示例：参考 `src/services/user-service.ts`
-- 类型定义示例：参考 `src/types/user.ts`
-- 测试示例：参考 `src/components/UserCard/__tests__/UserCard.test.tsx`
-```
-
-**验证方式：** 小林用更新后的 AGENTS.md 让 Agent 重新实现上周出问题的那个组件，这次 Agent 自动走了 service 层，使用了 `@company/ui` 的 Button。
+**验证方式：** 小林根据更新后的 `AGENTS.md` 入口和仓库内规则文档，让 Agent 重新实现上周出问题的那个组件，这次 Agent 自动走了 service 层，使用了 `@company/ui` 的 Button。
 
 ---
 
@@ -86,11 +92,11 @@ Context 解决了"不知道该怎么做"的问题，但无法阻止 Agent 偶尔
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Edit|MultiEdit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "node scripts/check-no-direct-fetch.mjs"
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/check-no-direct-fetch.mjs\""
           }
         ]
       }
@@ -99,7 +105,7 @@ Context 解决了"不知道该怎么做"的问题，但无法阻止 Agent 偶尔
 }
 ```
 
-`scripts/check-no-direct-fetch.mjs` 扫描刚修改的文件，检查 `src/components/` 和 `src/pages/` 下是否有 `fetch(` 或 `axios.` 调用，发现则输出错误信息并退出非零。
+`scripts/check-no-direct-fetch.mjs` 扫描刚修改的文件，检查 `src/components/` 和 `src/pages/` 下是否有 `fetch(` 或 `axios.` 调用，发现则输出错误信息并退出非零。这里使用 `$CLAUDE_PROJECT_DIR` 引用脚本，是为了避免 Claude 当前工作目录变化时命令失效。
 
 Agent 看到错误输出后，会自动尝试修复（将直接调用移到 service 层）。
 
@@ -123,7 +129,7 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 
 ## 第四步：错误日志机制
 
-小陈在团队 Notion 里建了一个"Agent 错误日志"表格：
+小陈先在仓库里新增 `docs/agent-known-issues.md`，作为 Agent 可读的主记录；同时在 Notion 建了一个周会视图，用于分派负责人和跟踪处理状态。仓库内主表如下：
 
 | 日期 | 问题描述 | 已固化为 | 负责人 |
 |------|----------|----------|--------|
@@ -131,7 +137,7 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 | 2026-03 | 在测试文件里 mock 了整个模块而非单个函数 | Skill 中加入测试规范约束 | 小韩 |
 | 2026-04 | 翻译文案硬编码在组件里，未使用 i18n | AGENTS.md + Hook 检查 | 小陈 |
 
-这个表格每周 sprint review 时过一遍，有新条目就转化为 Harness 改进。
+周会只负责分派和决定下一步；真正会影响 Agent 行为的结论，必须回写到仓库文档、Skill 或 Hook。这样错误日志既能被人讨论，也能被 Agent 直接利用。
 
 ---
 
@@ -141,7 +147,9 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 团队 Harness（2026-04）
 │
 ├── Context Layer
-│   ├── AGENTS.md（架构约定 + 组件规范 + 类型约定 + 工具路径）
+│   ├── AGENTS.md（高频约束 + 文档入口）
+│   ├── docs/frontend-architecture.md（架构约定 + 组件规范 + 类型约定）
+│   ├── docs/agent-known-issues.md（错误模式与修复约束）
 │   └── MCP：本地 Storybook 文档访问（只读）
 │
 ├── Constraints Layer
@@ -160,11 +168,11 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 
 **三条关键发现：**
 
-1. **从错误反向推导 Context**。不要试图预先写一份"完美"的 AGENTS.md，而是每次 Agent 出错就问："它不知道什么？" 把答案写进 AGENTS.md。
+1. **从错误反向推导 Context**。不要试图预先写一份"完美"的 AGENTS.md，把所有东西都塞进去；而是每次 Agent 出错就问："它不知道什么？" 高频规则写进 AGENTS.md，细节说明写进仓库文档。
 
 2. **Hook 的粒度要适中**。粒度太细（每一行都检查）会让 Agent 陷入修复循环；粒度太粗（只检查构建失败）来不及拦截。经验值：检查那些"在 Code Review 中反复出现的问题"。
 
-3. **错误日志是 Harness 的增长引擎**。没有错误日志，Harness 是静止的；有了错误日志，Harness 随着项目演进不断自我完善。
+3. **错误日志是 Harness 的增长引擎**。没有错误日志，Harness 是静止的；有了错误日志，Harness 才能随着项目演进不断自我完善。前提是至少保留一份仓库内、可机读的版本。
 
 **下一步计划：**
 - 引入 GC Agent，定期扫描文档一致性

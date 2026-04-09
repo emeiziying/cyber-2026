@@ -20,18 +20,18 @@
 
 ## 为什么这件事重要
 
-2026 年初，OpenAI 发布了一份内部实验报告：**3 名工程师搭档 Codex Agent，历时 5 个月，合并约 1500 个 PR，交付了一个接近百万行代码的 beta 产品——期间没有人工手写一行源代码。**
+2026 年 2 月 11 日，OpenAI 在总结 Codex Agent 协作实践的文章中，用 **Harness Engineering** 来概括这类工作：**3 名工程师与 Codex Agent 协作 5 个月，累计打开并合并约 1500 个 PR，交付了一个规模接近百万行代码的 beta 产品。**
 
-这不是魔法，也不是偶然。他们将这套方法论命名为 **Harness Engineering**（由 HashiCorp 联合创始人 Mitchell Hashimoto 最早提出），核心理念只有一句话：
+这不是魔法，也不是偶然。文章强调，真正放大产能的关键，不是继续让人亲自写更多代码，而是把更多工程精力投入到让 Agent 稳定工作的环境里。OpenAI 对这类工作方式的概括，可以先用一句话记住：
 
 > **Humans steer. Agents execute.**
 > 人类掌舵，智能体执行。
 
-工程师的职责不再是实现代码，而是**设计让 Agent 可靠工作的环境**。
+工程师的重心不再只是实现代码，而是**设计让 Agent 可靠工作的环境**。
 
-其中最关键的原则是：
+类似的经验也出现在 Mitchell Hashimoto 2026 年 2 月 5 日关于“Engineer the Harness”的总结里。一个反复出现的原则是：
 
-> **每次发现 Agent 犯了一个错误，就投入时间设计一个机制，确保它永远不再犯同样的错。**
+> **每次发现 Agent 犯了一个错误，就投入时间设计一个机制，确保它下次更不容易再犯同样的错。**
 
 这一原则将每次失败转化为对系统的永久性改进，是 Harness 随时间持续增强的核心动力。
 
@@ -39,36 +39,21 @@
 
 ## 核心概念与边界
 
-### Agentic Engineering 与 Harness Engineering
-
-这两个术语经常被混淆，但关注的层面不同：
-
-**Agentic Engineering**（智能体工程）是一个更宽泛的概念，指围绕 AI Agent 构建应用的整体工程实践——包括 Agent 的工具调用设计、记忆管理、任务规划、多 Agent 协作编排等。它关注的核心问题是：**如何让 Agent 更能干**。
-
-**Harness Engineering** 则是 Agentic Engineering 在团队生产环境中的一个具体方法论分支。它不问"Agent 能做什么"，而问"怎样让 Agent 在团队中持续可靠地工作"。它关注的核心问题是：**如何让 Agent 持续可靠**。
-
-两者的关系可以这样理解：
-
-| | Agentic Engineering | Harness Engineering |
-|---|---|---|
-| 范围 | 泛指所有 Agent 相关的工程实践 | 聚焦 Agent 的运行环境与约束体系 |
-| 核心问题 | 如何设计和构建 Agent 能力 | 如何保障 Agent 输出的长期稳定性 |
-| 典型关注点 | 工具调用、记忆、规划、多 Agent 编排 | 上下文工程、架构约束、自动清理 |
-| 对应本站章节 | [Agent 开发](/agent-development/)（上一章） | 本章 |
-
-简单说：上一章讲的 Agent 开发属于 Agentic Engineering 的范畴——让 Agent 具备能力；本章讲的 Harness Engineering 是在此基础上，为 Agent 构建一个可控、可维护的运行环境。
+上一章更关注 Agent 本身能做什么；本章更关注怎样把这些能力放进一个可控、可维护、能长期稳定运行的团队环境里。
 
 ### 三层结构
 
-Martin Fowler 将 Harness Engineering 归纳为三个相互配合的层：
+把 OpenAI 的实践、Mitchell 的经验总结，以及 Martin Fowler / Thoughtworks 对 harness 的 guides、sensors 和 regulation categories 放在一起看，本文为了便于落地，先把一个最小 Harness 教学上整理为三层：
 
 | 层 | 名称 | 作用 | 对应你已学的能力 |
 |----|------|------|-----------------|
-| 第一层 | **Context Engineering**（上下文工程） | 维护 Agent 始终可访问的知识库与项目规范，让 Agent 在每次对话中都有足够的上下文 | Rules / AGENTS.md |
-| 第二层 | **Architectural Constraints**（架构约束） | 用确定性检查器（linter、结构测试）和 LLM 检查器限制 Agent 的输出边界，防止 Agent "创造性地偏离"架构 | Skills / Hooks / CI |
-| 第三层 | **Garbage Collection**（垃圾回收） | 定期运行的 Agent，主动发现并修复代码库中的不一致、过期文档和技术债 | Agent 开发 |
+| 第一层 | **Context Engineering**（上下文工程） | 维护 Agent 始终可访问的知识库与项目规范，让 Agent 在每次对话中都有足够的上下文 | Rules / `AGENTS.md` / 仓库内文档 |
+| 第二层 | **Architectural Constraints**（架构约束） | 用确定性检查器（linter、结构测试）和 LLM 检查器限制 Agent 的输出边界，防止 Agent "创造性地偏离"架构 | Skills / Hooks / CI / 结构测试 |
+| 第三层 | **Garbage Collection**（垃圾回收） | 定期运行的 Agent 或自动化，主动发现并修复代码库中的不一致、过期文档和技术债 | Agent 开发 / 定时任务 |
 
 三层合力：Context 保证 Agent 知道该做什么，Constraints 保证 Agent 做的符合规范，GC 保证积累的问题不会失控。
+
+Fowler 的文章更适合理解 harness 的调节方向，以及 feedforward / feedback 的关系；这里的三层是本站为了串联前面几章能力采用的教学抽象。
 
 ### 什么时候更适合引入 Harness Engineering
 
@@ -96,7 +81,7 @@ Martin Fowler 将 Harness Engineering 归纳为三个相互配合的层：
 
 ### 有 Harness 的团队
 
-> 团队的 AGENTS.md 明确记录了架构约定，每次有新约定产生就立即更新。一个 pre-commit Hook 会检查提交中是否有绕过 Repository 层的直接数据库调用，违规时自动拒绝并输出提示。每两周运行一次的 GC Agent 会扫描文档与实现的一致性，将发现的偏差作为 Issue 提交。
+> 团队的 AGENTS.md 明确记录了高频约束，并链接到详细架构文档；每次有新约定产生就立即更新。一个 pre-commit Hook 会检查提交中是否有绕过 Repository 层的直接数据库调用，违规时自动拒绝并输出提示。每两周运行一次的 GC Agent 会扫描文档与实现的一致性，将发现的偏差作为 Issue 提交。
 > 新成员入职第一天，用 AI 生成的代码就符合团队风格——不是因为 AI 更聪明，而是因为环境更清晰。
 
 ---
@@ -109,11 +94,12 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 
 **目标：** 让 Agent 每次开始工作时，都能拿到稳定、可复用的项目上下文。
 
-- 整理并完善 `AGENTS.md`，确保包含：项目架构约定、编码规范、禁止行为、常用工具清单
+- 保持 `AGENTS.md` 简短，只放所有任务都需要知道的高频规则、常用命令和文档入口
+- 把复杂且易变的知识拆到仓库内文档（如 `docs/`、`ARCHITECTURE.md`、schema、runbook），并由 `AGENTS.md` 链接过去
 - 接入 MCP 只读工具（代码库、文档、数据库 schema），让 Agent 能主动获取上下文而非依赖人工粘贴
-- 将"口口相传的团队规范"全部写入 Rules，每次发现 Agent 因不了解某个约定而出错，立即补充
+- 每次发现 Agent 因不了解某个约定而出错时，先判断它应该沉淀为 `AGENTS.md` 的高频规则，还是仓库文档里的详细说明，再立即补充
 
-**完成标志：** 新人第一次使用 AI Agent，不需要老成员额外解释，就能生成符合团队风格的代码。
+**完成标志：** 新人第一次使用 AI Agent，不需要老成员额外解释，也能顺着 `AGENTS.md` 找到正确的规则和文档，并生成符合团队风格的代码。
 
 ### Step 2：加入 Constraints Layer（第 3–4 周）
 
@@ -165,11 +151,11 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 
 以下四步可以在一个工作日内完成，帮你快速感受 Harness 的实际效果：
 
-1. **审计 Context Layer**：打开你项目的 `AGENTS.md`，检查是否包含这三类内容：（a）项目架构约定，（b）编码规范与禁止行为，（c）常用工具与访问方式。缺什么就补什么。
+1. **审计 Context Layer**：打开你项目的 `AGENTS.md` 和它指向的核心文档，检查是否覆盖这三类内容：（a）项目架构约定，（b）编码规范与禁止行为，（c）常用工具与访问方式。缺什么就补什么。
 
 2. **增加一个 Constraints 检查**：选择一个你的团队在 Code Review 中最常提的问题，将它写成一个 pre-commit Hook 或 CI 检查，让 Agent 提交违规代码时自动报错。
 
-3. **建立错误日志**：在 `AGENTS.md` 或团队 wiki 中创建一个"Agent 已知错误模式"列表，将本周 Agent 产生的需要人工修正的错误记录下来，分析原因。
+3. **建立错误日志**：创建一个"Agent 已知错误模式"列表，将本周 Agent 产生的需要人工修正的错误记录下来，分析原因。最好至少保留一份仓库内、可机读的版本，团队 wiki 可作为协作视图。
 
 4. **将一个错误固化为规则**：从上一步的错误列表中，选一条最典型的，将修复方式转化为新的 Rule、Hook 或 Skill 约束，确保同类错误不再发生。
 
@@ -194,12 +180,13 @@ Harness Engineering 是前面各章能力的综合运用：
 
 ### 最小 Harness 检查项
 
-- `Context Layer`：已有共享 `AGENTS.md`，且包含架构约定、禁止行为、常用工具路径
+- `Context Layer`：已有共享 `AGENTS.md` 作为入口，并能指向架构约定、禁止行为、常用工具路径的仓库内事实来源
 - `Constraints Layer`：已有至少一个能拦住高频错误的 Hook、CI 或结构检查
 - `GC Layer`：已有固定节奏复盘 Agent 错误，并把高频问题反写成规则或检查
 
-- [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)（OpenAI 原文）
-- [Harness Engineering](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html)（Martin Fowler 解析）
+- [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)（OpenAI：repo 作为 system of record、doc gardening 与 agent-first 开发实践）
+- [My AI Adoption Journey](https://mitchellh.com/writing/my-ai-adoption-journey)（Mitchell Hashimoto：Engineer the Harness 的个人实践）
+- [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html)（Thoughtworks：从 guides / sensors 与不同 harness 类别理解外层 Harness）
 
 ---
 

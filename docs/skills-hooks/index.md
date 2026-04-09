@@ -124,13 +124,14 @@ Hook 更像“在事件发生时自动执行的一段守门逻辑”。
 
 ### 默认安装与目录建议
 
-如果你要把 Skill 当成可复用资产分发，先统一这条默认口径：
+如果你要把 Skill 当成可复用资产，先统一这条默认口径：
 
-- 默认用 `npx skills add <owner>/<repo>` 安装现成 Skill，不再把 `git clone` 到某个工具专属目录当成通用做法
-- 团队共享或跨工具复用时，源文件优先组织在 `.agents/skills/`
-- 只有在明确说明 Claude Code 接入方式时，才讨论 `.claude/commands/`、`.claude/skills/` 或 `.claude/settings.json`
+- 先把 Skill 本体做成目录式源文件：`<skill-name>/SKILL.md`
+- `scripts/`、`references/`、`assets/` 这类 supporting files 按需添加
+- 某个宿主的安装方式、目录结构或界面元数据，只是后续适配层，不要当成 Skill 唯一真实形态
+- 分发方式是后置决策；`skills.sh`、仓库同步或宿主原生安装都可以，但都不该反过来定义 Skill 本体
 
-具体宿主兼容性和最新 CLI 参数，以 [skills.sh 官方文档](https://skills.sh/docs) 为准。
+具体宿主兼容性和最新接入方式，以对应宿主官方文档为准。
 
 ### 第三步：只给 Hook 做“自动且必要”的事
 
@@ -262,16 +263,23 @@ Fix the bug described below.
 
 ### 核心方法
 
-- [进阶模式](./advanced-patterns) — Skill 进阶设计模式
+- [如何制作 Skills](./advanced-patterns) — Claude / Codex 中的制作入口、目录结构与测试方法
 - [Skill 与 Hook 判断案例](./examples/skill-hook-decision-cases) — Skill / Hook 选择示例
 
 ### 组织实践
 
 - [部门级 Skill 共享](./examples/dept-skill-sharing) — 当 Skill 使用者不只包括研发时，怎样做共享、反馈与维护
 
-### Skill Pack 案例与选型
+### 官方生态
 
-- [Skill Pack 选型](./examples/skill-pack-selection) — gstack、superpowers 与 GSD 的结构差异，以及怎么做轻量选型
+- [Anthropic 官方 Skills 速查](./examples/official-skills-catalog) — 先看官方现成 Skill 能直接解决什么问题
+
+### 工作流选型
+
+- [工作流选型](./examples/skill-pack-selection) — 先判断你是在选主工作流，还是只需要补一层长期上下文稳定能力
+
+### 外部工作流案例
+
 - [gstack 实战指南](./examples/gstack-workflow) — 角色化 Skill Pack 的代表案例
 - [superpowers 实战指南](./examples/superpowers-workflow) — 自动触发工程化流水线的代表案例
 - [GSD 实战指南](./examples/gsd-workflow) — 用上下文工程和规格工件稳住长链路项目

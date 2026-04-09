@@ -58,9 +58,15 @@ superpowers 的主流程大致是：
 
 ## 适合谁
 
+**直接使用 superpowers：**
 - 希望 Agent 默认先设计、再计划、再实现的个人开发者或小团队
 - 想把 TDD、review、完成前验证变成流程内置纪律的团队
 - 已经接受子 Agent / worktree / 计划驱动开发方式的团队
+
+**把 superpowers 当灵感、只借它的结构：**
+- 已有自己的主工作流，但想补齐“先写 spec、再拆计划、再执行验证”的主链路
+- 不想整套引入，但希望把 `brainstorming`、`writing-plans`、`test-driven-development` 这些环节拆出来吸收进自己的 Skill 或团队规范
+- 已经有 review 或 CI 流程，只想补“设计先行”和“计划驱动”这两层
 
 **不太适合直接作为主流程的情况：**
 
@@ -79,13 +85,36 @@ superpowers 值得研究，不只是因为它"好用"，更因为它展示了 Sk
 
 它对本章最重要的启发是：Skill 的高级形态不一定是"更多命令"，也可以是**把一套稳定工程方法论产品化**。
 
+更值得借鉴的，不是照搬全部 Skill 名称，而是它背后的结构：
+
+| superpowers 模式 | 你的团队可以借鉴的做法 |
+|------------------|------------------------|
+| **设计先于实现** | 在开工前强制先补“问题定义 + 验收方式”，避免一上来就写代码 |
+| **计划驱动执行** | 把实现拆成小步计划，要求每步都写清修改点和验证方法 |
+| **自动触发验证** | 把测试、review、完成前检查写进默认流程，而不是靠人工提醒 |
+| **分支 / worktree 隔离** | 让高风险改动先在隔离环境里跑通，再考虑合并 |
+
+---
+
+## 最小引入方式
+
+不要一上来就把 superpowers 的整套流程全搬进团队。
+
+更稳的引入顺序通常是：
+
+1. 先借“设计先于实现”这一层，让 Agent 先澄清需求、再动手
+2. 再借“计划驱动执行”，把大任务拆成更小的可验证步骤
+3. 最后才考虑把 TDD、review、收尾检查做成默认流水线
+
+如果你的团队现在还不习惯子 Agent、worktree 或强计划驱动，就先吸收它的设计思想，不要急着全套照搬。
+
 ---
 
 ## 延伸资源
 
 - [superpowers GitHub 仓库](https://github.com/obra/superpowers) — README、安装方式、内置 Skill 列表
-- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 superpowers、gstack 和 GSD 之间做判断
+- [工作流选型](./skill-pack-selection) — 如果你现在要在 superpowers、gstack 和 GSD 之间做判断
 - [gstack GitHub 仓库](https://github.com/garrytan/gstack) — 角色化 Skill Pack 的另一种代表做法
 - [gstack 实战指南](./gstack-workflow) — 本站对 gstack 工作流的拆解
 - [GSD 实战指南](./gsd-workflow) — 更强调上下文工程和长期状态稳定的另一条路线
-- [Skills 进阶模式](../advanced-patterns) — 从单个 Skill 走向 Skill Pack / 工作流产品化
+- [如何制作 Skills](../advanced-patterns) — 先把最小 Skill 做对，再理解 superpowers 这种更重的工作流

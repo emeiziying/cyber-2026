@@ -111,7 +111,7 @@ gstack 最核心的不是某一个命令，而是下面三件事：
 
 ## 对 Skills & Hooks 的启发
 
-gstack 是 [Skills & Hooks 进阶模式](../advanced-patterns)中"**Skill 作为可分发产品包**"的完整现实案例：
+gstack 可以看作 [如何制作 Skills](../advanced-patterns) 里“**从本地 Skill 升级为团队共享资产**”这一步的现实案例：
 
 - 每个 `/command` 对应一个独立的 `.md` 文件，定义角色、规则、输出格式、约束
 - 整套能力可以通过仓库分发和 `setup` 安装到宿主工具中，而不是要求团队成员手工逐条复制
@@ -131,12 +131,34 @@ gstack 是 [Skills & Hooks 进阶模式](../advanced-patterns)中"**Skill 作为
 
 ---
 
+## 最小引入方式
+
+不要一上来就把 gstack 的整套角色菜单全搬进团队。
+
+更稳的引入顺序通常是：
+
+1. 先借一个**单角色视角 Skill**，例如把 `/review` 这类能力改造成你们自己的 Reviewer 视角
+2. 再补一个**守门型 Skill**，例如发布前检查或 QA 验证，看看团队是否真的愿意按这个入口工作
+3. 最后才考虑把多角色评审链串起来，让产品、工程、设计、测试视角接力出现
+
+如果你们现在还没有稳定的发布节奏、测试入口或评审习惯，就先吸收它的角色化设计思想，不要急着复制完整命令集。
+
+### 不要照搬什么
+
+- 不要把开源仓库里的全部角色原样当成你们的团队角色
+- 不要在团队还不习惯显式人工编排时，一次引入十几个命令
+- 不要先上完整发布 / 灰度 / 复盘链路，再回头补团队自己的约束和边界
+
+gstack 最值得先借的，是“不同视角要有不同工作边界”这件事，而不是命令数量。
+
+---
+
 ## 延伸资源
 
 - [gstack GitHub 仓库](https://github.com/garrytan/gstack) — 源码、安装说明、Skill 定义文件
-- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 gstack、superpowers 和 GSD 之间做判断
+- [工作流选型](./skill-pack-selection) — 如果你现在要在 gstack、superpowers 和 GSD 之间做判断
 - [superpowers 实战指南](./superpowers-workflow) — 另一种更强调自动触发、TDD 和计划驱动的工作流
 - [GSD 实战指南](./gsd-workflow) — 更强调上下文工程和规格稳定的另一条路线
-- [Skills & Hooks 进阶模式](../advanced-patterns) — gstack 背后的 Skill 设计模式
+- [如何制作 Skills](../advanced-patterns) — 先把本地 Skill 做稳，再理解 gstack 这类共享资产形态
 - [Skill 与 Hook 判断案例](./skill-hook-decision-cases) — 什么时候用 Skill，什么时候用 Hook
 - [Harness Engineering](../../harness-engineering/) — 如何把 gstack 等 Skill Pack 整合进团队 Harness

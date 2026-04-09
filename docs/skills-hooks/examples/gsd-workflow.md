@@ -129,10 +129,32 @@ GSD 对本章最重要的启发，不是某个具体命令，而是下面几件�
 
 ---
 
+## 最小引入方式
+
+不要一上来就把 GSD 的 phase、工件和命令链全套搬进团队。
+
+更稳的引入顺序通常是：
+
+1. 先补一个**状态工件**，例如 `STATE.md`，解决“中断后回来不知道做到哪”的问题
+2. 再补一个**阶段计划工件**，例如在高风险任务里增加 `PLAN.md` 或等价的研究 / 执行计划
+3. 只有当长期上下文漂移已经成为真实瓶颈时，再考虑把 brownfield 映射、phase 推进和更多工件一起引入
+
+如果你们现在连需求、状态或阶段结论都还没有稳定写下来，就先借 GSD 的工件思想，不要急着照搬完整命令链。
+
+### 不要照搬什么
+
+- 不要在一次性小任务里引入完整的 phase 流程
+- 不要把已有的 ADR、路线图、需求文档体系再机械复制一遍
+- 不要把所有工件都做成强制模板，结果团队没人维护
+
+GSD 最值得先借的，是“把状态和阶段结论稳定写回工件”这层能力，而不是命令数量本身。
+
+---
+
 ## 延伸资源
 
 - [GSD GitHub 仓库](https://github.com/gsd-build/get-shit-done) — README、安装方式、命令总览
 - [GSD User Guide](https://github.com/gsd-build/get-shit-done/blob/main/docs/USER-GUIDE.md) — phase、threads、workstreams、UI contract 等详细说明
-- [Skill Pack 选型](./skill-pack-selection) — 如果你现在要在 gstack、superpowers 和 GSD 之间做轻量判断
+- [工作流选型](./skill-pack-selection) — 如果你现在要在 gstack、superpowers 和 GSD 之间做轻量判断
 - [gstack 实战指南](./gstack-workflow) — 更强调角色化编排和多视角评审的代表案例
 - [superpowers 实战指南](./superpowers-workflow) — 更强调自动触发、计划驱动和验证闭环的代表案例

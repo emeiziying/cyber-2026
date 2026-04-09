@@ -10,6 +10,7 @@ This file distills the stable layout rules already present in the repository's c
 
 ## Shared Rules
 
+- Start from `AGENTS.md`; treat `CLAUDE.md` only as a compatibility pointer when a tool still references it.
 - Use simplified Chinese throughout the page.
 - Use H2 and H3 only.
 - Use relative internal links and omit `.md`.
@@ -55,6 +56,10 @@ Use this skeleton for `docs/<module>/index.md` pages:
 ## 完成检查清单
 
 - [ ] ...
+
+---
+
+**下一章 →** [下一章标题](../next-module/)
 ```
 
 Module page notes:
@@ -65,7 +70,40 @@ Module page notes:
 - Put the reader-facing problem first, then importance, then concepts, then scenarios and practice.
 - Use `---` between major regions when the page already follows that rhythm.
 - Always preserve the closing block order: `与前后章节的关系` -> `延伸阅读 / 模板 / 示例` -> `完成检查清单`.
+- Preserve any existing trailing chapter-navigation line after the closing blocks; it may point to the previous chapter, next chapter, or both in future pages.
 - End `与前后章节的关系` with navigation context or adjacent chapter references when the module is part of the main learning path.
+
+## Standalone Teaching Page Skeleton
+
+Use this skeleton for sidebar-linked standalone content pages such as `docs/skills-hooks/advanced-patterns.md`:
+
+```markdown
+# 页面标题
+
+> **适合人群：** ...
+> **目标：** ...
+
+---
+
+## 这页解决什么问题
+
+## 核心方法 / 结构 / 判断
+
+### 子节（按需）
+
+---
+
+## 实操建议 / 常见问题 / 进阶边界
+
+## 延伸阅读
+```
+
+Standalone teaching page notes:
+
+- Use this shape for pages that are teaching content, appear in the sidebar, but are neither module index pages nor example pages.
+- Preserve the intro callout only when the page already uses one or the user explicitly asks for it.
+- Keep a teaching progression, but let the sections follow the page's actual purpose instead of forcing the module-page closing trio.
+- Preserve established related-page links and page-specific endings when the repo already uses them.
 
 ## Example Page Skeleton
 

@@ -1,6 +1,16 @@
-# Skill Pack 选型：gstack 和 superpowers 怎么选
+# 工作流选型：gstack、superpowers 和 GSD 怎么看
 
-> **定位：** 这一页只解决轻量选型问题。`gstack` 和 `superpowers` 各自是什么、怎么工作，放在各自案例页里展开；`GSD` 也另有独立案例页。这里重点回答它们分别适合什么团队、什么协作习惯，并顺带解释 `GSD` 适合在什么情况下作为补充层引入。
+> **定位：** 这一页不是官方 Skill 列表，也不是单案例拆解页。它只解决一个问题：当你已经知道要看外部工作流体系时，`gstack`、`superpowers` 和 `GSD` 分别该在什么情况下看、借什么、避开什么。
+
+---
+
+## 先判断你要找的是什么
+
+- 如果你要的是**官方现成能力**，先看 [Anthropic 官方 Skills 速查](./official-skills-catalog)
+- 如果你要的是**自己做第一个 Skill**，先看 [如何制作 Skills](../advanced-patterns)
+- 如果你要的是**外部工作流体系选型**，再继续读这一页
+
+这一步很重要，因为很多读者其实不是在选 `gstack` / `superpowers` / `GSD`，而是在找“有没有现成 Skill 可以直接用”。这两类需求不该混在一起。
 
 ---
 
@@ -24,6 +34,19 @@
 | **典型代价 / 不适合场景** | 角色和命令较多，短任务里会显得偏重 | 流程约束较强，不适合高度手动编排 | 单独使用时不直接替你完成交付，短任务里可能多一层维护负担 |
 
 可以把三者简单理解成：`gstack` 偏角色视角与决策，`superpowers` 偏执行闭环，`GSD` 偏规格、状态和上下文稳定。对大多数团队来说，前两者是在选主工作流，`GSD` 只在长期上下文漂移已经成为真实问题时再补进来。
+
+---
+
+## 读这些案例时，重点看什么
+
+不要把这三页当成“直接照装哪一套”的安装教程，更稳的看法是：
+
+- 看它解决的主要问题，是不是你现在真实存在的瓶颈
+- 看它默认要求的协作习惯，你的团队能不能接受
+- 看它最值得借鉴的结构，是否能只吸收一部分而不是全盘照搬
+- 看它最大的代价和冲突点，避免只是因为“看起来完整”就引入
+
+这一组案例页更适合做“结构判断样本”，而不是“默认推荐方案清单”。
 
 ---
 
@@ -80,5 +103,6 @@
 - [gstack 实战指南](./gstack-workflow) — 角色化 Skill Pack 的代表案例
 - [superpowers 实战指南](./superpowers-workflow) — 自动触发工程化流水线的代表案例
 - [GSD 实战指南](./gsd-workflow) — 如果你需要补"上下文 / 规格稳定层"，先看本站对其结构价值的拆解
+- [Anthropic 官方 Skills 速查](./official-skills-catalog) — 如果你其实在找“现成可用能力”，先看这里
 - [GSD GitHub 仓库](https://github.com/gsd-build/get-shit-done) — README、安装方式、命令与 User Guide 入口
-- [Skills 进阶模式](../advanced-patterns) — 从单个 Skill 走向 Skill Pack / 工作流产品化
+- [如何制作 Skills](../advanced-patterns) — 先把第一个 Skill 做对，再决定要不要升级成 Skill Pack

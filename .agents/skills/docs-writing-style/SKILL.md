@@ -1,13 +1,14 @@
 ---
 name: docs-writing-style
-description: Use when drafting, rewriting, or normalizing Cyber 2026 repository docs content pages in docs/**/index.md except docs/intro/index.md, or docs/**/examples/*.md, and the output must match the repo's established VitePress teaching style.
+description: Use when drafting, rewriting, or normalizing Cyber 2026 docs content pages such as module index pages, sidebar-linked standalone teaching pages, or docs/**/examples/*.md, while preserving the repo's established VitePress teaching style.
 ---
 
 # Docs Writing Style
 
 Use this skill only for Cyber 2026 content pages inside `docs/`:
 
-- Module body pages at `docs/**/index.md`, except `docs/intro/index.md`
+- Module body pages at `docs/**/index.md`, except `docs/index.md` and `docs/intro/index.md`
+- Standalone teaching pages under `docs/` that are explicitly linked from the sidebar, such as `docs/skills-hooks/advanced-patterns.md`
 - Example pages at `docs/**/examples/*.md`
 
 Do not use this skill for:
@@ -22,10 +23,11 @@ Do not use this skill for:
 
 Before you draft or rewrite a page:
 
-1. Read `CLAUDE.md`, especially `Markdown 内容约定` and `内容结构模式`.
+1. Read `AGENTS.md`, especially `Markdown 内容约定`, `内容结构模式`, and any navigation rules relevant to the target page. If a tool surfaces `CLAUDE.md`, treat it as a compatibility pointer and follow `AGENTS.md`.
 2. Read `references/page-style.md`.
-3. Read at least one same-type page from the repo as a style sample only:
+3. Read at least one same-type or closest-shape page from the repo as a style sample only:
    - For a module page, inspect another `docs/*/index.md`.
+   - For a standalone teaching page, inspect a nearby sidebar-linked teaching page with a similar purpose, or the target page itself when you are making a local edit and no close peer exists.
    - For an example page, inspect another `docs/*/examples/*.md`.
 
 The skill package (`SKILL.md` + `references/page-style.md`) is the style authority for this workflow. Same-type pages are examples, not higher-priority rules.
@@ -45,10 +47,23 @@ Requirements:
 - The page should follow the module-page teaching skeleton, but plain H2 titles are the default.
 - Preserve existing H2 numbering only when the source page already uses it and the task is a local edit, or when the user explicitly asks for numbered headings.
 - The page should keep the top callout block for `适合人群` and `学习目标`.
-- The page must end with these exact closing blocks in order: `与前后章节的关系`, `延伸阅读 / 模板 / 示例`, `完成检查清单`.
+- The page must include these closing blocks in order near the end of the page: `与前后章节的关系`, `延伸阅读 / 模板 / 示例`, `完成检查清单`.
+- Preserve any existing trailing chapter-navigation line after those closing blocks, such as `**上一章 ←** ...` or `**下一章 →** ...`.
 - Any explicit chapter-order reference must come from user input or repo facts that clearly establish the module position.
 
 If the page needs an explicit chapter-order reference and that information is missing, first derive it from repository facts such as adjacent module pages or configured learning-path order. If it still cannot be determined confidently, stop and ask. Never guess.
+
+### Standalone Teaching Page
+
+Treat the page as a standalone teaching page when it is a non-home, non-intro content page under `docs/` that is explicitly linked from the sidebar but is neither a module `index.md` page nor an `examples/` page.
+
+Requirements:
+
+- Keep the page in simplified Chinese.
+- Use only H2 and H3 headings.
+- Preserve the existing intro callout when the source page already uses one; do not add it blindly.
+- Keep the structure teaching-oriented and sectioned, but do not force the module-page closing trio onto pages that use a different established ending.
+- Preserve page-specific closing structure and related-page links when they are supported by repo facts.
 
 ### Example Page
 
@@ -67,7 +82,7 @@ Requirements:
 Resolve conflicts in this order:
 
 1. The user's explicit request in the current turn
-2. `CLAUDE.md`
+2. `AGENTS.md`
 3. This skill package (`SKILL.md` + `references/page-style.md`)
 4. Existing same-type pages in `docs/`, only as non-authoritative examples
 
@@ -77,7 +92,7 @@ Treat numbered H2 sections in older module pages as a legacy pattern, not the de
 
 ## Workflow
 
-1. Classify the target as `module page`, `example page`, or `out of scope`.
+1. Classify the target as `module page`, `standalone teaching page`, `example page`, or `out of scope`.
 2. Extract the requested subject, audience, and constraints from the user input.
 3. Load the repo rules, this skill reference, and one same-type page before outlining.
 4. Build the outline from the matching skeleton in `references/page-style.md`.
@@ -94,6 +109,7 @@ Treat numbered H2 sections in older module pages as a legacy pattern, not the de
 - Every code fence must declare a language.
 - Keep major blocks separated with `---` when that pattern already exists on the page type.
 - Do not add numeric prefixes to every H2 by default on module pages.
+- Do not delete an existing trailing chapter-navigation line from a module page unless the user explicitly asks to remove it.
 - Do not copy homepage patterns such as `layout: home`, `hero`, or `features` into content pages.
 - Do not rewrite example pages into rigid chapter lessons.
 
@@ -107,7 +123,17 @@ Always preserve or generate:
 - Intro callout block for `适合人群` and `学习目标`
 - Plain H2 section titles by default; retain numbered H2s only when intentionally preserving a legacy page or when explicitly requested
 - A teaching progression that matches the repo's chapter pages
-- The exact closing sections `与前后章节的关系`, `延伸阅读 / 模板 / 示例`, and `完成检查清单`
+- The closing sections `与前后章节的关系`, `延伸阅读 / 模板 / 示例`, and `完成检查清单` in that order
+- Any existing trailing chapter-navigation line after those closing sections
+
+### For Standalone Teaching Pages
+
+Always preserve or generate:
+
+- A clear page purpose that matches the sidebar-linked teaching intent
+- The existing intro callout when the source page already uses one
+- A sectioned teaching flow that fits the page's purpose without forcing the module-page closing trio
+- Existing related-page links or closing structure when they are part of the established page pattern
 
 ### For Example Pages
 
@@ -132,4 +158,6 @@ Before finishing, verify all of the following:
 - Module pages include `与前后章节的关系`.
 - Module pages include `延伸阅读 / 模板 / 示例`.
 - Module pages include `完成检查清单`.
+- If a module page had a trailing chapter-navigation line, it was preserved or intentionally updated rather than dropped.
+- Standalone teaching pages keep their page-specific closing structure and do not gain module-page-only scaffolding by mistake.
 - Example pages do not gain module-page-only scaffolding by mistake.

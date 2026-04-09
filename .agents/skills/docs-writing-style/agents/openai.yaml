@@ -1,4 +1,4 @@
 interface:
   display_name: "Cyber Docs Style"
   short_description: "Write Cyber 2026 docs content pages in the repo's established VitePress teaching style."
-  default_prompt: "Use $docs-writing-style to draft or normalize a Cyber 2026 docs content page in docs/**/index.md except docs/intro/index.md, or docs/**/examples/*.md, without drifting from the repository's established style."
+  default_prompt: "Use $docs-writing-style to draft or normalize a Cyber 2026 module page, sidebar-linked standalone teaching page, or example page without drifting from the repository's established style."

@@ -9,7 +9,7 @@
 - 主动发起 → **Skill**（用户显式调用某个工作流）
 - 自动执行 → **Hook**（系统在特定事件时自动运行）
 
-如果要把调用方式写得可执行，建议直接写工具差异：Claude 用 `/skill-name`，Codex 用 `$skill-name`。
+如果要把调用方式写得可执行，最好把“Skill 本体”和“宿主入口”分开写：先定义通用 Skill，再按具体工具补 `/skill-name`、`$skill-name` 之类的入口差异。
 
 ---
 
@@ -24,7 +24,7 @@
 - 需要固定的输入提示（问题描述、复现步骤）和输出格式（根因、修复、测试、影响）
 - 不同 bug 可能需要不同的处理深度，用户需要控制
 
-**实现方式：** 默认把流程模板写成 `.agents/skills/fix-bug.md`；实际调用时，Claude 用 `/fix-bug`，Codex 用 `$fix-bug`。如果团队只面向 Claude Code，再映射到 `.claude/commands/`。
+**实现方式：** 先把流程模板组织成 `fix-bug/SKILL.md` 这样的通用 Skill 目录；接到具体宿主时，再映射成各自的入口，例如 Claude 的 `/fix-bug` 或其他工具自己的调用方式。
 
 ---
 
@@ -39,7 +39,7 @@
 - 它是一种**保护机制**，必须在每次文件写入时检查
 - 用户不应该有"选择跳过"的机会
 
-**实现方式：** 在 `.claude/settings.json` 中配置 PreToolUse Hook，在文件写入前检查当前分支：
+**实现方式：** 以 Claude Code 为例，可以在 `.claude/settings.json` 中配置 PreToolUse Hook，在文件写入前检查当前分支：
 
 ```json
 {
@@ -87,7 +87,7 @@
 - 用户可能想在不同时间点触发（下班前、会议前）
 - 日报内容可能需要用户补充上下文（比如"今天主要在处理 XX 需求"）
 
-**实现方式：** 默认把日报流程写成 `.agents/skills/daily-report.md`；实际调用时，Claude 用 `/daily-report`，Codex 用 `$daily-report`。如果团队只面向 Claude Code，再映射到 `.claude/commands/`。
+**实现方式：** 先把日报流程组织成 `daily-report/SKILL.md` 这样的通用 Skill 目录；接到具体宿主时，再映射成对应入口。
 
 ---
 

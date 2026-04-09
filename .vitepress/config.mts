@@ -57,7 +57,7 @@ const learningPathItems = [
           {
             text: '核心方法',
             items: [
-              {text: '进阶模式', link: '/skills-hooks/advanced-patterns'},
+              {text: '如何制作 Skills', link: '/skills-hooks/advanced-patterns'},
               {
                 text: 'Skill 与 Hook 判断案例',
                 link: '/skills-hooks/examples/skill-hook-decision-cases',
@@ -74,16 +74,26 @@ const learningPathItems = [
             ],
           },
           {
-            text: 'Skill Pack 案例',
+            text: '官方生态',
             items: [
               {
                 text: '官方 Skills 速查',
                 link: '/skills-hooks/examples/official-skills-catalog',
               },
+            ],
+          },
+          {
+            text: '工作流选型',
+            items: [
               {
-                text: 'Skill Pack 选型',
+                text: '工作流选型',
                 link: '/skills-hooks/examples/skill-pack-selection',
               },
+            ],
+          },
+          {
+            text: '外部工作流案例',
+            items: [
               {
                 text: 'gstack 实战指南',
                 link: '/skills-hooks/examples/gstack-workflow',
