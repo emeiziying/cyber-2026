@@ -76,7 +76,7 @@ Rules 的目标是形成稳定边界，不是把每次对话都塞进一份永�
 
 ### 反例：没有 Rules 时的典型对话
 
-```
+```text
 你：帮我写一个 Vue 组件
 AI：用了 Options API 和 CSS Modules
 你：我们不用 Options API

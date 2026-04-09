@@ -45,7 +45,7 @@ Agent 真正适合的是**需要多轮判断、依赖外部观察、步骤之间
 
 ### 一个最小心智模型
 
-```
+```text
 目标 → 规划 → 调工具 → 观察结果 → 判断是否继续 → 返回结果
 ```
 
@@ -185,7 +185,7 @@ Agent 最容易被高估的地方，是“演示时看起来很聪明”；真�
 
 - [Review Agent 演练](./examples/review-agent-walkthrough) — 一个代码审查 Agent 的最小设计闭环示例
 - [Harness Engineering](../harness-engineering/) — 把 Agent 能力整合进团队体系的下一步
-- [`../skills-hooks/`](../skills-hooks/) — 如果任务还不适合做成 Agent，通常先停在 Skill / Hook 更合适
+- [Skills & Hooks](../skills-hooks/) — 如果任务还不适合做成 Agent，通常先停在 Skill / Hook 更合适
 - [Claude Code 官方文档](https://docs.anthropic.com/en/docs/claude-code)
 
 ---

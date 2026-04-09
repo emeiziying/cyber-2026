@@ -22,10 +22,9 @@
 
 2026 年 2 月 11 日，OpenAI 在总结 Codex Agent 协作实践的文章中，用 **Harness Engineering** 来概括这类工作：**3 名工程师与 Codex Agent 协作 5 个月，累计打开并合并约 1500 个 PR，交付了一个规模接近百万行代码的 beta 产品。**
 
-这不是魔法，也不是偶然。文章强调，真正放大产能的关键，不是继续让人亲自写更多代码，而是把更多工程精力投入到让 Agent 稳定工作的环境里。OpenAI 对这类工作方式的概括，可以先用一句话记住：
+这不是魔法，也不是偶然。文章强调，真正放大产能的关键，不是继续让人亲自写更多代码，而是把更多工程精力投入到让 Agent 稳定工作的环境里。OpenAI 对这类工作方式的概括，可以先用一句中文记住：
 
-> **Humans steer. Agents execute.**
-> 人类掌舵，智能体执行。
+> **人类掌舵，智能体执行。**
 
 工程师的重心不再只是实现代码，而是**设计让 Agent 可靠工作的环境**。
 
@@ -43,7 +42,7 @@
 
 ### 三层结构
 
-把 OpenAI 的实践、Mitchell 的经验总结，以及 Martin Fowler / Thoughtworks 对 harness 的 guides、sensors 和 regulation categories 放在一起看，本文为了便于落地，先把一个最小 Harness 教学上整理为三层：
+把 OpenAI 的实践、Mitchell 的经验总结，以及 Martin Fowler / Thoughtworks 对 harness 的“指导、感知与约束”三类机制放在一起看，本文为了便于落地，先把一个最小 Harness 教学上整理为三层：
 
 | 层 | 名称 | 作用 | 对应你已学的能力 |
 |----|------|------|-----------------|
@@ -53,7 +52,7 @@
 
 三层合力：Context 保证 Agent 知道该做什么，Constraints 保证 Agent 做的符合规范，GC 保证积累的问题不会失控。
 
-Fowler 的文章更适合理解 harness 的调节方向，以及 feedforward / feedback 的关系；这里的三层是本站为了串联前面几章能力采用的教学抽象。
+Fowler 的文章更适合理解 harness 的调节方向，以及前馈约束与反馈回路的关系；这里的三层是本站为了串联前面几章能力采用的教学抽象。
 
 ### 什么时候更适合引入 Harness Engineering
 
@@ -165,12 +164,12 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 
 Harness Engineering 是前面各章能力的综合运用：
 
-- **[Rules →](/rules/)**：是 Context Layer 的核心载体，AGENTS.md 就是你的 Context 基础设施
-- **[MCP →](/mcp/)**：为 Context Layer 提供动态工具访问能力，让 Agent 能主动获取外部信息
-- **[Skills & Hooks →](/skills-hooks/)**：Constraints Layer 的主要实现手段，Hook 是最直接的自动化约束
-- **[Agent 开发 →](/agent-development/)**：为 Garbage Collection Layer 提供执行能力
-- **[→ 生产落地与治理](/production-governance/)**：在 Harness 基础上建立更宏观的风险管理框架
-- **[→ 团队工作流](/team-workflow/)**：将 Harness 维护纳入团队日常协作流程
+- **[Rules →](../rules/)**：是 Context Layer 的核心载体，AGENTS.md 就是你的 Context 基础设施
+- **[MCP →](../mcp/)**：为 Context Layer 提供动态工具访问能力，让 Agent 能主动获取外部信息
+- **[Skills & Hooks →](../skills-hooks/)**：Constraints Layer 的主要实现手段，Hook 是最直接的自动化约束
+- **[Agent 开发 →](../agent-development/)**：为 Garbage Collection Layer 提供执行能力
+- **[→ 生产落地与治理](../production-governance/)**：在 Harness 基础上建立更宏观的风险管理框架
+- **[→ 团队工作流](../team-workflow/)**：将 Harness 维护纳入团队日常协作流程
 
 ---
 
@@ -186,7 +185,7 @@ Harness Engineering 是前面各章能力的综合运用：
 
 - [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)（OpenAI：repo 作为 system of record、doc gardening 与 agent-first 开发实践）
 - [My AI Adoption Journey](https://mitchellh.com/writing/my-ai-adoption-journey)（Mitchell Hashimoto：Engineer the Harness 的个人实践）
-- [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html)（Thoughtworks：从 guides / sensors 与不同 harness 类别理解外层 Harness）
+- [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html)（Thoughtworks：从“指导 / 感知 / 约束”与不同 harness 类别理解外层 Harness）
 
 ---
 

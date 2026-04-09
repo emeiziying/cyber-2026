@@ -127,7 +127,7 @@ Hook 更像“在事件发生时自动执行的一段守门逻辑”。
 如果你要把 Skill 当成可复用资产，先统一这条默认口径：
 
 - 先把 Skill 本体做成目录式源文件：`<skill-name>/SKILL.md`
-- `scripts/`、`references/`、`assets/` 这类 supporting files 按需添加
+- `scripts/`、`references/`、`assets/` 这类配套文件按需添加
 - 某个宿主的安装方式、目录结构或界面元数据，只是后续适配层，不要当成 Skill 唯一真实形态
 - 分发方式是后置决策；`skills.sh`、仓库同步或宿主原生安装都可以，但都不该反过来定义 Skill 本体
 
@@ -226,22 +226,22 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 - 通用 Skill 骨架通常包含：用途、调用方式、步骤、输出格式
 
 ```markdown
-Fix the bug described below.
+请修复下面描述的 bug。
 
-## Usage
-- Claude: `/fix-bug [bug description]`
-- Codex: `$fix-bug [bug description]`
+## 调用方式
+- Claude: `/fix-bug [bug 描述]`
+- Codex: `$fix-bug [bug 描述]`
 
-## Steps
-1. Search the codebase
-2. Identify the root cause
-3. Implement a minimal fix
-4. Add or update a test
+## 执行步骤
+1. 搜索代码库
+2. 确认根因
+3. 实现最小修复
+4. 新增或更新测试
 
-## Output
-- Root cause
-- Fix summary
-- Test added
+## 输出
+- 根因
+- 修改摘要
+- 新增测试
 ```
 
 - Hook 配置最小片段示例：

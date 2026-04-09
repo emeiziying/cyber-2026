@@ -48,7 +48,7 @@ AI 训练数据有截止日期。当你问 Claude 如何使用 Next.js 15 的某
 
 配置好之后，在 prompt 中加入 `use context7` 即可触发文档注入；如果版本很关键，建议直接写在问题里：
 
-```
+```text
 用 Pydantic v2 写一个带有嵌套模型的数据验证类，use context7
 ```
 
@@ -261,7 +261,7 @@ Claude Code 每次会话结束即清空记忆，下次需要重新交代背景�
 
 ### 入门组合（第 1–2 周）
 
-```
+```text
 Filesystem（只读 docs/）+ GitHub MCP（只读）+ Context7
 ```
 
@@ -271,7 +271,7 @@ Filesystem（只读 docs/）+ GitHub MCP（只读）+ Context7
 
 在入门组合基础上加：
 
-```
+```text
 + Brave Search + Memory
 ```
 
@@ -281,7 +281,7 @@ Filesystem（只读 docs/）+ GitHub MCP（只读）+ Context7
 
 在标准组合基础上，按团队实际需求选择：
 
-```
+```text
 + Playwright（需要 QA 自动化时）
 + 数据库只读 MCP（需要数据分析时）
 + GitHub 写权限（已充分验证后）

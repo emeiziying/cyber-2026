@@ -143,7 +143,7 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 
 ## 最终 Harness 结构
 
-```
+```text
 团队 Harness（2026-04）
 │
 ├── Context Layer
@@ -176,5 +176,5 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 
 **下一步计划：**
 - 引入 GC Agent，定期扫描文档一致性
-- 将 Harness 建设经验整理成团队 onboarding 材料
+- 将 Harness 建设经验整理成团队入职材料
 - 评估是否需要将 `check-no-direct-fetch` 逻辑迁移到 ESLint 插件（更标准，更快）
