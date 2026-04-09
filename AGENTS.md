@@ -27,7 +27,7 @@ pnpm install
 # 启动本地开发服务器（热重载，默认端口 5173）
 pnpm docs:dev
 
-# 校验文档链接与静态资源路径
+# 校验文档链接
 pnpm docs:check
 
 # 构建静态站点（输出到 .vitepress/dist/）
@@ -91,14 +91,6 @@ pnpm docs:preview
 │   ├── team-workflow/            # 模块9：团队工作流与质量控制
 │   │   ├── index.md
 │   │   └── examples/workflow-sample.md
-│   └── public/downloads/         # 内部模板源文件（手工维护，直接提交）
-│       ├── rules/templates/      # AGENTS.md 模板
-│       ├── mcp/templates/        # MCP 配置模板
-│       ├── skills-hooks/templates/  # Skill 命令与 Hook 配置模板
-│       ├── production-governance/templates/  # 风险矩阵、验收清单模板
-│       ├── team-workflow/templates/  # PR 检查清单、需求模板
-│       ├── harness-engineering/templates/    # Harness 建设检查清单模板
-│       └── examples/             # 其他静态模板源
 ├── scripts/
 │   └── check-doc-links.mjs       # 文档内链校验脚本
 ├── .github/
@@ -125,7 +117,6 @@ pnpm docs:preview
 - **Front matter：** 在需要覆盖标题或控制大纲时添加，否则不需要
 - **内部链接：** 使用相对路径并省略 `.md` 后缀（VitePress cleanUrls 已启用）
 - **代码块：** 始终标注语言（如 ` ```bash`、` ```typescript`）
-- **排除规则：** `public/downloads/` 下的 `.md` 文件已通过 `srcExclude` 排除构建，不会被 VitePress 当作页面处理
 - **引用块换行：** `config.mts` 中注册了自定义 markdown 插件，将 blockquote 内的软换行（softbreak）转为硬换行（hardbreak），确保多行引用块中的换行在渲染后保留
 
 ### 内容结构模式
@@ -172,18 +163,6 @@ pnpm docs:preview
 
 ---
 
-## 内部模板源管理
-
-`docs/public/downloads/` 用来保存仓库内部维护的模板源文件，需要**手工维护并直接提交**：
-- 模板文件（`.md.template`、`.json.template` 等）
-- Skill 命令模板（`skills-hooks/templates/commands/`）
-- MCP 配置模板（`mcp/templates/mcp-config.json`）
-- Hook 配置模板（`skills-hooks/templates/settings-with-hooks.json`）
-
-这些文件不再作为独立“下载资源模块”面向读者暴露。对读者的模板说明、骨架片段和最小示例，应直接展示在对应章节正文中。
-
----
-
 ## Git 工作流
 
 ### 提交信息格式
@@ -209,7 +188,7 @@ type: 简短描述（中文或英文均可）
 ### 编辑文档时
 - 修改现有页面内容前，先通读该页面，理解上下文再修改，不要孤立地改某一段
 - 新增学习主线模块时，按"导航与侧边栏"一节列出的 5 步清单逐项执行，不要只改 sidebar 而遗漏导读和章节关系
-- 更新模板源文件时，同步更新对应章节中的骨架片段或说明
+- 模板骨架直接维护在对应章节正文中，避免出现多份事实来源
 
 ### 修改站点配置时
 - `config.mts` 使用 TypeScript，修改后确认语法正确（`pnpm docs:build` 会验证）
@@ -217,7 +196,7 @@ type: 简短描述（中文或英文均可）
 
 ### 校验文档链接时
 - `pnpm docs:check` 运行 `scripts/check-doc-links.mjs`，递归扫描 `docs/` 下所有 `.md` 文件的内部链接
-- 脚本会屏蔽代码块内容以避免误报，支持相对路径、绝对路径及静态资源校验
+- 脚本会屏蔽代码块内容以避免误报，支持相对路径与绝对路径校验
 - CI 流水线（`.github/workflows/docs-check.yml`）在每次 PR 和 push 到 main 时自动执行链接校验 + 构建验证
 - 提交前若新增了页面或链接，建议先本地运行 `pnpm docs:check` 排查断链
 
@@ -226,7 +205,6 @@ type: 简短描述（中文或英文均可）
 - 不要将 `.vitepress/dist/`（构建产物）或 `.vitepress/cache/` 提交到 Git
 - 不要将 `node_modules/` 提交到 Git
 - 不要在 `docs/` 以外的位置存放站点正文内容
-- 不要修改 `docs/public/downloads/` 中的文件后忘记同步对应章节中的展示片段
 - 不要在 sidebar 中添加没有对应文件的链接（会导致构建警告或 404）
 - 不要删除或重命名页面而忘记同步更新 `.vitepress/config.mts` 的 sidebar 和其他页面中指向该页面的链接
 - 不要新增学习主线模块而不更新 `docs/intro/index.md` 的"推荐怎么读"——导读是读者的入口，遗漏会导致新模块对读者不可见

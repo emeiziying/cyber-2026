@@ -151,7 +151,6 @@ export default defineConfig({
   lang: 'zh-CN',
   cleanUrls: true,
   srcDir: 'docs',
-  srcExclude: ['public/downloads/**/*.md'],
   markdown: {
     config(md) {
       md.core.ruler.push('preserve-blockquote-softbreaks', (state) => {

@@ -12,7 +12,7 @@ pnpm docs:dev
 | 命令 | 说明 |
 |------|------|
 | `pnpm docs:dev` | 启动本地开发服务器（热重载，端口 5173） |
-| `pnpm docs:check` | 校验文档内链与静态资源链接是否有效 |
+| `pnpm docs:check` | 校验文档内链是否有效 |
 | `pnpm docs:build` | 构建静态站点到 `.vitepress/dist/` |
 | `pnpm docs:preview` | 本地预览构建产物 |
 
@@ -40,7 +40,6 @@ pnpm docs:dev
 ```
 ├── .vitepress/config.mts       # 站点配置（导航、侧边栏）
 ├── docs/                       # 站点正文唯一来源
-│   └── public/downloads/       # 内部模板源文件（手工维护，直接提交）
 ├── package.json
 └── AGENTS.md                   # AI 助手行为规范
 ```
@@ -53,6 +52,5 @@ pnpm docs:dev
 ## 贡献
 
 - 正文内容只存放在 `docs/` 目录下
-- 模板源文件在 `docs/public/downloads/` 手工维护并直接提交，对读者的展示应写回对应章节正文
 - 新增页面需同步更新 `.vitepress/config.mts` 的侧边栏配置
 - AI 助手协作规范见 [`AGENTS.md`](./AGENTS.md)
