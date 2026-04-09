@@ -4,9 +4,9 @@ This file distills the stable layout rules already present in the repository's c
 
 ## Authority
 
-- Treat this file and `../SKILL.md` as the normative style source for this skill.
-- Same-type pages in `docs/` are reference examples only.
-- If an existing page conflicts with this skill package, follow the skill package and treat the page as drift to avoid copying inconsistencies forward.
+- Treat this file and `../SKILL.md` as a compact summary of recurring repo patterns and fallback page shapes.
+- `AGENTS.md`, the target page itself, and clear repository facts remain higher-priority than this reference.
+- Same-type pages in `docs/` help identify stable patterns and valid variations; do not erase repo-consistent differences just to match a generic shape.
 
 ## Shared Rules
 
@@ -19,9 +19,9 @@ This file distills the stable layout rules already present in the repository's c
 - Prefer concise teaching prose over decorative wording.
 - Reuse the repo's existing table, checklist, and quoted-callout patterns instead of inventing new ones.
 
-## Module Page Skeleton
+## Module Page Typical Shape
 
-Use this skeleton for `docs/<module>/index.md` pages:
+Use this typical shape for `docs/<module>/index.md` pages when creating a new page or repairing a structurally incomplete draft:
 
 ```markdown
 # 模块标题
@@ -72,10 +72,11 @@ Module page notes:
 - Always preserve the closing block order: `与前后章节的关系` -> `延伸阅读 / 模板 / 示例` -> `完成检查清单`.
 - Preserve any existing trailing chapter-navigation line after the closing blocks; it may point to the previous chapter, next chapter, or both in future pages.
 - End `与前后章节的关系` with navigation context or adjacent chapter references when the module is part of the main learning path.
+- Preserve topic-specific sections that the page already uses to teach its subject, such as transition, boundary, or rollout sections that do not appear in every module page.
 
-## Standalone Teaching Page Skeleton
+## Standalone Teaching Page Typical Shape
 
-Use this skeleton for sidebar-linked standalone content pages such as `docs/skills-hooks/advanced-patterns.md`:
+Use this typical shape for sidebar-linked standalone content pages such as `docs/skills-hooks/advanced-patterns.md` when the page needs a starting structure:
 
 ```markdown
 # 页面标题
@@ -104,10 +105,11 @@ Standalone teaching page notes:
 - Preserve the intro callout only when the page already uses one or the user explicitly asks for it.
 - Keep a teaching progression, but let the sections follow the page's actual purpose instead of forcing the module-page closing trio.
 - Preserve established related-page links and page-specific endings when the repo already uses them.
+- Prefer the target page's existing rhythm when doing a local rewrite; this shape is a fallback, not a required template.
 
-## Example Page Skeleton
+## Example Page Typical Shape
 
-Use this skeleton for `docs/**/examples/*.md` pages:
+Use this typical shape for `docs/**/examples/*.md` pages when you need a default starting point:
 
 ```markdown
 # 示例标题
@@ -128,6 +130,7 @@ Example page notes:
 - Open with context, then move into steps, comparisons, tables, or evidence.
 - Keep the page concrete and case-driven.
 - A checklist is optional. Use it only if the example naturally ends in an action summary.
+- Keep strong example-specific section names when they make the case easier to scan; do not rename them only to match this typical shape.
 
 ## Prohibited Drift
 

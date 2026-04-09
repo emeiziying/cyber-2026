@@ -25,12 +25,12 @@ Before you draft or rewrite a page:
 
 1. Read `AGENTS.md`, especially `Markdown 内容约定`, `内容结构模式`, and any navigation rules relevant to the target page. If a tool surfaces `CLAUDE.md`, treat it as a compatibility pointer and follow `AGENTS.md`.
 2. Read `references/page-style.md`.
-3. Read at least one same-type or closest-shape page from the repo as a style sample only:
+3. Read the target page itself when you are editing an existing page, then read at least one same-type or closest-shape page from the repo as a style sample:
    - For a module page, inspect another `docs/*/index.md`.
    - For a standalone teaching page, inspect a nearby sidebar-linked teaching page with a similar purpose, or the target page itself when you are making a local edit and no close peer exists.
    - For an example page, inspect another `docs/*/examples/*.md`.
 
-The skill package (`SKILL.md` + `references/page-style.md`) is the style authority for this workflow. Same-type pages are examples, not higher-priority rules.
+The skill package (`SKILL.md` + `references/page-style.md`) summarizes recurring repo patterns and fallback shapes for this workflow. It must not override `AGENTS.md`, clear repository facts, or intentional structure already established on the target page.
 
 If the target page is out of scope, say so plainly and do not force this skill's template onto it.
 
@@ -83,10 +83,11 @@ Resolve conflicts in this order:
 
 1. The user's explicit request in the current turn
 2. `AGENTS.md`
-3. This skill package (`SKILL.md` + `references/page-style.md`)
-4. Existing same-type pages in `docs/`, only as non-authoritative examples
+3. Clear repository facts tied to the target page, such as its current structure, sidebar placement, adjacent chapter links, and existing related-page links
+4. Stable patterns shared by same-type pages in `docs/`
+5. This skill package (`SKILL.md` + `references/page-style.md`) as fallback guidance only
 
-Do not invent new style rules when the repository already has a stable pattern. If a same-type page conflicts with this skill package, follow the skill package and treat the page as drift.
+Do not invent new style rules when the repository already has a stable pattern. If an existing page has a deliberate, repo-consistent section that is not listed in the generic skeleton, preserve it unless the user explicitly asks for a structural rewrite.
 
 Treat numbered H2 sections in older module pages as a legacy pattern, not the default for new drafts or full rewrites.
 
@@ -94,11 +95,12 @@ Treat numbered H2 sections in older module pages as a legacy pattern, not the de
 
 1. Classify the target as `module page`, `standalone teaching page`, `example page`, or `out of scope`.
 2. Extract the requested subject, audience, and constraints from the user input.
-3. Load the repo rules, this skill reference, and one same-type page before outlining.
-4. Build the outline from the matching skeleton in `references/page-style.md`.
-5. If the target is a module page and the output needs explicit chapter-order wording, resolve it from explicit input or repo facts before drafting.
-6. Draft or rewrite the page using the established repo voice and layout.
-7. Run the self-check before returning the result.
+3. Load `AGENTS.md`, the target page when it already exists, the relevant repo facts around that page, this skill reference, and one same-type or closest-shape page before outlining.
+4. For an existing page, map its current H2/H3 structure first and identify which sections are intentional topic-specific differences that should be preserved.
+5. Use the matching shape in `references/page-style.md` only as a fallback starting point for net-new pages or structurally incomplete drafts.
+6. If the target is a module page and the output needs explicit chapter-order wording, resolve it from explicit input or repo facts before drafting.
+7. Draft or rewrite the page using the established repo voice and layout without flattening valid page-specific sections.
+8. Run the self-check before returning the result.
 
 ## Hard Rules
 
@@ -110,6 +112,7 @@ Treat numbered H2 sections in older module pages as a legacy pattern, not the de
 - Keep major blocks separated with `---` when that pattern already exists on the page type.
 - Do not add numeric prefixes to every H2 by default on module pages.
 - Do not delete an existing trailing chapter-navigation line from a module page unless the user explicitly asks to remove it.
+- Do not remove a page-specific section with clear teaching value only because it does not appear in the generic fallback shape.
 - Do not copy homepage patterns such as `layout: home`, `hero`, or `features` into content pages.
 - Do not rewrite example pages into rigid chapter lessons.
 
@@ -155,6 +158,7 @@ Before finishing, verify all of the following:
 - Module pages use plain H2 titles by default.
 - If a module page keeps numbered H2s, that choice is intentional legacy preservation or explicitly requested.
 - Any explicit chapter-order reference was provided explicitly or derived from repo facts, not guessed.
+- Existing pages kept intentional topic-specific sections unless the user explicitly requested a structural rewrite.
 - Module pages include `与前后章节的关系`.
 - Module pages include `延伸阅读 / 模板 / 示例`.
 - Module pages include `完成检查清单`.

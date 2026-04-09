@@ -62,6 +62,10 @@ const learningPathItems = [
                 text: 'Skill 与 Hook 判断案例',
                 link: '/skills-hooks/examples/skill-hook-decision-cases',
               },
+              {
+                text: 'docs-writing-style 案例',
+                link: '/skills-hooks/examples/docs-writing-style-case',
+              },
             ],
           },
           {
