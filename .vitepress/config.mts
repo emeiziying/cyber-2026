@@ -75,6 +75,10 @@ const learningPathItems = [
                 text: '部门级 Skill 共享',
                 link: '/skills-hooks/examples/dept-skill-sharing',
               },
+              {
+                text: 'BOE 前端 Skill Pack 指南',
+                link: '/skills-hooks/examples/boe-frontend-skill-pack-guide',
+              },
             ],
           },
           {

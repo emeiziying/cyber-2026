@@ -269,6 +269,7 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 ### 组织实践
 
 - [部门级 Skill 共享](./examples/dept-skill-sharing) — 当 Skill 使用者不只包括研发时，怎样做共享、反馈与维护
+- [BOE 前端 Skill Pack 指南](./examples/boe-frontend-skill-pack-guide) — 介绍这套 skills 的组成、协作方式与阅读入口
 
 ### 官方生态
 
