@@ -62,7 +62,7 @@
 ### 边界：这里不是统一实现仓
 
 本套方法论在这里提供的是维护原则、清单模板和复盘方法。
-真实需要长期维护的 `CLAUDE.md`、项目级 Skills、Hooks、Agent 配置和运行时约束，应由各项目在各自工程里维护。
+真实需要长期维护的 `AGENTS.md`、项目级 Skills、Hooks、Agent 配置和运行时约束，应由各项目在各自工程里维护。
 
 ---
 
@@ -128,7 +128,7 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 
 至少要知道谁负责：
 
-- 各项目自己的 `CLAUDE.md`
+- 各项目自己的 `AGENTS.md`
 - 各项目自己的 Skills / Agent 配置
 - 各项目自己的 MCP / Hook 配置
 - 模板和清单
@@ -188,8 +188,34 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 
 ## 延伸阅读 / 模板 / 示例
 
-- <a href="/downloads/team-workflow/templates/task-intake.md.template" download><code>task-intake.md.template</code></a> — AI 任务入口教学模板
-- <a href="/downloads/team-workflow/templates/pr-review-checklist.md.template" download><code>pr-review-checklist.md.template</code></a> — PR Review 清单教学模板
+- AI 任务入口最小骨架：
+
+```markdown
+## 任务概述
+- 任务名称：
+- 背景：
+- 目标：
+
+## 范围
+- 包含：
+- 不包含：
+
+## 技术约束
+- 模块边界：
+- 禁止触碰区域：
+
+## 验收标准
+- [ ] 功能满足需求
+- [ ] 测试覆盖满足团队要求
+```
+
+- PR Review 最小检查项：
+
+- [ ] 需求理解是否正确
+- [ ] 边界条件是否覆盖
+- [ ] 测试义务是否完成
+- [ ] 风险与验证方式是否说明
+
 - [工作流样例](./examples/workflow-sample) — 一个从任务入口到复盘的最小团队流程样例
 
 ---

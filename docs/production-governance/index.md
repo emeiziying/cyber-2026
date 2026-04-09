@@ -65,7 +65,7 @@
 
 在这些禁区中，AI 的作用限于：分析现有代码、建议修改方案、生成测试用例。最终实现和合并**必须由人工完成**。
 
-建议把禁区清单写进项目级 `CLAUDE.md`，让 AI 在工作时自动遵守。前后端模板中已包含对应的禁区配置，见 [下载资源](/downloads/)。
+建议把禁区清单写进项目级 `AGENTS.md`，让 AI 在工作时自动遵守。真正落地时，至少应把“高风险任务默认不能自动放行”写成明确规则，而不是停留在口头约定。
 
 ### 边界：先定风险，再定权限
 
@@ -192,8 +192,20 @@ AI 治理最常见的失败，不是流程太严，而是没有明确写出“�
 
 ## 延伸阅读 / 模板 / 示例
 
-- <a href="/downloads/production-governance/templates/ai-task-risk-matrix.md.template" download><code>ai-task-risk-matrix.md.template</code></a> — AI 任务风险分级模板
-- <a href="/downloads/production-governance/templates/delivery-acceptance-checklist.md.template" download><code>delivery-acceptance-checklist.md.template</code></a> — 交付验收清单模板
+### 最小风险分级表骨架
+
+| 任务 | 业务影响 | 风险级别 | 允许 AI 执行到哪一步 | 必要人工确认点 |
+|------|---------|---------|---------------------|---------------|
+| 补充单元测试 | 低 | 低 | 可直接实现并本地验证 | 合并前 Review |
+| 修改权限判断 | 高 | 高 | 仅允许分析和提出方案 | 编码前、合并前都需确认 |
+
+### 最小交付验收清单
+
+- [ ] 功能满足需求
+- [ ] 测试覆盖关键路径
+- [ ] 风险点与回滚方式已说明
+- [ ] 高风险操作经过人工确认
+
 - [发布风险复盘案例](./examples/release-risk-review) — 一个从风险分级到验收的最小样例
 
 ---

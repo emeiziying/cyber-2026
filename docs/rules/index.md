@@ -40,12 +40,15 @@ Rules 不是“写给 AI 看的一份提示词”，而是**把项目约束前�
 
 ### Rules 的常见位置与优先级
 
-| 工具 | 典型位置 | 适合存放什么 |
-|------|----------|--------------|
-| Claude Code | 项目根目录 `CLAUDE.md` | 团队共享规则 |
-| Claude Code | 子目录 `CLAUDE.md` | 模块级特殊约束 |
+| 工具 / 约定 | 典型位置 | 适合存放什么 |
+|-------------|----------|--------------|
+| 通用约定 | 项目根目录 `AGENTS.md` | 团队共享规则 |
+| 通用约定 | 子目录 `AGENTS.md` | 模块级特殊约束 |
+| Claude Code | 项目根目录 `CLAUDE.md` | Claude 专用兼容入口 |
 | Claude Code | `~/.claude/CLAUDE.md` | 个人偏好 |
 | Cursor | 项目根目录 `.cursorrules` | IDE 项目级规则 |
+
+建议团队先维护一份通用 `AGENTS.md`；如果某个宿主要求专用文件名，再同步到它自己的入口。
 
 **优先级原则：** 越接近目标代码的位置，规则越具体，优先级越高。
 
@@ -136,7 +139,7 @@ Rules 不是一次写完的，它更像一份随着项目演进的“AI 使用�
 
 - 全局规则：默认使用英文注释
 - 项目规则：公共 API 说明必须用中文
-- `src/security/CLAUDE.md`：安全模块禁止新增注释，只允许补文档到专门目录
+- `src/security/AGENTS.md`：安全模块禁止新增注释，只允许补文档到专门目录
 
 在这种情况下：
 
@@ -188,8 +191,46 @@ Rules 最容易失效的原因不是没人写，而是没人维护，最后变�
 
 ## 延伸阅读 / 模板 / 示例
 
-- <a href="/downloads/rules/templates/CLAUDE.md.template" download><code>CLAUDE.md.template</code></a> — 通用后端项目模板
-- <a href="/downloads/rules/templates/frontend-CLAUDE.md.template" download><code>frontend-CLAUDE.md.template</code></a> — 前端项目模板
+- 最小 `AGENTS.md` 骨架通常至少包含这些部分：
+
+```markdown
+# 项目名称 — AI 助手规则
+
+## 项目背景
+
+## 技术栈
+
+## 常用命令
+
+## 目录结构
+
+## 代码规范
+
+## 行为规范
+
+## 禁止行为
+
+## 测试规范
+```
+
+- 后端规则片段示例：
+
+```markdown
+## 行为规范
+- 函数体超过 50 行时优先拆分
+- API 失败时返回通用错误信息，不暴露堆栈
+- 不要拼接原始 SQL，统一走 ORM 或参数化查询
+```
+
+- 前端规则片段示例：
+
+```markdown
+## 组件规范
+- 使用 Composition API + `<script setup>`
+- API 调用放在 composable 或 api 层，不直接写在组件里
+- 新增组件前先检查是否已有可复用实现
+```
+
 - [Rules 冲突案例](./examples/rules-conflict-case) — 一个从“反复纠正”演进到稳定 Rules 的真实示例
 
 ---

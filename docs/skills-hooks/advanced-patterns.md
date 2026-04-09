@@ -116,7 +116,7 @@ prompts/
 在 [具体场景/触发条件] 时，[具体行为]
 ```
 
-**实际应用到 CLAUDE.md：**
+**实际应用到 AGENTS.md：**
 ```markdown
 ## 代码规范（行为触发器版）
 
@@ -136,7 +136,7 @@ prompts/
 ## 信息优先级（从高到低）
 
 1. 用户在本次对话中明确指定的内容
-2. 项目 CLAUDE.md 中的规则
+2. 项目 AGENTS.md 中的规则
 3. 代码库中现有代码的风格（从实际代码推断）
 4. 本 Skill 的默认规则
 
@@ -216,7 +216,7 @@ prompts/
 
 ## 综合应用：团队规范生成 Skill 设计思路
 
-结合以上模式，可以设计一个"从零生成团队 CLAUDE.md"的 Skill：
+结合以上模式，可以设计一个"从零生成团队 AGENTS.md"的 Skill：
 
 ```text
 /gen-team-rules
@@ -224,7 +224,7 @@ prompts/
 prompts/
 ├── intake.md        # 收集：技术栈、团队规模、主要痛点
 ├── analyzer.md      # 分析：扫描现有代码推断隐性规范
-├── builder.md       # 生成：用行为触发器格式生成 CLAUDE.md
+├── builder.md       # 生成：用行为触发器格式生成 AGENTS.md
 ├── merger.md        # 合并：与已有规则文件合并，冲突上报
 └── correction.md    # 纠正：处理"这条不对"类反馈
 ```

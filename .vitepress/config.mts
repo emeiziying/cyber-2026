@@ -1,5 +1,150 @@
 import {defineConfig} from 'vitepress';
 
+const guideItems = [
+  {text: '开始阅读', link: '/intro/'},
+  {text: '快速启动指南', link: '/intro/quick-start'},
+  {text: '文档结构总览', link: '/intro/doc-map'},
+];
+
+const learningPathItems = [
+  {
+    text: '认知与协作方式',
+    items: [
+      {
+        text: '范式转变',
+        link: '/paradigm-shift/',
+        items: [
+          {
+            text: '角色影响场景',
+            link: '/paradigm-shift/examples/role-impact-scenarios',
+          },
+        ],
+      },
+      {
+        text: 'Vibe Coding',
+        link: '/vibe-coding/',
+        items: [
+          {text: '完整会话示例', link: '/vibe-coding/examples/full-session'},
+          {text: 'Agentic Coding', link: '/vibe-coding/examples/agentic-coding'},
+        ],
+      },
+      {
+        text: '工具全景',
+        link: '/tools-overview/',
+        items: [{text: '团队画像案例', link: '/tools-overview/examples/team-profiles'}],
+      },
+    ],
+  },
+  {
+    text: '能力构建',
+    items: [
+      {
+        text: 'Rules',
+        link: '/rules/',
+        items: [{text: 'Rules 冲突案例', link: '/rules/examples/rules-conflict-case'}],
+      },
+      {
+        text: 'MCP',
+        link: '/mcp/',
+        items: [
+          {text: 'MCP 只读接入演练', link: '/mcp/examples/mcp-readonly-rollout'},
+          {text: 'MCP 热门开源项目', link: '/mcp/examples/popular-mcp-servers'},
+        ],
+      },
+      {
+        text: 'Skills & Hooks',
+        link: '/skills-hooks/',
+        items: [
+          {
+            text: '核心方法',
+            items: [
+              {text: '进阶模式', link: '/skills-hooks/advanced-patterns'},
+              {
+                text: 'Skill 与 Hook 判断案例',
+                link: '/skills-hooks/examples/skill-hook-decision-cases',
+              },
+            ],
+          },
+          {
+            text: '组织实践',
+            items: [
+              {
+                text: '部门级 Skill 共享',
+                link: '/skills-hooks/examples/dept-skill-sharing',
+              },
+            ],
+          },
+          {
+            text: 'Skill Pack 案例',
+            items: [
+              {
+                text: '官方 Skills 速查',
+                link: '/skills-hooks/examples/official-skills-catalog',
+              },
+              {
+                text: 'Skill Pack 选型',
+                link: '/skills-hooks/examples/skill-pack-selection',
+              },
+              {
+                text: 'gstack 实战指南',
+                link: '/skills-hooks/examples/gstack-workflow',
+              },
+              {
+                text: 'superpowers 实战指南',
+                link: '/skills-hooks/examples/superpowers-workflow',
+              },
+              {
+                text: 'GSD 实战指南',
+                link: '/skills-hooks/examples/gsd-workflow',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        text: 'Agent 开发',
+        link: '/agent-development/',
+        items: [
+          {
+            text: 'Review Agent 演练',
+            link: '/agent-development/examples/review-agent-walkthrough',
+          },
+        ],
+      },
+      {
+        text: 'Harness Engineering',
+        link: '/harness-engineering/',
+        items: [
+          {
+            text: 'Harness 设计演练',
+            link: '/harness-engineering/examples/harness-design-case',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    text: '治理与团队化',
+    items: [
+      {
+        text: '生产落地与治理',
+        link: '/production-governance/',
+        items: [
+          {
+            text: '发布风险复盘案例',
+            link: '/production-governance/examples/release-risk-review',
+          },
+        ],
+      },
+      {
+        text: '团队工作流与质量控制',
+        link: '/team-workflow/',
+        items: [{text: '工作流样例', link: '/team-workflow/examples/workflow-sample'}],
+      },
+    ],
+  },
+];
+
 export default defineConfig({
   title: 'Cyber 2026',
   description: '赛博飞升方法论',
@@ -40,162 +185,17 @@ export default defineConfig({
   themeConfig: {
     nav: [
       {text: '开始阅读', link: '/intro/'},
+      {text: '文档结构', link: '/intro/doc-map'},
       {text: '学习主线', link: '/paradigm-shift/'},
     ],
     sidebar: [
       {
         text: '导读',
-        items: [
-          {text: '开始阅读', link: '/intro/'},
-          {text: '快速启动指南', link: '/intro/quick-start'},
-        ],
+        items: guideItems,
       },
       {
         text: '学习主线',
-        items: [
-          {
-            text: '认知与协作方式',
-            items: [
-              {
-                text: '范式转变',
-                link: '/paradigm-shift/',
-                items: [
-                  {
-                    text: '角色影响场景',
-                    link: '/paradigm-shift/examples/role-impact-scenarios',
-                  },
-                ],
-              },
-              {
-                text: 'Vibe Coding',
-                link: '/vibe-coding/',
-                items: [
-                  {text: '完整会话示例', link: '/vibe-coding/examples/full-session'},
-                  {text: 'Agentic Coding', link: '/vibe-coding/examples/agentic-coding'},
-                ],
-              },
-              {
-                text: '工具全景',
-                link: '/tools-overview/',
-                items: [
-                  {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
-                ],
-              },
-            ],
-          },
-          {
-            text: '能力构建',
-            items: [
-              {
-                text: 'Rules',
-                link: '/rules/',
-                items: [
-                  {text: 'Rules 冲突案例', link: '/rules/examples/rules-conflict-case'},
-                ],
-              },
-              {
-                text: 'MCP',
-                link: '/mcp/',
-                items: [
-                  {text: 'MCP 只读接入演练', link: '/mcp/examples/mcp-readonly-rollout'},
-                  {text: 'MCP 热门开源项目', link: '/mcp/examples/popular-mcp-servers'},
-                ],
-              },
-              {
-                text: 'Skills & Hooks',
-                link: '/skills-hooks/',
-                items: [
-                  {
-                    text: '核心方法',
-                    items: [
-                      {text: '进阶模式', link: '/skills-hooks/advanced-patterns'},
-                      {
-                        text: 'Skill 与 Hook 判断案例',
-                        link: '/skills-hooks/examples/skill-hook-decision-cases',
-                      },
-                    ],
-                  },
-                  {
-                    text: '组织实践',
-                    items: [
-                      {
-                        text: '部门级 Skill 共享',
-                        link: '/skills-hooks/examples/dept-skill-sharing',
-                      },
-                    ],
-                  },
-                  {
-                    text: 'Skill Pack 案例',
-                    items: [
-                      {
-                        text: '官方 Skills 速查',
-                        link: '/skills-hooks/examples/official-skills-catalog',
-                      },
-                      {
-                        text: 'Skill Pack 选型',
-                        link: '/skills-hooks/examples/skill-pack-selection',
-                      },
-                      {
-                        text: 'gstack 实战指南',
-                        link: '/skills-hooks/examples/gstack-workflow',
-                      },
-                      {
-                        text: 'superpowers 实战指南',
-                        link: '/skills-hooks/examples/superpowers-workflow',
-                      },
-                      {
-                        text: 'GSD 实战指南',
-                        link: '/skills-hooks/examples/gsd-workflow',
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                text: 'Agent 开发',
-                link: '/agent-development/',
-                items: [
-                  {
-                    text: 'Review Agent 演练',
-                    link: '/agent-development/examples/review-agent-walkthrough',
-                  },
-                ],
-              },
-              {
-                text: 'Harness Engineering',
-                link: '/harness-engineering/',
-                items: [
-                  {
-                    text: 'Harness 设计演练',
-                    link: '/harness-engineering/examples/harness-design-case',
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            text: '治理与团队化',
-            items: [
-              {
-                text: '生产落地与治理',
-                link: '/production-governance/',
-                items: [
-                  {
-                    text: '发布风险复盘案例',
-                    link: '/production-governance/examples/release-risk-review',
-                  },
-                ],
-              },
-              {
-                text: '团队工作流与质量控制',
-                link: '/team-workflow/',
-                items: [
-                  {text: '工作流样例', link: '/team-workflow/examples/workflow-sample'},
-                ],
-              },
-            ],
-          },
-        ],
+        items: learningPathItems,
       },
     ],
     outline: {

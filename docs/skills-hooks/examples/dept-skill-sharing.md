@@ -193,7 +193,7 @@
 
 | 工具 | 加载方式 |
 |------|---------|
-| Claude Code | 在 CLAUDE.md 中用 `@.agents/skills/shared/task-intake.md` 引用；如果要接入 Claude 专属命令目录，再符号链接到 `.claude/commands/` |
+| Claude Code | 在 `AGENTS.md` 中用 `@.agents/skills/shared/task-intake.md` 引用；如果要接入 Claude 专属命令目录，再按需同步到 `CLAUDE.md` 或符号链接到 `.claude/commands/` |
 | Cursor | 在 `.cursorrules` 或项目 Rules 中引用 `.agents/skills/` 下的文件 |
 | 其他支持自定义 prompt 的工具 | 直接读取 Markdown 文件内容作为 system prompt |
 | Claude 网页端 / 桌面端 | 复制 Skill 内容到 Project Instructions |

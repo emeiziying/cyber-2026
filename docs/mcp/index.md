@@ -135,7 +135,31 @@ MCP 配好了但“不生效”，通常优先排查：
 
 ## 从模板到真实项目：替换时要改什么
 
-以 <a href="/downloads/mcp/templates/mcp-config.json" download><code>mcp-config.json</code></a> 为例，真正落地到项目时通常至少要替换：
+下面是一个最小 `mcp-config.json` 骨架；真正落地到项目时，至少要替换其中的路径、环境变量和 server 选择：
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github@2025.4.8"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem@2025.8.21",
+        "/path/to/allowed/directory"
+      ]
+    }
+  }
+}
+```
+
+真正落地到项目时通常至少要替换：
 
 - 环境变量名
 - 本地路径或工作目录
@@ -185,7 +209,6 @@ MCP 最大的风险不是配不起来，而是“配起来了，但没人明确�
 
 ## 延伸阅读 / 模板 / 示例
 
-- <a href="/downloads/mcp/templates/mcp-config.json" download><code>mcp-config.json</code></a> — MCP 配置模板
 - [MCP 只读接入演练](./examples/mcp-readonly-rollout) — 从只读接入到受控扩权的最小落地步骤
 - [MCP 热门开源项目](./examples/popular-mcp-servers) — Context7、GitHub MCP、Filesystem 等 7 个热门 MCP Server 的选型指南与配置示例
 

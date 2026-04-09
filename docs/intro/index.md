@@ -53,7 +53,8 @@ title: 开始阅读
 
 - 想先建立判断框架：从 [范式转变](/paradigm-shift/) 开始
 - 想尽快进入实践：从 [Rules](/rules/) 开始
-- 想找模板或示例资源：看 [下载资源](/downloads/)
+- 想先看整站怎么组织：看 [文档结构总览](/intro/doc-map)
+- 想直接看模板骨架：从 [Rules](/rules/)、[MCP](/mcp/) 或 [团队工作流与质量控制](/team-workflow/) 开始
 - 不知道从哪开始：看 [快速启动指南](/intro/quick-start)
 
 ## 本站不做什么

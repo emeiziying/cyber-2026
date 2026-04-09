@@ -11,7 +11,7 @@
 技术栈：React + TypeScript，组件库使用内部封装的 `@company/ui`，数据层通过 `src/services/` 下的 service 类访问，禁止组件直接调用 API。
 
 **现状：**
-- 小陈已经写了一个 `CLAUDE.md`，约 30 行，包含项目简介和几条注意事项
+- 小陈已经写了一个 `AGENTS.md`，约 30 行，包含项目简介和几条注意事项
 - 三人都在用 Claude Code，但生成的代码风格不一致
 - 最近合并了两个 PR，后来发现 Agent 直接在组件里写了 `fetch()` 调用，绕过了 service 层
 - 每次 Code Review 都要提醒同一类问题
@@ -24,7 +24,7 @@
 
 | 问题类型 | 出现次数 | Harness 层定位 |
 |----------|----------|----------------|
-| 组件直接调用 API，未走 service 层 | 6 次 | Context 缺失（规范未写入 CLAUDE.md） |
+| 组件直接调用 API，未走 service 层 | 6 次 | Context 缺失（规范未写入 AGENTS.md） |
 | 使用了原生 HTML 元素，未用内部组件库 | 4 次 | Context 缺失（组件库约定未记录） |
 | TypeScript 类型定义放在组件文件内，未集中到 `types/` | 3 次 | Constraints 缺失（无自动检查） |
 | import 顺序不规范 | 2 次 | Constraints 缺失（eslint 规则未启用） |
@@ -35,7 +35,7 @@
 
 ## 第二步：建设 Context Layer
 
-小陈花了半天，将 `CLAUDE.md` 从 30 行扩展到 120 行。核心增量内容：
+小陈花了半天，将 `AGENTS.md` 从 30 行扩展到 120 行。核心增量内容：
 
 **架构约定（新增）**
 
@@ -69,7 +69,7 @@
 - 测试示例：参考 `src/components/UserCard/__tests__/UserCard.test.tsx`
 ```
 
-**验证方式：** 小林用更新后的 CLAUDE.md 让 Agent 重新实现上周出问题的那个组件，这次 Agent 自动走了 service 层，使用了 `@company/ui` 的 Button。
+**验证方式：** 小林用更新后的 AGENTS.md 让 Agent 重新实现上周出问题的那个组件，这次 Agent 自动走了 service 层，使用了 `@company/ui` 的 Button。
 
 ---
 
@@ -127,9 +127,9 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 
 | 日期 | 问题描述 | 已固化为 | 负责人 |
 |------|----------|----------|--------|
-| 2026-03 | 生成的 hook 没有清理副作用（useEffect 缺少 cleanup） | CLAUDE.md 新增约定 | 小林 |
+| 2026-03 | 生成的 hook 没有清理副作用（useEffect 缺少 cleanup） | AGENTS.md 新增约定 | 小林 |
 | 2026-03 | 在测试文件里 mock 了整个模块而非单个函数 | Skill 中加入测试规范约束 | 小韩 |
-| 2026-04 | 翻译文案硬编码在组件里，未使用 i18n | CLAUDE.md + Hook 检查 | 小陈 |
+| 2026-04 | 翻译文案硬编码在组件里，未使用 i18n | AGENTS.md + Hook 检查 | 小陈 |
 
 这个表格每周 sprint review 时过一遍，有新条目就转化为 Harness 改进。
 
@@ -141,7 +141,7 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 团队 Harness（2026-04）
 │
 ├── Context Layer
-│   ├── CLAUDE.md（架构约定 + 组件规范 + 类型约定 + 工具路径）
+│   ├── AGENTS.md（架构约定 + 组件规范 + 类型约定 + 工具路径）
 │   └── MCP：本地 Storybook 文档访问（只读）
 │
 ├── Constraints Layer
@@ -151,7 +151,7 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 │   └── PR 模板：包含 Harness 合规自检清单
 │
 └── GC Layer（计划中）
-    └── 每两周：扫描 CLAUDE.md 与实现的一致性
+    └── 每两周：扫描 AGENTS.md 与实现的一致性
 ```
 
 ---
@@ -160,7 +160,7 @@ Agent 看到错误输出后，会自动尝试修复（将直接调用移到 serv
 
 **三条关键发现：**
 
-1. **从错误反向推导 Context**。不要试图预先写一份"完美"的 CLAUDE.md，而是每次 Agent 出错就问："它不知道什么？" 把答案写进 CLAUDE.md。
+1. **从错误反向推导 Context**。不要试图预先写一份"完美"的 AGENTS.md，而是每次 Agent 出错就问："它不知道什么？" 把答案写进 AGENTS.md。
 
 2. **Hook 的粒度要适中**。粒度太细（每一行都检查）会让 Agent 陷入修复循环；粒度太粗（只检查构建失败）来不及拦截。经验值：检查那些"在 Code Review 中反复出现的问题"。
 

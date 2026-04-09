@@ -14,7 +14,7 @@ title: 快速启动指南
 |------|---|-------|---|
 | 团队 AI 工具用得怎样？ | 几乎没用 | 个别人或多人在用，但各用各的 | 有共享规则或流程 |
 | 目前最大的痛点是什么？ | 不知道怎么开始 | 输出不稳定，或团队难以统一 | 规范已有，但维护成本高 |
-| 是否有项目级共享 CLAUDE.md？ | 没有 | 有个人的，没有共享的 | 有共享的 |
+| 是否有项目级共享 AGENTS.md？ | 没有 | 有个人的，没有共享的 | 有共享的 |
 | 你的主要角色 | 非技术（产品、设计、运营）| 工程师 / 个人开发者 | Tech Lead / 管理者 |
 | 你希望先解决什么？ | 快速减少重复劳动 | 提高输出稳定性，或推进团队统一 | 建立治理体系 |
 
@@ -34,14 +34,14 @@ title: 快速启动指南
 
 - **D1**：读 [范式转变](/paradigm-shift/)，做最小练习：找一个最近做过的任务，用 4 个问题判断它适不适合让 AI 参与
 - **D2–3**：读 [Vibe Coding](/vibe-coding/)，用五段式输入法完整走一次真实对话
-- **D4–5**：读 [Rules](/rules/)，为当前项目写 5 条最小 CLAUDE.md
+- **D4–5**：读 [Rules](/rules/)，为当前项目写 5 条最小 AGENTS.md
 - **Week 2**：接入 1 个 MCP，建议从 Context7（自动注入文档）或 Filesystem（读取本地文件）开始
 
 ### 阶段 1 — 个人已在用，想系统化
 
 你已经有感觉，下一步是把个人经验变成可复用的资产：
 
-1. 先读 [Rules](/rules/)，把你已有的 Prompt 习惯里反复出现的约束提炼成 3–5 条写进 CLAUDE.md
+1. 先读 [Rules](/rules/)，把你已有的 Prompt 习惯里反复出现的约束提炼成 3–5 条写进 AGENTS.md
 2. 再读 [Skills & Hooks](/skills-hooks/)，把最高频的操作封装成 Skill，让自己不用每次重新解释
 3. 最后按需读 [MCP](/mcp/)，接入 1–2 个 MCP 扩展外部工具能力
 
@@ -50,7 +50,7 @@ title: 快速启动指南
 团队统一不是发一份文档，而是让每个人都跑通一个最小循环：
 
 1. 让团队中 2–3 名核心使用者各自完成阶段 0 路径，让大家有共同语言
-2. 读 [Harness Engineering](/harness-engineering/)，规划三层体系：Context（CLAUDE.md）/ Constraints（Hooks + CI）/ Garbage Collection（定期扫描）
+2. 读 [Harness Engineering](/harness-engineering/)，规划三层体系：Context（AGENTS.md）/ Constraints（Hooks + CI）/ Garbage Collection（定期扫描）
 3. 读 [生产落地与治理](/production-governance/)，定红线和验收标准
 4. 读 [团队工作流与质量控制](/team-workflow/)，把个人做法升级成协作流程
 
@@ -65,7 +65,7 @@ title: 快速启动指南
 | D1 上午 | [范式转变](/paradigm-shift/) | 找 1 个最近任务，用 4 个问题判断 AI 参与度 | 判断笔记（记在任何地方都行）|
 | D1 下午 | [Vibe Coding](/vibe-coding/) | 用五段式输入法完整走一次对话 | 一段对话记录 |
 | D2 | [工具全景](/tools-overview/) | 对照工具对比表，确认自己的主力工具 | 工具选型结论 |
-| D3 | [Rules](/rules/) | 为当前项目写 5 条最小 CLAUDE.md | CLAUDE.md 草稿 |
+| D3 | [Rules](/rules/) | 为当前项目写 5 条最小 AGENTS.md | AGENTS.md 草稿 |
 | D4 | [MCP](/mcp/) | 配置并跑通 1 个 MCP | mcp-config.json |
 | D5 | [Skills & Hooks](/skills-hooks/) | 写 1 个 Skill，名字让同事看到就知道用途 | skill.md 文件 |
 | Week 2 | [Agent 开发](/agent-development/) 或 [Harness Engineering](/harness-engineering/) | 按实际情况选读 | — |
@@ -89,7 +89,7 @@ title: 快速启动指南
    → 是 → 考虑 [Agent 开发](/agent-development/)
 
 5. **AI 在这个项目里反复犯同样的错误？**
-   → 是 → 写 [Rules（CLAUDE.md）](/rules/)
+   → 是 → 写 [Rules（AGENTS.md）](/rules/)
 
 6. **其他情况**
    → 直接对话，用五段式输入法让 AI 一次就理解清楚你的需求
@@ -108,4 +108,4 @@ Rules 解决的是稳定性问题。刚开始感觉不出来，但当团队多�
 
 **3. "一上来就想建立完整的体系"**
 
-系统化是迭代出来的，不是设计出来的。先用三句话写 CLAUDE.md，跑通一个 Skill，就已经比零散使用强很多了。[Harness Engineering](/harness-engineering/) 的最小起点只是 3–5 条规则，不是一套完整的架构。
+系统化是迭代出来的，不是设计出来的。先用三句话写 AGENTS.md，跑通一个 Skill，就已经比零散使用强很多了。[Harness Engineering](/harness-engineering/) 的最小起点只是 3–5 条规则，不是一套完整的架构。

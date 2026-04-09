@@ -64,7 +64,7 @@ Martin Fowler 将 Harness Engineering 归纳为三个相互配合的层：
 
 | 层 | 名称 | 作用 | 对应你已学的能力 |
 |----|------|------|-----------------|
-| 第一层 | **Context Engineering**（上下文工程） | 维护 Agent 始终可访问的知识库与项目规范，让 Agent 在每次对话中都有足够的上下文 | Rules / CLAUDE.md |
+| 第一层 | **Context Engineering**（上下文工程） | 维护 Agent 始终可访问的知识库与项目规范，让 Agent 在每次对话中都有足够的上下文 | Rules / AGENTS.md |
 | 第二层 | **Architectural Constraints**（架构约束） | 用确定性检查器（linter、结构测试）和 LLM 检查器限制 Agent 的输出边界，防止 Agent "创造性地偏离"架构 | Skills / Hooks / CI |
 | 第三层 | **Garbage Collection**（垃圾回收） | 定期运行的 Agent，主动发现并修复代码库中的不一致、过期文档和技术债 | Agent 开发 |
 
@@ -96,7 +96,7 @@ Martin Fowler 将 Harness Engineering 归纳为三个相互配合的层：
 
 ### 有 Harness 的团队
 
-> 团队的 CLAUDE.md 明确记录了架构约定，每次有新约定产生就立即更新。一个 pre-commit Hook 会检查提交中是否有绕过 Repository 层的直接数据库调用，违规时自动拒绝并输出提示。每两周运行一次的 GC Agent 会扫描文档与实现的一致性，将发现的偏差作为 Issue 提交。
+> 团队的 AGENTS.md 明确记录了架构约定，每次有新约定产生就立即更新。一个 pre-commit Hook 会检查提交中是否有绕过 Repository 层的直接数据库调用，违规时自动拒绝并输出提示。每两周运行一次的 GC Agent 会扫描文档与实现的一致性，将发现的偏差作为 Issue 提交。
 > 新成员入职第一天，用 AI 生成的代码就符合团队风格——不是因为 AI 更聪明，而是因为环境更清晰。
 
 ---
@@ -109,7 +109,7 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 
 **目标：** 让 Agent 每次开始工作时，都能拿到稳定、可复用的项目上下文。
 
-- 整理并完善 `CLAUDE.md`，确保包含：项目架构约定、编码规范、禁止行为、常用工具清单
+- 整理并完善 `AGENTS.md`，确保包含：项目架构约定、编码规范、禁止行为、常用工具清单
 - 接入 MCP 只读工具（代码库、文档、数据库 schema），让 Agent 能主动获取上下文而非依赖人工粘贴
 - 将"口口相传的团队规范"全部写入 Rules，每次发现 Agent 因不了解某个约定而出错，立即补充
 
@@ -143,9 +143,9 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 |----------|------|------|
 | **Harness 太轻** | Agent 产出质量不稳定，每次都需要人工大量修改 | Context 不完整，Constraints 缺失 |
 | **Harness 太重** | 工程师觉得用 AI 比自己写还麻烦，开始绕过流程 | Constraints 过于繁琐，每个操作都需要多轮审批 |
-| **Context 腐烂** | CLAUDE.md 上次更新是三个月前，Agent 按过期规范工作 | 没有机制强制更新 Context，缺少 GC 层 |
+| **Context 腐烂** | AGENTS.md 上次更新是三个月前，Agent 按过期规范工作 | 没有机制强制更新 Context，缺少 GC 层 |
 | **GC 缺失** | 技术债越积越多，Agent 越来越频繁地犯同类错误 | 只建设了前两层，没有"自我清洁"机制 |
-| **孤岛 Harness** | 每个人有自己的 CLAUDE.md，团队没有共享版本 | Harness 建设没有纳入团队协作流程 |
+| **孤岛 Harness** | 每个人有自己的 AGENTS.md，团队没有共享版本 | Harness 建设没有纳入团队协作流程 |
 
 ---
 
@@ -165,11 +165,11 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 
 以下四步可以在一个工作日内完成，帮你快速感受 Harness 的实际效果：
 
-1. **审计 Context Layer**：打开你项目的 `CLAUDE.md`，检查是否包含这三类内容：（a）项目架构约定，（b）编码规范与禁止行为，（c）常用工具与访问方式。缺什么就补什么。
+1. **审计 Context Layer**：打开你项目的 `AGENTS.md`，检查是否包含这三类内容：（a）项目架构约定，（b）编码规范与禁止行为，（c）常用工具与访问方式。缺什么就补什么。
 
 2. **增加一个 Constraints 检查**：选择一个你的团队在 Code Review 中最常提的问题，将它写成一个 pre-commit Hook 或 CI 检查，让 Agent 提交违规代码时自动报错。
 
-3. **建立错误日志**：在 `CLAUDE.md` 或团队 wiki 中创建一个"Agent 已知错误模式"列表，将本周 Agent 产生的需要人工修正的错误记录下来，分析原因。
+3. **建立错误日志**：在 `AGENTS.md` 或团队 wiki 中创建一个"Agent 已知错误模式"列表，将本周 Agent 产生的需要人工修正的错误记录下来，分析原因。
 
 4. **将一个错误固化为规则**：从上一步的错误列表中，选一条最典型的，将修复方式转化为新的 Rule、Hook 或 Skill 约束，确保同类错误不再发生。
 
@@ -179,7 +179,7 @@ Harness 不是一次性建设完成的。建议按三步渐进：
 
 Harness Engineering 是前面各章能力的综合运用：
 
-- **[Rules →](/rules/)**：是 Context Layer 的核心载体，CLAUDE.md 就是你的 Context 基础设施
+- **[Rules →](/rules/)**：是 Context Layer 的核心载体，AGENTS.md 就是你的 Context 基础设施
 - **[MCP →](/mcp/)**：为 Context Layer 提供动态工具访问能力，让 Agent 能主动获取外部信息
 - **[Skills & Hooks →](/skills-hooks/)**：Constraints Layer 的主要实现手段，Hook 是最直接的自动化约束
 - **[Agent 开发 →](/agent-development/)**：为 Garbage Collection Layer 提供执行能力
@@ -191,7 +191,13 @@ Harness Engineering 是前面各章能力的综合运用：
 ## 延伸阅读 / 模板 / 示例
 
 - [**Harness 设计演练**](./examples/harness-design-case)：一个 3 人前端团队从零搭建 Harness 的完整案例
-- <a href="/downloads/harness-engineering/templates/harness-checklist.md.template" download>**Harness 建设检查清单模板**</a>：可下载的团队 Harness 评估与建设清单
+
+### 最小 Harness 检查项
+
+- `Context Layer`：已有共享 `AGENTS.md`，且包含架构约定、禁止行为、常用工具路径
+- `Constraints Layer`：已有至少一个能拦住高频错误的 Hook、CI 或结构检查
+- `GC Layer`：已有固定节奏复盘 Agent 错误，并把高频问题反写成规则或检查
+
 - [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)（OpenAI 原文）
 - [Harness Engineering](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html)（Martin Fowler 解析）
 

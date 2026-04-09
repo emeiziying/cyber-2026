@@ -220,13 +220,45 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 
 ## 延伸阅读 / 模板 / 示例
 
-### 模板下载
+### 最小骨架
 
-- 这些模板是通用 Skill 骨架：Claude 调用通常用 `/skill-name`，Codex 调用通常用 `$skill-name`
-- <a href="/downloads/skills-hooks/templates/commands/fix-bug.md" download><code>fix-bug.md</code></a> — bug 修复 Skill 教学模板
-- <a href="/downloads/skills-hooks/templates/commands/gen-tests.md" download><code>gen-tests.md</code></a> — 生成测试 Skill 教学模板
-- <a href="/downloads/skills-hooks/templates/commands/review-code.md" download><code>review-code.md</code></a> — 代码审查 Skill 教学模板
-- <a href="/downloads/skills-hooks/templates/settings-with-hooks.json" download><code>settings-with-hooks.json</code></a> — 带 Hook 的教学配置示例
+- 通用 Skill 骨架通常包含：用途、调用方式、步骤、输出格式
+
+```markdown
+Fix the bug described below.
+
+## Usage
+- Claude: `/fix-bug [bug description]`
+- Codex: `$fix-bug [bug description]`
+
+## Steps
+1. Search the codebase
+2. Identify the root cause
+3. Implement a minimal fix
+4. Add or update a test
+
+## Output
+- Root cause
+- Fix summary
+- Test added
+```
+
+- Hook 配置最小片段示例：
+
+```json
+{
+  "hooks": {
+    "SessionStart": [],
+    "PreToolCall": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "echo check" }]
+      }
+    ],
+    "PostToolCall": []
+  }
+}
+```
 
 ### 核心方法
 
