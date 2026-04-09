@@ -103,6 +103,10 @@ const learningPathItems = [
             text: '外部工作流案例',
             items: [
               {
+                text: 'gitlab-mr-review 实战指南',
+                link: '/skills-hooks/examples/gitlab-mr-review-workflow',
+              },
+              {
                 text: 'gstack 实战指南',
                 link: '/skills-hooks/examples/gstack-workflow',
               },

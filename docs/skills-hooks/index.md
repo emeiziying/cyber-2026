@@ -281,6 +281,7 @@ Skill 和 Hook 最容易变成“看起来很多、实际没人用”的原因�
 
 ### 外部工作流案例
 
+- [gitlab-mr-review 实战指南](./examples/gitlab-mr-review-workflow) — 看一个在 OpenClaw 内运行的 GitLab MR 巡检 Skill，如何处理轮询、复审和评论回写纪律
 - [gstack 实战指南](./examples/gstack-workflow) — 角色化 Skill Pack 的代表案例
 - [superpowers 实战指南](./examples/superpowers-workflow) — 自动触发工程化流水线的代表案例
 - [GSD 实战指南](./examples/gsd-workflow) — 用上下文工程和规格工件稳住长链路项目
