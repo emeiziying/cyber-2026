@@ -76,6 +76,10 @@ const learningPathItems = [
                 link: '/skills-hooks/examples/dept-skill-sharing',
               },
               {
+                text: 'Skills 分享讲稿',
+                link: '/skills-hooks/examples/skills-sharing-presentation',
+              },
+              {
                 text: 'BOE 前端 Skill Pack 指南',
                 link: '/skills-hooks/examples/boe-frontend-skill-pack-guide',
               },
