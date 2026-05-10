@@ -30,7 +30,10 @@ const learningPathItems = [
       {
         text: '工具全景',
         link: '/tools-overview/',
-        items: [{text: '团队画像案例', link: '/tools-overview/examples/team-profiles'}],
+        items: [
+          {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
+          {text: 'Codex App 全员上手', link: '/tools-overview/examples/codex-app-onboarding'},
+        ],
       },
     ],
   },
