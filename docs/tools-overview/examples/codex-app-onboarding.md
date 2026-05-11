@@ -241,18 +241,20 @@ ssh -T git@github.com
 
 ## Codex App 怎么用
 
-Codex App 是桌面端工作台，可以同时处理多个项目线程，并内置 Git、worktree、Review、终端、浏览器和自动化能力。
+Codex App 是桌面端工作台，可以同时处理多个项目线程，并内置 Git、worktree、Review、终端、浏览器和自动化能力。打开后可以用 **ChatGPT 账号**登录（推荐，能用云端线程等完整功能），也可以用 **OpenAI API Key** 登录（部分功能受限，例如云端线程不可用）。登录后建议立即开启账号 MFA；详细方式见 [Codex Auth](https://developers.openai.com/codex/auth)。
 
 | 功能 | 作用 |
 |------|------|
 | 项目 | 你选择给 Codex 打开的本地项目文件夹 |
-| 线程 | 围绕一个任务展开的对话和执行过程 |
+| 项目线程 | 围绕一个项目里的任务展开的对话和执行过程，多个线程可并行 |
+| Chat 线程 | 不绑定具体项目目录，用于研究、规划、Plugin 重场景或不需要改代码的对话 |
 | Local | 直接在当前项目目录里工作 |
-| Worktree | 创建隔离目录，避免影响当前本地目录 |
-| 终端 | 运行检查、测试、构建等命令 |
+| Worktree | 创建隔离的 Git 工作目录，避免影响当前本地目录，多任务并行时尤其有用 |
+| 任务边栏 | 跟踪 Codex 当前的计划、信息来源、产出文件和任务总结，便于中途纠偏 |
+| 终端 | 运行检查、测试、构建等命令；Codex 也能读到终端输出 |
 | 内置浏览器 | 预览页面、查看效果、标注问题 |
-| Review | 查看 diff、评论、暂存、提交 |
-| Automations | 定时任务或稍后唤醒线程继续工作 |
+| Review | 查看 diff、按行评论、分块暂存或回滚、提交 / 推送 / 创建 PR |
+| Automations | 定时任务、稍后唤醒线程，或在专门的后台 worktree 上跑独立循环 |
 | Skills / Plugins | 复用团队说明、工作流或外部工具 |
 
 ### 按角色看能做什么
@@ -436,6 +438,8 @@ Codex App 是桌面端工作台，可以同时处理多个项目线程，并内�
 
 Plan 模式适合复杂任务、高风险改动、跨角色协作和非研发表达需求时使用。它的作用是：先把目标、范围、风险和验收标准说清楚，再决定是否执行。
 
+在 Codex App 中按 **Shift+Tab** 可以切换 Plan 模式开关，开启后输入框会显示 `plan mode` 标签。如果快捷键没生效（部分版本有 bug），直接在 prompt 第一句写"请进入计划模式，不要修改文件"也能起作用。
+
 ```text
 请先进入计划模式，不要修改文件。
 目标：我想完成……
@@ -590,12 +594,26 @@ Codex 的额度不是“还能聊多少句”，而是受模型、任务大小�
 
 ## 延伸阅读
 
+### 站内相关章节
+
 - [工具全景](../) — 理解 Codex 在团队工具组合中的位置
 - [Vibe Coding](../../vibe-coding/) — 学习如何和 AI 进行对话式协作
 - [Rules](../../rules/) — 学习如何把项目约束写成 AI 可执行规则
 - [Harness Engineering](../../harness-engineering/) — 理解为什么高自治工具需要配套环境、约束和验证
-- [Codex App 官方文档](https://developers.openai.com/codex/app)
-- [Codex App 功能说明](https://developers.openai.com/codex/app/features)
-- [Codex Worktrees](https://developers.openai.com/codex/app/worktrees)
-- [Codex AGENTS.md](https://developers.openai.com/codex/guides/agents-md)
-- [Codex Pricing](https://developers.openai.com/codex/pricing)
+
+### Codex 官方文档对照表
+
+本页是面向"全员上手"的最小路径，没法覆盖每个功能的细节。下表给出对应官方页面的对照，遇到具体问题时直接查官方页通常比读本页更准。
+
+| 主题 | 官方页面 | 什么时候去看 |
+|------|---------|--------------|
+| App 总览 | [App](https://developers.openai.com/codex/app) | 想了解 Codex App 的整体定位时 |
+| 功能详解 | [Features](https://developers.openai.com/codex/app/features) | 想看线程、Git、终端、Automations 等具体功能说明时 |
+| Worktrees | [Worktrees](https://developers.openai.com/codex/app/worktrees) | 想用 worktree 并行任务，需要理解隔离机制时 |
+| 设置 | [Settings](https://developers.openai.com/codex/app/settings) | 配置 App 行为、模型、自动化等 |
+| 故障排查 | [Troubleshooting](https://developers.openai.com/codex/app/troubleshooting) | 本页"按阶段定位卡点"未覆盖的问题 |
+| 登录与认证 | [Auth](https://developers.openai.com/codex/auth) | ChatGPT 账号 / API Key 登录细节、设备码、回退方式 |
+| Quickstart | [Quickstart](https://developers.openai.com/codex/quickstart) | 想最快跑通一次完整流程时 |
+| AGENTS.md 规范 | [AGENTS.md](https://developers.openai.com/codex/guides/agents-md) | 写 / 维护 `AGENTS.md` 时 |
+| 价格与限制 | [Pricing](https://developers.openai.com/codex/pricing) | 选档位、查 Codex 用量倍率时 |
+| 更新日志 | [Changelog](https://developers.openai.com/codex/changelog) | 想知道某个功能何时引入或改动时 |
