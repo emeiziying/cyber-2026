@@ -33,6 +33,7 @@ const learningPathItems = [
         items: [
           {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
           {text: 'Codex App 全员上手指南', link: '/tools-overview/examples/codex-app-onboarding'},
+          {text: 'AWS Lightsail WireGuard VPN', link: '/tools-overview/examples/aws-lightsail-wireguard-vpn'},
         ],
       },
     ],
