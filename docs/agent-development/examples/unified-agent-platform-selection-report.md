@@ -82,7 +82,7 @@ Agent 主要用于理解意图、检索资料、组织证据、生成候选分�
 | 多 Agent Runtime | AgentScope 2.0 + Studio | 多 Agent、Runtime、沙箱、AaaS、部署与 OTel 可观测路径较完整 | Studio 与企业 SSO、RBAC、租户和控制面的边界需验证 | 复杂多 Agent 引擎和研发平台候选 |
 | 端侧 Harness | DeepSeek Harness | 本地文件、工具、插件和会话运行骨架 | Developer Preview；认证、设备治理、隔离和企业控制面不足 | 未来桌面 Agent 候选，不适合作为中心平台基座 |
 
-更完整的分类、比较单位和语言分工见[附件 A：Agent 技术分类与方案对比](./unified-agent-platform-attachments/appendix-a-technology-selection)。
+更完整的分类、完整方案比较和语言分工见[Agent 技术栈选型](./agent-technology-selection)。
 
 ---
 
@@ -124,7 +124,7 @@ Agent BFF 目前不仅转换会话用户 ID，还承担 Dify 密钥隔离、App 
 | Enforced | 无法通过旁路绕过 |
 | Verified | 已通过冻结的正向、负向和故障测试 |
 
-“已实现”不能代替“已部署、已强制、已验证”。详细证据口径见[附件 F](./unified-agent-platform-attachments/appendix-f-evidence-sources)。
+“已实现”不能代替“已部署、已强制、已验证”。详细证据口径见[附件 C](./unified-agent-platform-attachments/appendix-c-evidence-sources)。
 
 ---
 
@@ -172,7 +172,7 @@ Agent BFF 目前不仅转换会话用户 ID，还承担 Dify 密钥隔离、App 
 - Runtime 保持可替换，但不提前建设兼容所有框架的复杂插件体系。
 - 中心平台与端侧 Agent 共用身份、模型、工具和审计原则，但分别选型和演进。
 
-详细逐跳信任与审计边界见[附件 B：最小安全合同](./unified-agent-platform-attachments/appendix-b-security-contract)。
+上述内容是汇报级职责边界；进入具体项目后，再按目标场景形成逐跳安全合同和验收项。
 
 ---
 
@@ -205,7 +205,7 @@ POC 只是可选验证手段，不是所有候选都要做，也不是本报告�
 - 对状态恢复、SSE、工具授权、多 Agent 协作和端侧隔离等关键不确定性，可进行范围受控的验证；
 - 验证只回答预先定义的问题，不能自动产生生产选型结论。
 
-验证方法与证据模板见[附件 C：Agent 方案验证与选型证据模板](./unified-agent-platform-attachments/appendix-c-selection-validation)。
+形成 shortlist 后，再围绕关键不确定性建立对应的验证问题和证据清单，避免提前维护通用 POC 模板。
 
 ### TypeScript 与 Python
 
@@ -233,7 +233,7 @@ POC 只是可选验证手段，不是所有候选都要做，也不是本报告�
 | 电力交易多 Agent | 先采用只读专业 Agent、证据归一化、确定性聚合和风险门禁 | 只读仿真证据充分后，再讨论更高风险能力 |
 | 员工端侧 Agent | DeepSeek Harness 等作为独立研究方向，不作为中心平台基座 | 设备治理、隔离、认证和版本稳定性达到要求时 |
 
-不建议为了展示“平台可替换”而同时建设两套 Runtime，也不建议让某个热门框架覆盖所有工作负载。电力交易多 Agent 的具体边界见[附件 E](./unified-agent-platform-attachments/appendix-e-electricity-multi-agent)，DeepSeek Harness 的定位见[附件 D](./unified-agent-platform-attachments/appendix-d-deepseek-harness)。
+不建议为了展示“平台可替换”而同时建设两套 Runtime，也不建议让某个热门框架覆盖所有工作负载。电力交易多 Agent 的具体边界见[附件 B](./unified-agent-platform-attachments/appendix-b-electricity-multi-agent)，DeepSeek Harness 的定位见[附件 A](./unified-agent-platform-attachments/appendix-a-deepseek-harness)。
 
 ---
 
@@ -264,13 +264,11 @@ POC 只是可选验证手段，不是所有候选都要做，也不是本报告�
 
 ---
 
-## 附件目录
+## 补充材料
 
-| 附件 | 内容 | 链接 |
+| 材料 | 内容 | 链接 |
 |------|------|------|
-| A | 技术分类、代表方案对比、完整比较单位与语言分工 | [Agent 技术分类与方案对比](./unified-agent-platform-attachments/appendix-a-technology-selection) |
-| B | 逐跳信任、模型与 RAG 强制路径、四类审计 | [最小安全合同](./unified-agent-platform-attachments/appendix-b-security-contract) |
-| C | 候选规则、验证条件、硬门槛、指标与证据 | [Agent 方案验证与选型证据模板](./unified-agent-platform-attachments/appendix-c-selection-validation) |
-| D | DeepSeek Harness 定位、适用场景、风险和验证边界 | [DeepSeek Harness 定位与适用性分析](./unified-agent-platform-attachments/appendix-d-deepseek-harness) |
-| E | 电力交易多 Agent 场景、确定性聚合和执行边界 | [电力交易多 Agent 应用场景与边界](./unified-agent-platform-attachments/appendix-e-electricity-multi-agent) |
-| F | 能力成熟度证据口径与主要官方资料 | [证据口径与参考资料](./unified-agent-platform-attachments/appendix-f-evidence-sources) |
+| 详细选型 | 技术分类、代表方案、完整比较单位与语言分工 | [Agent 技术栈选型](./agent-technology-selection) |
+| 附件 A | DeepSeek Harness 定位、适用场景、风险和验证边界 | [DeepSeek Harness 定位与适用性分析](./unified-agent-platform-attachments/appendix-a-deepseek-harness) |
+| 附件 B | 电力交易多 Agent 场景、确定性聚合和执行边界 | [电力交易多 Agent 应用场景与边界](./unified-agent-platform-attachments/appendix-b-electricity-multi-agent) |
+| 附件 C | 能力成熟度证据口径与主要官方资料 | [证据口径与参考资料](./unified-agent-platform-attachments/appendix-c-evidence-sources) |

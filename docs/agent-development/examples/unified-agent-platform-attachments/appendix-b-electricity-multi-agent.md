@@ -1,4 +1,4 @@
-# 附件 E：电力交易多 Agent 应用场景与边界
+# 附件 B：电力交易多 Agent 应用场景与边界
 
 > **所属报告：** [公司 Agent 技术现状、需求与平台演进规划](../unified-agent-platform-selection-report)
 > **资料快照：** 2026-08-21

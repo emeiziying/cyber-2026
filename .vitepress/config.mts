@@ -146,28 +146,16 @@ const learningPathItems = [
             link: '/agent-development/examples/unified-agent-platform-selection-report',
             items: [
               {
-                text: '附件 A：技术分类与方案对比',
-                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-a-technology-selection',
+                text: '附件 A：DeepSeek Harness 适用性',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-a-deepseek-harness',
               },
               {
-                text: '附件 B：最小安全合同',
-                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-b-security-contract',
+                text: '附件 B：电力交易多 Agent 场景',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-b-electricity-multi-agent',
               },
               {
-                text: '附件 C：选型验证模板',
-                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-c-selection-validation',
-              },
-              {
-                text: '附件 D：DeepSeek Harness 适用性',
-                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-d-deepseek-harness',
-              },
-              {
-                text: '附件 E：电力交易多 Agent 场景',
-                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-e-electricity-multi-agent',
-              },
-              {
-                text: '附件 F：证据口径与资料',
-                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-f-evidence-sources',
+                text: '附件 C：证据口径与资料',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-c-evidence-sources',
               },
             ],
           },
