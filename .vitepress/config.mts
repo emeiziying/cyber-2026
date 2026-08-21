@@ -137,6 +137,40 @@ const learningPathItems = [
             text: 'Review Agent 演练',
             link: '/agent-development/examples/review-agent-walkthrough',
           },
+          {
+            text: 'Agent 技术栈选型',
+            link: '/agent-development/examples/agent-technology-selection',
+          },
+          {
+            text: 'Agent 现状与平台演进规划',
+            link: '/agent-development/examples/unified-agent-platform-selection-report',
+            items: [
+              {
+                text: '附件 A：技术分类与方案对比',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-a-technology-selection',
+              },
+              {
+                text: '附件 B：最小安全合同',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-b-security-contract',
+              },
+              {
+                text: '附件 C：选型验证模板',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-c-selection-validation',
+              },
+              {
+                text: '附件 D：DeepSeek Harness 适用性',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-d-deepseek-harness',
+              },
+              {
+                text: '附件 E：电力交易多 Agent 场景',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-e-electricity-multi-agent',
+              },
+              {
+                text: '附件 F：证据口径与资料',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-f-evidence-sources',
+              },
+            ],
+          },
         ],
       },
       {
