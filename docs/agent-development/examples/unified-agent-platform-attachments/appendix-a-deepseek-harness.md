@@ -1,16 +1,16 @@
 # 附件 A：DeepSeek Harness 定位与适用性分析
 
 > **所属报告：** [公司 Agent 技术现状、需求与平台演进规划](../unified-agent-platform-selection-report)
-> **资料快照：** 2026-08-21
+> **资料快照：** 2026-08-24
 > **附件性质：** 端侧候选技术分析，不构成中心平台或端侧 Runtime 选型结论
 
 ---
 
 ## 当前定位
 
-[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 是 TypeScript/Node.js 和 Cordis 插件架构的 Agent Harness。它提供 Python SDK，但底层仍启动 Node Runtime。[Python SDK](https://github.com/deepseek-ai/deepseek-harness/blob/master/python/README.md)、[Runtime 载体](https://github.com/deepseek-ai/deepseek-harness/blob/master/python/sdk-runtime/README.md)
+[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 是 TypeScript/Node.js 和 Cordis 插件架构的 Agent Harness。它提供 Python SDK，但底层仍启动 Node Runtime。[Python SDK](https://github.com/deepseek-ai/deepseek-harness/blob/b150a55/python/README.md)、[Runtime 载体](https://github.com/deepseek-ai/deepseek-harness/blob/b150a55/python/sdk-runtime/README.md)
 
-官方标注为 [Developer Preview](https://github.com/deepseek-ai/deepseek-harness#developer-preview)。截至资料快照日，最新版本为 [v0.1.0-rc.8 预发布版](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.0-rc.8)，仍可能发生兼容性破坏。
+官方标注为 [Developer Preview](https://github.com/deepseek-ai/deepseek-harness#developer-preview)。截至资料快照日，最新版本为 [v0.1.1-rc.2（commit `b150a55`）](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2)，仍可能发生兼容性破坏；此前 [rc.1](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.1.1-rc.1) 修复了 Bubblewrap `/proc/<pid>/root` escape，说明端侧沙箱必须锁定版本并持续跟踪安全更新。
 
 它与未来桌面 Agent 的需求有一定匹配：处理获授权的本地文件、调用受控本地能力、进行用户确认，并作为中心平台管理下的端侧节点。但这只构成定向研究理由，不构成端侧选型结论。
 
@@ -18,10 +18,10 @@
 
 - 底层 Web Server 没有 TLS 和认证；API carrier 提供 Host 与 Origin 可达性围栏，但它不是身份认证。
 - 当前公开资料不能证明完整企业 SSO、RBAC、多租户、设备管理和集群高可用。
-- 原生 `SandboxMode` 只控制文件写入是否落盘，并不限制读取、网络或进程可见性；真正的读取隔离仍需低权限账号、容器或操作系统策略。
+- 原生 `SandboxMode` 控制工具执行造成的文件系统影响与写权限边界；它不限制读取，网络和进程可见性也不在其语义内，强制程度取决于实际启用的 Sandbox 后端。真正的读取隔离仍需低权限账号、容器或操作系统策略。
 - 端侧产品仍需设备注册、软件签名、升级、回滚、远程停用和终端响应。
 
-官方边界见 [Web Server](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/web-server.md)、[Sandbox](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/sandbox.md)、[连接边界](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/client/connection/README.md)和 [Gateway 限制](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/host/apiproxy/README.md)。
+官方边界见固定快照中的 [Web Server](https://github.com/deepseek-ai/deepseek-harness/blob/b150a55/docs/subsystems/web-server.md)、[Sandbox](https://github.com/deepseek-ai/deepseek-harness/blob/b150a55/docs/subsystems/sandbox.md)、[连接边界](https://github.com/deepseek-ai/deepseek-harness/blob/b150a55/packages/client/connection/README.md)和 [Gateway 限制](https://github.com/deepseek-ai/deepseek-harness/blob/b150a55/packages/host/apiproxy/README.md)。
 
 ## 分阶段验证边界
 

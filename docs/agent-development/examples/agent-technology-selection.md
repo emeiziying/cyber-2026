@@ -1,8 +1,9 @@
 # Agent 技术栈选型：平台、框架、编排与 Harness 怎么分
 
-> **资料快照：** 2026-08-20
+> **资料快照：** 2026-08-24
 > **证据范围：** 官方文档、官方仓库和许可证；除非特别标记，项目能力与边界默认是文档证据（D），不代表已经完成 POC 或生产验证
 > **本文目标：** 建立可复用的分类和决策基线，而不是给所有项目排一个总榜
+> **决策关系：** 公司当前动作与触发条件以[主报告](./unified-agent-platform-selection-report)为准；本文只提供分类、候选路由和验证方法
 
 ---
 
@@ -15,7 +16,7 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 1. 先确定要交付的是业务应用、后端 Agent、持久工作流、多 Agent 自动化，还是 Coding Agent
 2. 用部署、许可证、安全和耐久执行等硬门槛过滤候选
 3. 只在同一赛道内评分
-4. 每个赛道最多选 2～3 个候选做同输入、同模型、同工具的 POC
+4. 资料仍无法回答关键问题时，每个赛道最多选 2～3 个候选做同输入、同模型、同工具的 POC
 5. 最后形成带切换条件的 ADR，而不是宣布一个永久赢家
 
 当前只能先形成候选路由，不能形成生产排名：
@@ -40,7 +41,7 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 | Workflow Runtime | 状态图、检查点、暂停恢复、长任务控制 | LangGraph、Microsoft Agent Framework |
 | Agent Harness | Agent loop、上下文、工具、会话和可扩展运行骨架；审批、沙箱等能力因项目而异 | Pi、DeepSeek Harness、Claude Agent SDK、Deep Agents |
 | 垂直 Agent 产品 | 面向具体任务直接交付 CLI、Web 或工作区产品 | OpenHands、mini-swe-agent |
-| 应用平台 / 控制面 | 应用发布、运行服务、运营、身份权限、观测和部署 | Dify（具体能力取决于版本）、Agno AgentOS；部分能力也由 Mastra、VoltAgent 的商业平台提供 |
+| 应用平台 / 产品运营面 | 应用发布、运行服务、运营、身份权限、观测和部署 | Dify（具体能力取决于版本）、Agno AgentOS；部分能力也由 Mastra、VoltAgent 的商业平台提供 |
 
 ```text
 业务使用者
@@ -63,6 +64,8 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 - 保存会话历史，不等于任务能在进程崩溃后从步骤检查点恢复
 - 工具审批，不等于文件、进程和网络已经处于强隔离沙箱
 - 提供 HTTP Server，不等于已经具备多租户、RBAC、审计和高可用控制面
+
+这里的“产品运营面”是候选产品附带的应用管理能力，不等于公司需要掌握的统一 Agent 控制面。
 
 ### 四项能力的最低验收语义
 
@@ -90,7 +93,7 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 | [Mastra](https://github.com/mastra-ai/mastra) | TypeScript Agent Framework + Workflow Runtime + Server | Agent、Tool、MCP、Memory、Workflow、Server、Studio | 纯 OSS 即具备完整企业多租户治理 | TS 平台栈候选 |
 | [PydanticAI](https://pydantic.dev/docs/ai/overview/) | 类型安全的 Python Agent SDK / Harness | 依赖注入、结构化输出、工具、Agent loop、Graph、评测接口 | 自带部署集群、RBAC 和耐久任务基础设施 | Python 后端候选 |
 | [CrewAI](https://docs.crewai.com/) | 角色与任务驱动的多 Agent 自动化框架 | Crews、Flows、委派、状态、人工反馈 | 所有业务 Agent 的默认架构 | 多 Agent 自动化候选 |
-| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Everything-is-a-plugin 的 Agent Harness / Runtime | Cordis Plugin、模型、工具、Preset、持久化、审批、沙箱、本地 Web | 已稳定的企业多租户平台 | Harness 挑战者；开发者预览 |
+| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Everything-is-a-plugin 的 Agent Harness / Runtime | Cordis Plugin、模型、工具、Preset、持久化、审批、沙箱、本地 Web | 已稳定的企业多租户平台 | 公司当前仅作端侧技术研究；开发者预览 |
 | [Pi](https://github.com/earendil-works/pi) | 极简终端 Coding Agent Harness + 可嵌入 Runtime | 多模型 API、Agent loop、CLI/TUI、Extension、Skill、SDK/RPC | 业务平台、耐久工作流或默认强沙箱 | 极简 Coding Harness 候选 |
 
 ### 生产边界速查
@@ -115,9 +118,9 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 
 | 项目 | 更适合 | 主要门槛 | 当前建议 |
 |------|--------|----------|----------|
-| Dify | 业务人员参与配置的 Agent、RAG、Workflow 和应用发布 | [Dify Open Source License](https://github.com/langgenius/dify/blob/main/LICENSE) 带额外条件；Community 与 Enterprise 的 Workspace、SSO、HA 和治理能力不同 | 进入业务平台 POC，先过许可证与部署门槛 |
+| Dify | 业务人员参与配置的 Agent、RAG、Workflow 和应用发布 | [Dify Open Source License](https://github.com/langgenius/dify/blob/main/LICENSE) 带额外条件；Community 与 Enterprise 的 Workspace、SSO、HA 和治理能力不同 | 现有实现先补四个证据门；主报告触发条件出现且资料仍不足时，再进入场景 POC |
 | Langflow | 受信开发团队进行可视化原型、自定义 Python 组件并部署 Flow Runtime | 官方将其视为代码执行平台；OSS RBAC 默认不能当成完整租户策略 | 作为可视化开发挑战者，不直接公网暴露共享 IDE |
-| Flowise | 仅适合既有系统迁移评估或自行维护 fork | 官方已停止功能开发，仓库于 2026-08-10 归档，并计划于 2026-08-31 EOL | 绿地项目直接 Rejected，参见[停止运营公告](https://flowiseai.com/sunset) |
+| Flowise | 仅适合既有系统迁移评估或自行维护 fork | 官方公告 2026-07-29 code freeze，仓库已于 2026-08-13 归档，并给出 2026-08-31 EOL 日期 | 绿地项目直接 Rejected，参见[归档与 EOL 公告](https://github.com/FlowiseAI/Flowise/discussions/6727) |
 
 Dify 和 Langflow 虽然都提供可视化界面，但评价重点不同：Dify 更接近业务应用开发、发布和运营平台；Langflow 更接近可编程的可视化开发 IDE 与 Runtime。只有当决策问题明确包含这两种交付方式时，才比较完整方案的建设成本；不要把两者的品牌功能直接放入同一总分。
 
@@ -148,7 +151,7 @@ Dify 和 Langflow 虽然都提供可视化界面，但评价重点不同：Dify 
 | 项目 | 主要模型 | 适合场景 | 当前边界 |
 |------|----------|----------|----------|
 | CrewAI | Crew 角色协作 + Flow 确定性流程 | 调研、报告、运营等角色分工明确的业务自动化 | 不要为了“多 Agent”标签拆分原本可由单 Agent 完成的任务 |
-| [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/overview/) | Agent + 显式 Workflow，覆盖顺序、并行、handoff、group chat 等模式 | Python / .NET、Azure 集成、需要 checkpoint 和 HITL 的多 Agent 工作流 | Azure 托管和治理能力不属于 OSS 框架本体 |
+| [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/overview/) | Agent + 显式 Workflow，覆盖顺序、并行、handoff、group chat 等模式 | C#、Python、Go，Azure 集成，以及需要 checkpoint 和 HITL 的多 Agent 工作流 | Azure 托管和治理能力不属于 OSS 框架本体；各语言能力需按目标版本核验 |
 | [Google ADK](https://adk.dev/) | Agent + graph/dynamic workflow + session service | Gemini / Google Cloud、多语言、A2A 和图工作流 | 不同语言能力成熟度不同；自托管仍需自行承担 IAM 和运维 |
 
 [AutoGen](https://github.com/microsoft/autogen) 已进入维护模式，Microsoft 官方将 Agent Framework 作为继任方向。绿地项目应比较 Agent Framework，而不是继续把 AutoGen 当作长期主选；存量 AutoGen 系统应单独形成迁移计划。
@@ -165,7 +168,7 @@ Dify 和 Langflow 虽然都提供可视化界面，但评价重点不同：Dify 
 
 Pi 与 DeepSeek Harness 最接近“自己造 Coding Agent 的底座”；OpenHands 更接近可直接部署的软件工程 Agent 产品。Claude Agent SDK 和 Deep Agents 位于两者之间：已经提供较完整 Harness 能力，但部署控制面仍需另建或组合官方平台。
 
-[SWE-agent](https://github.com/SWE-agent/SWE-agent) 已进入维护模式并推荐迁移到 [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent)。mini-swe-agent 适合 SWE-bench、教学和最小研究基线，不应被误认为生产 Coding Agent 平台。
+[SWE-agent](https://github.com/SWE-agent/SWE-agent) 官方说明研发重心已转向 [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent)，且 mini 已取代 SWE-agent 并被推荐给新用户。mini-swe-agent 适合 SWE-bench、教学和最小研究基线，不应被误认为生产 Coding Agent 平台。
 
 ---
 
@@ -178,7 +181,7 @@ Pi 与 DeepSeek Harness 最接近“自己造 Coding Agent 的底座”；OpenHa
 | [LlamaIndex Python](https://github.com/run-llama/llama_index) | 文档处理、复杂检索、RAG 和数据型 Agent 是主要矛盾 | 应用认证、租户和 Web 安全由宿主负责 |
 | [LlamaIndexTS](https://github.com/run-llama/LlamaIndexTS) | 不建议进入绿地 POC | 仓库已于 2026-04-30 归档并停止维护 |
 | [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/) | 需要轻量 Agent loop、handoff、Session 和 OpenAI-first 能力 | 长任务崩溃恢复和控制面依赖外部基础设施 |
-| [Agno](https://docs.agno.com/) | 希望同时评估 SDK、AgentOS Runtime、存储、RBAC、租户与运营 UI | Hosted Control Plane、离线部署和商业条款需要单独核验 |
+| [Agno](https://docs.agno.com/) | 希望同时评估 SDK、AgentOS Runtime、存储、JWT/RBAC、多用户与多租户能力 | 开源 Runtime 与 Agent UI、Hosted 浏览器 Control Plane、离线部署和商业条款必须分别核验 |
 | Microsoft Agent Framework | Microsoft / .NET / Azure 是硬约束 | 作为 AutoGen 的绿地继任者评估 |
 | Google ADK | Gemini、Google Cloud、A2A 或多语言是重要约束 | ADK 2.0 有破坏性变化，需锁定语言与版本 |
 | VoltAgent | TS 多 Agent、Server 和 VoltOps 组合有吸引力 | Workflow、认证和 Sandbox 必须做目标版本 POC |
@@ -267,7 +270,7 @@ Pi 与 DeepSeek Harness 最接近“自己造 Coding Agent 的底座”；OpenHa
 
 ## 最小 POC 设计
 
-每个赛道最多保留 2～3 个候选，并使用同模型、同工具接口、同输入数据和同资源上限。
+只有资料分析仍无法回答决策性问题时才进入 POC；每个赛道最多保留 2～3 个候选，并使用同模型、同工具接口、同输入数据和同资源上限。
 
 前文定义的 durable execution、人工审批、强沙箱和控制面最低语义，是所有相关赛道的强制验收项，不能因为下面的用例表没有重复展开就省略。
 
@@ -343,30 +346,7 @@ Pi 与 DeepSeek Harness 最接近“自己造 Coding Agent 的底座”；OpenHa
 
 ## 官方资料入口
 
-以下链接是本次快照的主要一手资料入口。项目迭代较快，复审时应重新核对版本、许可证和维护状态。
-
-- Dify：[仓库](https://github.com/langgenius/dify)、[许可证](https://github.com/langgenius/dify/blob/main/LICENSE)
-- Langflow：[文档](https://docs.langflow.org/)、[部署架构](https://docs.langflow.org/deployment-architecture)、[安全边界](https://docs.langflow.org/security)
-- LangChain / LangGraph：[产品分层](https://docs.langchain.com/oss/python/concepts/products)、[LangGraph Persistence](https://docs.langchain.com/oss/python/langgraph/persistence)
-- Mastra：[仓库](https://github.com/mastra-ai/mastra)、[Workflow snapshots](https://mastra.ai/en/reference/workflows/snapshots)
-- PydanticAI：[概览](https://pydantic.dev/docs/ai/overview/)、[Durable execution](https://pydantic.dev/docs/ai/capabilities/durable_execution/overview/)
-- CrewAI：[文档](https://docs.crewai.com/)、[Enterprise / AMP](https://docs.crewai.com/enterprise/introduction)
-- DeepSeek Harness：[仓库](https://github.com/deepseek-ai/deepseek-harness)、[架构](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/architecture.md)
-- DeepSeek Harness 当前状态：[开发者预览声明](https://github.com/deepseek-ai/deepseek-harness#developer-preview)
-- Pi：[仓库](https://github.com/earendil-works/pi)、[安全说明](https://pi.dev/docs/latest/security)
-- Microsoft Agent Framework：[概览](https://learn.microsoft.com/en-us/agent-framework/overview/)、[Checkpoint](https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints)
-- AutoGen：[维护状态与继任说明](https://github.com/microsoft/autogen)
-- Google ADK：[文档](https://adk.dev/)、[部署](https://adk.dev/deploy/)
-- OpenAI Agents SDK：[Python 文档](https://openai.github.io/openai-agents-python/)
-- Agno：[AgentOS](https://docs.agno.com/agent-os/introduction)、[安全](https://docs.agno.com/agent-os/security/overview)
-- Claude Agent SDK：[概览](https://code.claude.com/docs/en/agent-sdk/overview)、[安全部署](https://code.claude.com/docs/en/agent-sdk/secure-deployment)
-- Deep Agents：[概览](https://docs.langchain.com/oss/python/deepagents/overview)、[生产部署](https://docs.langchain.com/oss/python/deepagents/going-to-production)
-- OpenHands：[仓库](https://github.com/OpenHands/OpenHands)、[Agent Server](https://docs.openhands.dev/sdk/guides/agent-server/overview)
-- VoltAgent：[文档](https://voltagent.dev/docs/)、[认证](https://voltagent.dev/docs/api/authentication/)、[Sandbox](https://voltagent.dev/docs/workspaces/sandbox/)
-- Vercel AI SDK：[Agent 文档](https://ai-sdk.dev/docs/agents/overview)、[许可证](https://github.com/vercel/ai/blob/main/LICENSE)
-- SWE-agent / mini-swe-agent：[SWE-agent](https://github.com/SWE-agent/SWE-agent)、[mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent)
-- Flowise：[停止运营公告](https://flowiseai.com/sunset)、[归档仓库](https://github.com/FlowiseAI/Flowise)
-- LlamaIndex：[Python 仓库](https://github.com/run-llama/llama_index)、[已归档 TypeScript 仓库](https://github.com/run-llama/LlamaIndexTS)
+本报告材料的统一外部资料入口见[附件 C：证据口径与外部资料索引](./unified-agent-platform-attachments/appendix-c-evidence-sources)。项目迭代较快，进入 shortlist 时应重新锁定版本或 commit，并核对许可证、Edition、部署形态和维护状态。
 
 ---
 
