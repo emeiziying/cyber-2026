@@ -30,18 +30,20 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 
 ---
 
-## 先统一分类口径
+## 基础术语与交付物分类
 
-下面的分类描述项目的**主要交付物**，不是互斥的技术层级。一个项目可以同时覆盖多个位置，但选型时必须先明确它主要替团队承担哪部分责任。
+下面先定义技术装配中的基础名词。分类依据是项目的**主要交付物和责任**，不是厂商自称，也不是互斥的技术层级；一个项目可以同时覆盖多个位置。
 
-| 类别 | 主要交付物 | 典型项目 |
-|------|------------|----------|
-| 应用层 SDK | 模型调用、流式 UI、工具接口等应用能力 | Vercel AI SDK |
-| Agent SDK / Framework | Agent loop、模型与工具抽象、结构化输出 | LangChain、PydanticAI、OpenAI Agents SDK、Google ADK |
-| Workflow Runtime | 状态图、检查点、暂停恢复、长任务控制 | LangGraph、Microsoft Agent Framework |
-| Agent Harness | Agent loop、上下文、工具、会话和可扩展运行骨架；审批、沙箱等能力因项目而异 | Pi、DeepSeek Harness、Claude Agent SDK、Deep Agents |
-| 垂直 Agent 产品 | 面向具体任务直接交付 CLI、Web 或工作区产品 | OpenHands、mini-swe-agent |
-| 应用平台 / 产品运营面 | 应用发布、运行服务、运营、身份权限、观测和部署 | Dify（具体能力取决于版本）、Agno AgentOS；部分能力也由 Mastra、VoltAgent 的商业平台提供 |
+| 类别 | 本文定义 | 关键边界 | 典型项目 |
+|------|----------|----------|----------|
+| 应用层 SDK | 供宿主应用直接调用的模型、流式 UI、工具和 Agent 接口 | 不独立承担应用发布、身份、持久执行和生产运维 | Vercel AI SDK |
+| Agent SDK / Framework | 用于编写 Agent 的模型、工具、Agent loop、Memory 和结构化输出等抽象与集成 | 通常由宿主应用承担 API、授权、部署和基础设施 | LangChain、PydanticAI、OpenAI Agents SDK、Google ADK |
+| Workflow Runtime（耐久工作流执行引擎） | 执行长时间、有状态流程的引擎，提供状态图、检查点、暂停、重试和恢复 | 不等于 AI 应用平台，也不必提供高层 Agent 抽象 | LangGraph、Microsoft Agent Framework |
+| Agent Harness | 带有默认 Prompt、上下文、工具、会话和扩展机制的可运行 Agent 骨架 | 审批、沙箱和企业控制面是否具备仍取决于具体项目 | Pi、DeepSeek Harness、Claude Agent SDK、Deep Agents |
+| 垂直 Agent 产品 | 面向特定任务直接交付 CLI、Web、桌面端或工作区的完整产品 | 领域体验更完整，但不应按通用 SDK 或业务平台复用能力评分 | OpenHands、mini-swe-agent |
+| 应用平台 / 产品运营面 | 覆盖应用创建、发布、运行、运营、身份权限、观测和部署的产品能力 | 候选产品的运营面不等于公司统一 Agent 控制面，且能力受 Edition 影响 | Dify、Agno AgentOS；部分能力也由 Mastra、VoltAgent 的商业平台提供 |
+
+主报告为了便于选型，还把三类关注点单列为技术路线或产品形态：可视化开发描述交互和交付方式，多 Agent 描述 Framework / Workflow 上的协作模式，可观测与评测描述横向治理能力。它们不是与上表平行、互斥的技术层级。
 
 ```text
 业务使用者
@@ -93,7 +95,7 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 | [Mastra](https://github.com/mastra-ai/mastra) | TypeScript Agent Framework + Workflow Runtime + Server | Agent、Tool、MCP、Memory、Workflow、Server、Studio | 纯 OSS 即具备完整企业多租户治理 | TS 平台栈候选 |
 | [PydanticAI](https://pydantic.dev/docs/ai/overview/) | 类型安全的 Python Agent SDK / Harness | 依赖注入、结构化输出、工具、Agent loop、Graph、评测接口 | 自带部署集群、RBAC 和耐久任务基础设施 | Python 后端候选 |
 | [CrewAI](https://docs.crewai.com/) | 角色与任务驱动的多 Agent 自动化框架 | Crews、Flows、委派、状态、人工反馈 | 所有业务 Agent 的默认架构 | 多 Agent 自动化候选 |
-| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Everything-is-a-plugin 的 Agent Harness / Runtime | Cordis Plugin、模型、工具、Preset、持久化、审批、沙箱、本地 Web | 已稳定的企业多租户平台 | 公司当前仅作端侧技术研究；开发者预览 |
+| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Everything-is-a-plugin 的 Agent Harness / Runtime | Cordis Plugin、模型、工具、Preset、持久化、审批、沙箱、本地 Web | 已稳定的企业多租户平台 | 端侧技术研究候选；开发者预览 |
 | [Pi](https://github.com/earendil-works/pi) | 极简终端 Coding Agent Harness + 可嵌入 Runtime | 多模型 API、Agent loop、CLI/TUI、Extension、Skill、SDK/RPC | 业务平台、耐久工作流或默认强沙箱 | 极简 Coding Harness 候选 |
 
 ### 生产边界速查
@@ -118,7 +120,7 @@ Agent 项目不能只按功能多少比较。Dify、LangGraph 和 Pi 虽然都�
 
 | 项目 | 更适合 | 主要门槛 | 当前建议 |
 |------|--------|----------|----------|
-| Dify | 业务人员参与配置的 Agent、RAG、Workflow 和应用发布 | [Dify Open Source License](https://github.com/langgenius/dify/blob/main/LICENSE) 带额外条件；Community 与 Enterprise 的 Workspace、SSO、HA 和治理能力不同 | 现有实现先补四个证据门；主报告触发条件出现且资料仍不足时，再进入场景 POC |
+| Dify | 业务人员参与配置的 Agent、RAG、Workflow 和应用发布 | [Dify Open Source License](https://github.com/langgenius/dify/blob/main/LICENSE) 带额外条件；Community 与 Enterprise 的 Workspace、SSO、HA 和治理能力不同 | 候选评估前先过许可证、部署与治理门槛；公司当前动作见主报告 |
 | Langflow | 受信开发团队进行可视化原型、自定义 Python 组件并部署 Flow Runtime | 官方将其视为代码执行平台；OSS RBAC 默认不能当成完整租户策略 | 作为可视化开发挑战者，不直接公网暴露共享 IDE |
 | Flowise | 仅适合既有系统迁移评估或自行维护 fork | 官方公告 2026-07-29 code freeze，仓库已于 2026-08-13 归档，并给出 2026-08-31 EOL 日期 | 绿地项目直接 Rejected，参见[归档与 EOL 公告](https://github.com/FlowiseAI/Flowise/discussions/6727) |
 

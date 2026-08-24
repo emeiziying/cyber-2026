@@ -17,7 +17,7 @@
 1. **Agent 不是单一产品。** 市场上的项目分别侧重应用平台、开发框架、工作流 Runtime、多 Agent、端侧 Harness 或评测治理，不能放在一张功能表中直接排名。
 2. **公司已有早期基线，但尚未形成完整平台能力。** 当前源码已形成 Dify、Agent BFF 和 Agent MCP 的早期问答、RAG 与只读工具调用链路，但部署、强制和验证状态尚未闭环；统一入口、资源授权、运行账本、审计、恢复和输出裁剪仍需补齐或验证。
 3. **公司需要统一的是控制边界，不是所有实现。** 身份、租户、Agent API、模型、知识、工具、审计和运行治理应统一；具体 Runtime、语言和领域算法可以按场景选择。
-4. **目标架构应保持 Runtime 可替换。** 业务系统依赖公司掌握的统一 Agent API，Runtime 负责模型调用和流程编排，业务后端继续负责最终权限、正式计算、批准和执行。
+4. **目标架构应保持 Agent 执行后端可替换。** 业务系统依赖公司掌握的统一 Agent API，执行后端负责模型调用和流程编排，业务后端继续负责最终权限、正式计算、批准和执行。
 5. **选型必须从业务场景出发。** 先用硬约束缩小候选范围，再比较完整方案；只有资料分析无法回答的关键问题才需要验证，不做脱离场景的框架总排名。
 
 ### 当前总体建议
@@ -60,36 +60,36 @@ Agent 主要用于理解意图、检索资料、组织证据、生成候选分�
 
 ---
 
-## Agent 技术分类与方案差异
+## Agent 技术路线与产品形态
 
-### 不同类别解决什么问题
+### 本文如何定义这些名词
 
-| 技术类别 | 主要交付物 | 代表项目 | 更适合的场景 |
-|----------|------------|----------|----------------|
-| AI 应用平台 | 可视化应用、RAG、Workflow、发布和运营 | Dify、Haystack Enterprise | 快速建设问答、知识应用和标准流程 |
-| 可视化开发与 Runtime | 组件画布、Flow 设计、API 和运行服务 | Langflow；Flowise（已归档，仅作历史参考） | 可视化开发、流程实验和生产 Runtime 候选 |
-| Agent Framework | Agent loop、工具、结构化输出和模型抽象 | Mastra、PydanticAI、LangChain | 代码优先的后端 Agent 服务 |
-| Workflow Runtime | 状态图、检查点、暂停恢复和长任务控制 | LangGraph、Microsoft Agent Framework | 审批、长流程、人工确认和故障恢复 |
-| 多 Agent Framework | 角色协作、委派和任务编排 | CrewAI、AgentScope、Google ADK | 分工明确的分析和业务自动化 |
-| Agent Harness | 上下文、工具、Session、运行骨架和本地能力 | DeepSeek Harness、Claude Agent SDK | Coding Agent、端侧 Agent 和可扩展运行环境 |
-| 可观测与评测 | Trace、质量、成本和回归 | LangSmith、Langfuse、Phoenix | 生产治理和效果评估 |
+本文分类不是行业统一标准，而是面向选型的工作定义。判断依据是：引入该项目后，它主要替团队交付什么、承担什么责任；项目自身的宣传称谓只作参考。
 
-类别会重叠：一个项目可能同时包含 Framework、Workflow 和部署能力。分类目的是识别主要交付物，不是给产品贴唯一标签。
+| 技术路线或产品形态 | 本文工作定义 | 关键边界 |
+|--------------------|--------------|----------|
+| AI 应用开发与运营平台 | 覆盖 AI 应用创建、RAG、流程配置、调试、发布、API 和基础运营的产品 | 候选产品的应用运营面不等于公司统一 Agent 控制面 |
+| 可视化 Flow IDE / Runtime | 用组件画布定义、调试 Flow，并通过 API 或服务执行 Flow 的开发环境与运行服务 | 有画布和 HTTP Server 不等于具备企业多租户、业务授权和审计 |
+| Agent SDK / Framework | 供开发者用代码实现 Agent 的模型、工具、Agent loop、Memory 和结构化输出等抽象 | 通常不直接承担宿主应用的身份、部署、数据库和生产运维 |
+| Workflow Runtime（耐久工作流执行引擎） | 执行长时间、有状态流程，提供检查点、重试、暂停、恢复和人工介入 | 重点是可靠执行，不一定提供 RAG、应用发布或完整开发平台 |
+| 多 Agent 协作框架 | 在 Agent Framework 或 Workflow 之上提供角色、委派、handoff、并行协作和结果汇总 | 是协作模式的特化能力，不代表所有任务都应拆成多个 Agent |
+| Agent Harness（运行骨架） | 将 Agent loop、默认 Prompt、上下文、工具、Session 和扩展机制装配成可直接运行的环境 | 更适合开放式长任务、Coding 或端侧场景，不等于企业中心平台 |
+| 可观测与评测工具 | 采集 Trace、成本、延迟和质量数据，并支持数据集实验、评分与回归 | 属于横向治理能力，不能替代业务审计、授权或 Agent 执行 |
 
-技术分类描述项目的主要交付物；目标架构中的“Runtime”是可替换的装配角色，应用平台、Framework 或 Workflow Runtime 都可能通过适配承担该角色，两者不是同一层分类。
+Framework、Runtime 和 Harness 的基本区分参考了[LangChain 当前公开采用的一种概念用法](https://docs.langchain.com/oss/python/concepts/products)：Framework 提供开发抽象，Runtime 负责状态化执行，Harness 提供带默认工具和上下文管理的完整运行骨架。类别之间允许重叠；目标架构中的“Runtime”是可替换的装配角色，应用平台、Framework 或 Workflow Runtime 都可能通过适配承担该角色。
 
 ### 代表性路线对比
 
-| 路线 | 代表方案 | 主要优势 | 需要补充或验证 | 与公司需求的关系 |
-|------|----------|----------|------------------|------------------|
-| 低代码 AI 应用平台 | Dify | 问答、RAG、Workflow 和发布路径完整，上手快 | 复杂工程控制、跨 Runtime 合同、企业治理和长期恢复能力需按场景验证 | 当前早期实现基线，可保留也可替换 |
-| 可视化开发与 Runtime | Langflow | 可视化 IDE、API 和生产 Runtime 路径兼顾原型与部署 | 具体版本、认证、SSO/RBAC、Helm 形态及公司控制面集成需按完整方案验证 | 可进入可视化开发和生产 Runtime 候选池，但不单独等同于公司控制面 |
-| TypeScript 代码优先 | Mastra | Agent、Workflow、MCP 和服务端工程集成较自然 | 企业控制面、版本边界、耐久执行和完整运维成本需验证 | 新建复杂 TS Agent 服务的候选，不是既定路线 |
-| Python 与多语言代码优先/工作流 | LangGraph、PydanticAI、Microsoft Agent Framework（C#、Python、Go） | 类型化工具、状态图、长流程和多语言生态丰富 | 业务前端、平台控制面及不同组件组合需要公司集成 | 适合数据、算法、复杂流程和多语言团队 |
-| Python 一体化 Runtime | Agno | Agent、Team、Workflow、API Runtime 和前端路径相对集中 | 开源与商业控制面边界、升级稳定性和耐久执行能力需验证 | 可作为 Python 平台型候选研究 |
-| 角色协作与 Flow | CrewAI OSS + 可选 AMP | Crews 与 Flows 兼顾角色协作和流程控制，AMP 提供进一步平台能力 | OSS、AMP、前端和部署形态必须作为不同完整方案比较 | 多角色业务自动化和流程型 Agent 候选 |
-| 多 Agent Runtime | AgentScope 2.0 + Studio | 多 Agent、Runtime、沙箱、AaaS、部署与 OTel 可观测路径较完整 | Studio 与企业 SSO、RBAC、租户和控制面的边界需验证 | 复杂多 Agent 引擎和研发平台候选 |
-| 端侧 Harness | DeepSeek Harness | 本地文件、工具、插件和会话运行骨架 | Developer Preview；认证、设备治理、隔离和企业控制面不足 | 未来桌面 Agent 候选，不适合作为中心平台基座 |
+| 路线 | 代表方案 | 与公司需求的关系 |
+|------|----------|------------------|
+| 低代码 AI 应用平台 | Dify | 当前问答、RAG 和标准流程的早期基线，根据证据决定保留或替换 |
+| 可视化开发与 Runtime | Langflow | 可视化开发和 Python Runtime 候选，不单独等同于公司控制面 |
+| TypeScript 代码优先 | Mastra | 新建复杂 TS Agent 服务候选，不是既定路线 |
+| Python 与多语言代码优先/工作流 | LangGraph、PydanticAI、Microsoft Agent Framework（C#、Python、Go） | 适合数据、算法、复杂流程和多语言团队 |
+| Python 一体化 Runtime | Agno | Python 平台型候选，开源 Runtime 与托管控制面需分别核验 |
+| 角色协作与 Flow | CrewAI OSS + 可选 AMP | 多角色业务自动化候选，OSS 与 AMP 作为不同方案比较 |
+| 多 Agent Runtime | AgentScope 2.0 + Studio | 复杂多 Agent 引擎和研发平台候选，企业治理边界需核验 |
+| 端侧 Harness | DeepSeek Harness | 未来桌面 Agent 研究候选，不作为中心平台基座 |
 
 更完整的分类、完整方案比较和语言分工见[Agent 技术栈选型](./agent-technology-selection)。
 
@@ -125,14 +125,7 @@ Agent BFF 目前不仅转换会话用户 ID，还承担 Dify 密钥隔离、App 
 
 ### 成熟度口径
 
-| 证据门 | 需要证明 |
-|--------|----------|
-| Implemented | 在指定源码版本中存在实现 |
-| Deployed | 在指定环境和配置版本中已部署 |
-| Enforced | 无法通过旁路绕过 |
-| Verified | 已通过冻结的正向、负向和故障测试 |
-
-四个证据门分别记录“通过、未通过或未验证”；“已实现”不能代替“已部署、已强制、已验证”。详细口径见[附件 C](./unified-agent-platform-attachments/appendix-c-evidence-sources)。
+`Implemented`（源码实现）、`Deployed`（环境部署）、`Enforced`（无法旁路）和 `Verified`（测试验证）是四个独立证据门，分别记录“通过、未通过或未验证”。详细定义和留痕要求见[附件 C](./unified-agent-platform-attachments/appendix-c-evidence-sources)。
 
 ---
 
@@ -149,7 +142,7 @@ Agent BFF 目前不仅转换会话用户 ID，还承担 Dify 密钥隔离、App 
       统一 Agent API
 资源授权、会话归属、Run、审计、Runtime 适配
             │
-      可替换 Agent Runtime
+      可替换 Agent 执行后端（Runtime 角色）
        ├── 公司模型网关 ── 获批模型
        ├── 知识访问门 ──── 获授权索引与内容源
        └── MCP / 受控业务 API
@@ -167,7 +160,7 @@ Agent BFF 目前不仅转换会话用户 ID，还承担 Dify 密钥隔离、App 
 |------|----------|--------|
 | API Gateway | 认证、路由、粗粒度限流、清除外部身份 Header、传递可信身份 | Agent 业务编排 |
 | 统一 Agent API | Agent 和资源授权、会话归属、Run/SSE、审计、Runtime 适配 | 最终业务数据授权 |
-| Agent Runtime | Agent loop、Workflow、模型调用和结构化输出 | 身份源、最终业务授权和交易执行 |
+| Agent 执行后端（Runtime） | Agent loop、Workflow、模型调用和结构化输出 | 身份源、最终业务授权和交易执行 |
 | 模型网关与知识访问门 | 模型白名单、数据分级、用量控制、知识 ACL 和版本 | 接受模型自行声明的租户或数据范围 |
 | MCP / 受控业务 API | 工具目录、短期委托、逐次调用授权和协议适配 | Runtime 直连原始业务后端，或替代对象级权限 |
 | 业务后端 | 最终数据权限、正式计算、规则、风控、批准、幂等、执行和对账 | 把正式结论交给 LLM 决定 |
@@ -216,13 +209,7 @@ Agent BFF 目前不仅转换会话用户 ID，还承担 Dify 密钥隔离、App 
 
 ### POC 在选型中的位置
 
-POC 只是可选验证手段，不是所有候选都要做，也不是本报告的中心目标：
-
-- 许可证、语言、部署形态和明显缺失能力可通过资料分析直接排除；
-- 对状态恢复、SSE、工具授权、多 Agent 协作和端侧隔离等关键不确定性，可进行范围受控的验证；
-- 验证只回答预先定义的问题，不能自动产生生产选型结论。
-
-形成 shortlist 后，再围绕关键不确定性建立对应的验证问题和证据清单，避免提前维护通用 POC 模板。
+POC 只用于验证资料无法回答的决策性问题，不是所有候选的必经步骤，也不能自动产生生产选型结论；具体设计见[Agent 技术栈选型的“最小 POC 设计”](./agent-technology-selection#最小-poc-设计)。
 
 ### TypeScript 与 Python
 
