@@ -240,6 +240,7 @@ AI 相关 review 不该只看“代码像不像人写的”，而应重点看：
 - [ ] 风险与验证方式是否说明
 
 - [工作流样例](./examples/workflow-sample) — 一个从任务入口到复盘的最小团队流程样例
+- [设计到运行验收案例](./examples/design-to-runtime-acceptance) — 把设计依据、实现归属与浏览器 / 真机验收串成闭环
 
 ---
 
