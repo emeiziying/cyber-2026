@@ -148,6 +148,17 @@ Dify 和 Langflow 虽然都提供可视化界面，但评价重点不同：Dify 
 
 如果目标是“在已有 Next.js 产品中增加 AI 交互”，先看 Vercel AI SDK；如果目标是“建设独立 Agent 服务和工作流”，再比较 Mastra 与 VoltAgent。
 
+### Python 与 TypeScript 生态快照
+
+截至 2026-08-24，按本报告覆盖的 20 个活跃开源项目家族、28 个独立核心实现统计：Python 实现单元占 50.0%，TypeScript 占 39.3%，Go / .NET 等其他语言占 10.7%；只在 Python 与 TypeScript 之间比较时为 56.0% : 44.0%。近 12 个月默认分支提交数经对数降权后，三者分别为 49.2%、41.3% 和 9.5%，没有改变两种主要语言都保持活跃的判断。
+
+| 场景 | Python | TypeScript | 其他语言 |
+|------|-------:|-----------:|---------:|
+| 服务端 Framework / Workflow / Runtime | 12 / 52.2% | 8 / 34.8% | 3 / 13.0% |
+| 端侧 / Coding Harness | 2 / 40.0% | 3 / 60.0% | 0 |
+
+这不是全行业市场份额：样本来自当前选型材料，完整平台的前端代码不会被当成执行核心，归档项目和没有公开核心源码的 SDK 也不进入分母。完整口径、项目清单、固定 HEAD 和提交数据见[附件 E：Agent 开源核心实现的语言生态快照](./unified-agent-platform-attachments/appendix-e-agent-language-ecosystem)。
+
 ### 多 Agent 与企业工作流：CrewAI、Microsoft Agent Framework、Google ADK
 
 | 项目 | 主要模型 | 适合场景 | 当前边界 |

@@ -169,7 +169,7 @@ Framework、Workflow Runtime 和 Harness 的基本区分参考了[LangChain 当�
 | MCP / 受控业务 API | 验证短期委托，逐次校验工具白名单和服务端资源上下文，并完成协议适配 | 接受模型自行声明的身份或资源范围，或替代业务对象级最终授权 |
 | 业务后端 | 对具体业务对象和动作重新执行最终授权，并承担正式计算、规则、风控、批准、幂等、执行、对账和业务审计 | 把正式结论交给 LLM 决定 |
 
-Agent 运行记录、技术追踪和业务审计不是一回事：统一 Agent API 保存调用主体、策略版本、运行状态和安全输出记录，Runtime 保存调试与运维 Trace，业务后端保存授权、数据访问、批准和执行记录；三者通过运行和业务引用标识关联，聊天历史只保存面向用户的脱敏摘要。
+Agent 运行记录、技术追踪和业务审计不是一回事：统一 Agent API 保存调用主体、策略版本、运行状态和安全输出记录，Runtime 保存调试与运维 Trace，业务后端保存授权、数据访问、批准和执行记录；三者通过运行和业务引用标识关联。统一 Agent API 对客户端保存和回放面向用户的脱敏投影，Runtime 内部会话与检查点另按最小化、访问控制、加密和保留期限治理。
 
 ### 设计原则
 
@@ -213,6 +213,12 @@ Agent 运行记录、技术追踪和业务审计不是一回事：统一 Agent A
 | 平台完整度 | Runtime、API、前端、控制面、评测、部署和运维需要外接多少组件 |
 | 成熟度与成本 | 许可证、版本稳定性、升级、社区或厂商支持、资源和完整 TCO |
 
+### Dify、Langflow、Mastra 与 Agno 的定位比较
+
+四者都可以承担 Agent 执行后端的部分职责，但不是同一种产品：Dify 侧重低代码应用交付，Langflow 侧重 Python 可视化开发与 Flow Runtime，Mastra、Agno 侧重代码优先编排和多 Agent。当前不形成四选一总排名，也不把其中任何项目视为已经完成初筛的正式短名单。
+
+四者的产品形态、RAG、多 Agent、上下文、恢复、评测、前端、许可证和公司自建边界见[附件 F：Dify、Langflow、Mastra 与 Agno 选型对比](./unified-agent-platform-attachments/appendix-f-dify-langflow-mastra-agno-comparison)。
+
 ### 概念验证（POC）在选型中的位置
 
 POC 只用于验证资料无法回答的决策性问题，不是所有候选的必经步骤，也不能自动产生生产选型结论；具体设计见[Agent 技术栈选型的“最小 POC 设计”](./agent-technology-selection#最小-poc-设计)。
@@ -231,6 +237,8 @@ POC 只用于验证资料无法回答的决策性问题，不是所有候选的�
 | 端侧执行后端 | 使用候选原生技术栈，但必须满足统一身份、安全和审计约定 |
 
 语言本身不单独计分。新增技术栈必须把 CI/CD、供应链、观测、值班和人员能力计入完整方案。
+
+作为生态参考，截至 2026-08-24，本报告覆盖的 28 个活跃开源核心实现中，Python 占 50.0%、TypeScript 占 39.3%、Go / .NET 等其他语言占 10.7%；只比较 Python 与 TypeScript 时为 56.0% : 44.0%。服务端样本更偏 Python，端侧 / Coding Harness 小样本更偏 TypeScript；这不是商业市场份额，也不能替代场景选型。统计口径和逐项目数据见[附件 E](./unified-agent-platform-attachments/appendix-e-agent-language-ecosystem)。
 
 ---
 
@@ -283,3 +291,5 @@ POC 只用于验证资料无法回答的决策性问题，不是所有候选的�
 | 附件 B | 电力交易多 Agent 场景、确定性聚合和执行边界 | [电力交易多 Agent 应用场景与边界](./unified-agent-platform-attachments/appendix-b-electricity-multi-agent) |
 | 附件 C | 能力成熟度证据口径与外部资料索引 | [证据口径与外部资料索引](./unified-agent-platform-attachments/appendix-c-evidence-sources) |
 | 附件 D | 服务端平台与端侧 Agent 的功能清单、开源覆盖和自建边界 | [服务端 Agent 平台与端侧 Agent 能力覆盖矩阵](./unified-agent-platform-attachments/appendix-d-server-endpoint-capability-matrix) |
+| 附件 E | Python、TypeScript 与其他语言的活跃开源核心实现统计口径和数据 | [Agent 开源核心实现的语言生态快照](./unified-agent-platform-attachments/appendix-e-agent-language-ecosystem) |
+| 附件 F | Dify、Langflow、Mastra、Agno 的同口径能力、场景和自建边界比较 | [Dify、Langflow、Mastra 与 Agno 选型对比](./unified-agent-platform-attachments/appendix-f-dify-langflow-mastra-agno-comparison) |

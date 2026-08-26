@@ -157,6 +157,18 @@ const learningPathItems = [
                 text: '附件 C：证据口径与资料',
                 link: '/agent-development/examples/unified-agent-platform-attachments/appendix-c-evidence-sources',
               },
+              {
+                text: '附件 D：平台与端侧能力矩阵',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-d-server-endpoint-capability-matrix',
+              },
+              {
+                text: '附件 E：Agent 语言生态',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-e-agent-language-ecosystem',
+              },
+              {
+                text: '附件 F：四方案选型对比',
+                link: '/agent-development/examples/unified-agent-platform-attachments/appendix-f-dify-langflow-mastra-agno-comparison',
+              },
             ],
           },
         ],
@@ -189,7 +201,13 @@ const learningPathItems = [
       {
         text: '团队工作流与质量控制',
         link: '/team-workflow/',
-        items: [{text: '工作流样例', link: '/team-workflow/examples/workflow-sample'}],
+        items: [
+          {text: '工作流样例', link: '/team-workflow/examples/workflow-sample'},
+          {
+            text: '设计到运行验收案例',
+            link: '/team-workflow/examples/design-to-runtime-acceptance',
+          },
+        ],
       },
     ],
   },

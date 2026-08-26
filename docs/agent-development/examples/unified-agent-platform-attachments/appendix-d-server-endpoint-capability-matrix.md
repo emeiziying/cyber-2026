@@ -52,9 +52,9 @@
 |------|------------------|--------------------------|
 | [Dify](https://github.com/langgenius/dify) | 可视化 Agent/Workflow、RAG、模型与插件、应用 API、会话和运行日志 | 业务资源授权、公司 Run 账本、安全 SSE；许可证明确限制未经书面授权运营多租户环境，且多工作区、SSO 和高级治理存在 Enterprise 边界 |
 | [Mastra](https://github.com/mastra-ai/mastra) | Agent、Workflow、MCP、Memory、Server API、Studio、Trace、Eval 和耐久执行基础 | 业务 ACL、公司 Run 账本和安全输出；核心主要为 Apache-2.0，`ee/` 目录的功能受 Enterprise License 约束，生产使用须按 Edition 核验 |
-| [Agno](https://github.com/agno-agi/agno) / AgentOS | Agent、Team、Workflow、FastAPI、SSE/WS、MCP、知识、记忆、后台任务、检查点、人工介入，以及开源 Runtime 中的 JWT/RBAC、多用户和多租户能力 | 业务资源授权、对外合同、公司账本和安全输出；Hosted 浏览器 Control Plane 与开源 Runtime、Agent UI 需分别核验 |
+| [Agno](https://github.com/agno-agi/agno) / AgentOS | Agent、Team、Workflow、FastAPI、SSE/WS、MCP、知识、记忆、后台任务、检查点和人工介入，以及开源 Runtime 中可选的 JWT、端点 Scope、请求隔离和需显式开启的用户级数据隔离 | 这些能力不等于公司租户模型；业务资源授权、对外合同、公司账本和安全输出仍需补齐，Hosted 浏览器 Control Plane 与开源 Runtime、Agent UI 需分别核验 |
 | [LangGraph](https://github.com/langchain-ai/langgraph) | 状态图、多 Agent 编排、检查点、持久化、Interrupt、人工介入和流式执行 | 统一 API、RAG 管理、业务前端和企业控制面需组合；Studio、部署与评测需区分开源和 LangSmith |
-| [Langflow](https://github.com/langflow-ai/langflow) | 可视化 Flow、Agent、多 Agent、API、MCP Client/Server、Memory、人工介入和 Trace | 业务授权、公司账本和安全输出；OSS 授权强制仍需集成或扩展 |
+| [Langflow](https://github.com/langflow-ai/langflow) | 可视化 Flow、Agent、多 Agent、API、MCP Client/Server、Memory、人工介入和 Trace | 内置认证和外部 OIDC/JWKS 可复用；细粒度 RBAC/授权插件、业务资源授权、公司账本和安全输出仍需集成或扩展 |
 | [Coze Studio](https://github.com/coze-dev/coze-studio) | Agent、App、Workflow、RAG、Plugin、模型、OpenAPI 和 Chat SDK | 企业组织、工作空间、多人协作、审计和安全加固存在商业或自建边界 |
 | [CrewAI](https://github.com/crewAIInc/crewAI) | Crew、Flow、角色、委派、工具和多 Agent 编排 | 统一 API/BFF、业务授权和公司账本；完整控制台、部署和企业观测需区分 AMP |
 | [PydanticAI](https://github.com/pydantic/pydantic-ai) | 类型化 Agent、结构化输出、Tool、MCP、多 Agent 模式和耐久执行集成 | 完整应用 Studio、企业控制面和平台 API 需公司组装 |
