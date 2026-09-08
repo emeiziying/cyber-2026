@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/tools-overview/examples/aws-lambda-vless-reality-subscription",
+      "destination": "/tools-overview/examples/aws-lightsail-wireguard-vpn",
+      "permanent": true
+    }
+  ]
 }
