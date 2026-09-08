@@ -184,6 +184,8 @@ Agent 最容易被高估的地方，是“演示时看起来很聪明”；真�
 ## 延伸阅读 / 模板 / 示例
 
 - [Review Agent 演练](./examples/review-agent-walkthrough) — 一个代码审查 Agent 的最小设计闭环示例
+- [Agent 技术现状与平台演进规划](./examples/unified-agent-platform-selection-report) — 面向管理层说明公司需求与现状、Agent 方案分类和差异、目标架构、选型方法及演进规划
+- [Agent 技术栈选型](./examples/agent-technology-selection) — 区分应用平台、Agent Framework、Workflow Runtime、Harness 与 Coding Agent 产品，并按工作负载建立 POC 与 ADR
 - [Harness Engineering](../harness-engineering/) — 把 Agent 能力整合进团队体系的下一步
 - [Skills & Hooks](../skills-hooks/) — 如果任务还不适合做成 Agent，通常先停在 Skill / Hook 更合适
 - [Claude Code 官方文档](https://docs.anthropic.com/en/docs/claude-code)
