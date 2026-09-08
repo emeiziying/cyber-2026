@@ -33,8 +33,7 @@ const learningPathItems = [
         items: [
           {text: '团队画像案例', link: '/tools-overview/examples/team-profiles'},
           {text: 'Codex App 全员上手指南', link: '/tools-overview/examples/codex-app-onboarding'},
-          {text: '让 AI 在 AWS 上搭建 VPN', link: '/tools-overview/examples/aws-lightsail-wireguard-vpn'},
-          {text: '让 AI 为 VPN 节点配置订阅', link: '/tools-overview/examples/aws-lambda-vless-reality-subscription'},
+          {text: '让 AI 在 AWS 上搭建 VPN 与订阅', link: '/tools-overview/examples/aws-lightsail-wireguard-vpn'},
         ],
       },
     ],
